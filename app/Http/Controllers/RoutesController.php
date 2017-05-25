@@ -17,18 +17,20 @@ class RoutesController extends Controller
     		if (class_exists('\App\Http\Controllers\\'.ucfirst($unit).'Controller'))
     		{
     			$controller = app()->make('\App\Http\Controllers\\'.ucfirst($unit).'Controller');
-    			if (method_exists($controller, $method))
+                $m = strtolower(request()->method());
+                $func = strtolower($method).($m != 'get' ? ucfirst($m) : '');
+    			if (method_exists($controller, $func))
     			{
 	    			$data = request()->all();
 				    
-				    $vars = $controller->callAction($method, ['id' => $id, 'data' => $data]);
+				    return $controller->callAction($func, ['id' => $id, 'data' => $data]);
 	        	}
     		}
 
     		$view = implode('.', [$unit, $method]);
     		if (view()->exists($view))
     		{
-			    return view(implode('.', [$unit, $method]), $vars);
+                return view($view);
 			}
     		else
     		{
