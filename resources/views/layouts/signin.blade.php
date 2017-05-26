@@ -40,25 +40,25 @@
         @yield('content')
 
         <!-- BEGIN CORE PLUGINS -->
-        <script src="/assets/js/jquery.min.js" type="text/javascript"></script>
-        <script src="/assets/js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="/assets/js/js.cookie.min.js" type="text/javascript"></script>
-        <script src="/assets/js/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
-        <script src="/assets/js/jquery.slimscroll.min.js" type="text/javascript"></script>
-        <script src="/assets/js/jquery.blockui.min.js" type="text/javascript"></script>
-        <script src="/assets/js/jquery.uniform.min.js" type="text/javascript"></script>
-        <script src="/assets/js/bootstrap-switch.min.js" type="text/javascript"></script>
+        <script src="/assets/js/template/jquery.min.js" type="text/javascript"></script>
+        <script src="/assets/js/template/bootstrap.min.js" type="text/javascript"></script>
+        <script src="/assets/js/template/js.cookie.min.js" type="text/javascript"></script>
+        <script src="/assets/js/template/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+        <script src="/assets/js/template/jquery.slimscroll.min.js" type="text/javascript"></script>
+        <script src="/assets/js/template/jquery.blockui.min.js" type="text/javascript"></script>
+        <script src="/assets/js/template/jquery.uniform.min.js" type="text/javascript"></script>
+        <script src="/assets/js/template/bootstrap-switch.min.js" type="text/javascript"></script>
         <!-- END CORE PLUGINS -->
         <!-- BEGIN PAGE LEVEL PLUGINS -->
-        <script src="/assets/js/jquery.validate.min.js" type="text/javascript"></script>
-        <script src="/assets/js/additional-methods.min.js" type="text/javascript"></script>
-        <script src="/assets/js/select2.full.min.js" type="text/javascript"></script>
+        <script src="/assets/js/template/jquery.validate.min.js" type="text/javascript"></script>
+        <script src="/assets/js/template/additional-methods.min.js" type="text/javascript"></script>
+        <script src="/assets/js/template/select2.full.min.js" type="text/javascript"></script>
         <!-- END PAGE LEVEL PLUGINS -->
         <!-- BEGIN THEME GLOBAL SCRIPTS -->
-        <script src="/assets/js/app.min.js" type="text/javascript"></script>
+        <script src="/assets/js/template/app.min.js" type="text/javascript"></script>
         <!-- END THEME GLOBAL SCRIPTS -->
         <!-- BEGIN PAGE LEVEL SCRIPTS -->
-        <script src="/assets/js/login.min.js" type="text/javascript"></script>
+        <script src="/assets/js/template/login.min.js" type="text/javascript"></script>
         <!-- END PAGE LEVEL SCRIPTS -->
     </body>
 </html>
