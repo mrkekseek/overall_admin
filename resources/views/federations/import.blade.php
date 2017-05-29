@@ -21,7 +21,7 @@
         {{ csrf_field() }}
         {{ method_field('POST') }}
 
-        <div class="form-group{{ $errors->has('file') ? ' has-error' : '' }}">
+        <div class="form-group{{ $errors->has('file') || $errors->has('extension') ? ' has-error' : '' }}">
             <div class="fileinput fileinput-new" data-provides="fileinput">
                 <div class="input-group input-large">
                     <div class="form-control uneditable-input input-fixed input-medium" data-trigger="fileinput">
@@ -42,6 +42,12 @@
             @if ($errors->has('file'))
                 <span class="help-block">
                     <strong>{{ $errors->first('file') }}</strong>
+                </span>
+            @endif
+
+            @if ($errors->has('extension'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('extension') }}</strong>
                 </span>
             @endif
         </div>

@@ -60,8 +60,10 @@ class FederationsController extends Controller
 
     public function importPost($id = FALSE, $data = [])
     {
+        $data['extension'] = strtolower($data['file']->getClientOriginalExtension());
         $validator = Validator::make($data, [
-            'file' => 'required'
+            'file' => 'required',
+            'extension' => 'required|in:xls,xlsx'
         ]);
 
         if ($validator->fails())
