@@ -16,7 +16,7 @@ Illuminate\Support\Facades\Artisan::call('migrate');
 Route::auth();
 
 Route::get('/', function () {
-	return view(Auth::check() ? 'dashboard' : 'home');
+	return view(Auth::check() ? 'dashboard' : 'auth.login');
 });
 
 Route::any('{unit}/{method}/{id?}', 'RoutesController@index');
