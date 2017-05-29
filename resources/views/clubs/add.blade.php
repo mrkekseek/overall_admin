@@ -17,7 +17,6 @@
 @endsection
 
 @section('content')
-
 <div class="row">
     <div class="col-md-6 ">
         <div class="portlet light bordered">
@@ -64,5 +63,4 @@
         </div>
     </div>
 </div>
-
 @endsection
