@@ -25,8 +25,9 @@
                 @endif
             </div>
 
-            <div class="form-actions text-center">
+            <div class="form-actions">
                 <button type="submit" class="btn btn-success uppercase">Submit</button>
+                <a href="{{ url('/') }}" class="forget-password">Back to Log In</a>
             </div>
         </form>
         <!-- END FORGOT PASSWORD FORM -->
