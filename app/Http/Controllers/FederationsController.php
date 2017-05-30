@@ -15,12 +15,13 @@ class FederationsController extends Controller
     public function add($id = FALSE)
     {
         $owners = $this->federationsOwnersGet($id);
+        $sports = Sport::all();
         $federation = Federation_account::find($id);
         if ( ! empty($federation))
         {
             $federation->address = Address::find($federation->address_id);
         }
-        return compact('federation', 'owners');
+        return compact('federation', 'owners', 'sports');
     }
 
     public function addPost($id = FALSE, $data = [])
@@ -49,7 +50,7 @@ class FederationsController extends Controller
         $federation->address_id = $this->addressSave($federation->address_id, $data);
     	$federation->name = $data['name'];
     	$federation->owner_id = $data['owner_id'];
-    	$federation->country = $data['country'];
+    	$federation->sport_id = $data['sport_id'];
     	$federation->save();
 
         Federation_representative::where('federation_id', $federation->id)->update(['is_owner' => '0']);
@@ -64,6 +65,12 @@ class FederationsController extends Controller
     public function lists()
     {
         $federations = Federation_account::latest()->get();
+        foreach ($federations as $federation)
+        {
+            $federation['address'] = Address::find($federation->address_id);
+            $federation['sport'] = Sport::find($federation->sport_id);
+            $federation['owner'] = Federation_representative::find($federation->owner_id);
+        }
         return compact('federations');
     }
 

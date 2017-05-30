@@ -20,12 +20,11 @@
 		        <thead>
 		            <tr>
 		                <th>ID</th>
-		                <th> Federation name </th>
-		                <th class="text-center"> Contact person </th>
-		                <th class="text-center"> Country </th>
-		                <th class="text-center"> Date of registered </th>
-		                <th class="text-center"> Manage </th>
-		                <th class="text-center">Details</th>
+		                <th>Federation name</th>
+		                <th>Contact person</th>
+		                <th>Country</th>
+		                <th>Sport</th>
+		                <th class="text-center">Manage</th>
 		            </tr>
 		        </thead>
 
@@ -34,15 +33,12 @@
 		                <tr>
 		                    <td>{{ $federation['id'] }}</td>
 		                    <td>{{ $federation['name'] }}</td>
-		                    <td class="text-center">{{ $federation['owner_id'] }}</td>
-		                    <td class="text-center">{{ $federation['country'] }}</td>
-		                    <td class="text-center">{{ $federation['created_at'] }}</td>
+		                    <td>{{ $federation['owner']['first_name'] }} {{ $federation['owner']['last_name'] }}</td>
+		                    <td>{{ $federation['country'] }}</td>
+		                    <td>{{ $federation['sport']['name'] }}</td>
 		                    <td class="text-center">
-		                        <a href="/federations/add/{{ $federation['id'] }}" class="btn btn-outline btn-circle btn-sm purple"><i class="fa fa-edit"></i> Edit </a>
+		                        <a href="/federations/add/{{ $federation['id'] }}" class="btn btn-icon"><i class="fa fa-edit"></i></a>
 		                    </td>
-		                    <td class="text-center">
-                                <a href="/federations/details/{{ $federation['id'] }}" class="btn btn-outline btn-circle btn-sm blue"><i class="fa fa-info"></i> Details </a>
-                            </td>
 		                </tr>
 		            @endforeach
 		        </tbody>

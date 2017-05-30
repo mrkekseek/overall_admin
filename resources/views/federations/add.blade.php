@@ -60,27 +60,14 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-sm-6 col-xs-12 form-group">
-                                <div class="form-group">
-                                    <label class="bold">Country</label>
-                                    <select name="country" class="form-control">
-                                        <option value="" {{ (old('country') == '' || old('country') != null && isset($federation->country) && $federation->country == '') ? 'selected="selected"' : '' }}>Select country from a list</option>
-                                        <option value="US" {{ (old('country') == 'US' || old('country') == null && isset($federation->country) && $federation->country == 'US') ? 'selected="selected"' : '' }}>United States</option>
-                                        <option value="FR" {{ (old('country') == 'FR' || old('country') == null && isset($federation->country) && $federation->country == 'FR') ? 'selected="selected"' : '' }}>France</option>
-                                        <option value="UK" {{ (old('country') == 'UK' || old('country') == null && isset($federation->country) && $federation->country == 'UK') ? 'selected="selected"' : '' }}>United Kingdom</option>
-                                        <option value="UA" {{ (old('country') == 'UA' || old('country') == null && isset($federation->country) && $federation->country == 'UA') ? 'selected="selected"' : '' }}>Ukraine</option>
-                                        <option value="PL" {{ (old('country') == 'PL' || old('country') == null && isset($federation->country) && $federation->country == 'PL') ? 'selected="selected"' : '' }}>Poland</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6 col-xs-12 form-group">
-                                <div class="form-group">
-                                    <label class="bold">Sport</label>
-                                    <input name="sport" type="text" class="form-control" placeholder="Enter sport" value="{{ old('sport') != null ? old('sport') : (isset($federation->sport) ? $federation->sport : '') }}" />
-                                </div>
-                            </div>
+                        <div class="form-group">
+                            <label class="bold">Sport</label>
+                            <select name="sport_id" class="form-control">
+                                <option value="0" {{ (old('sport_id') == '0' || old('sport_id') == null && isset($federation->sport_id) && $federation->sport_id == '0') ? 'selected="selected"' : '' }}>Choose federation sport</option>
+                                @foreach ($sports as $sport)
+                                    <option value="{{ $sport->id }}" {{ (old('sport_id') == $sport->id || old('sport_id') == null && isset($federation->sport_id) && $federation->sport_id == $sport->id) ? 'selected="selected"' : '' }}>{{ $sport->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                 </div>
