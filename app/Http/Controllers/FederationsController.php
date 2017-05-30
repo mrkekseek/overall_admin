@@ -6,20 +6,35 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Validator;
 use App\Federation_account;
+use App\Federation_representative;
+use App\Sport;
+use App\Address;
 
 class FederationsController extends Controller
 {
     public function add($id = FALSE)
     {
+        $owners = $this->federationsOwnersGet($id);
+        $sports = Sport::all();
         $federation = Federation_account::find($id);
-        return compact('federation');
+        if ( ! empty($federation))
+        {
+            $federation->address = Address::find($federation->address_id);
+        }
+        return compact('federation', 'owners', 'sports');
     }
 
     public function addPost($id = FALSE, $data = [])
     {
     	$validator = Validator::make($data, [
             'name' => 'required|max:150|unique:federation_accounts,name,'.$id,
-            'new_contact_person' => 'required_if:owner_id,0|max:150'
+            'new_contact_person' => 'required_if:owner_id,0|max:150',
+            'address1' => 'required|max:45',
+            'address2' => 'max:45',
+            'city' => 'required|max:45',
+            'region' => 'required|max:45',
+            'zipcode' => 'required|max:45',
+            'country' => 'required|max:45'
         ], [
             'new_contact_person.required_if' => 'You should enter name of contact person'
         ]);
@@ -32,10 +47,17 @@ class FederationsController extends Controller
         }
 
     	$federation = Federation_account::firstOrNew(['id' => $id]);
+        $federation->address_id = $this->addressSave($federation->address_id, $data);
     	$federation->name = $data['name'];
     	$federation->owner_id = $data['owner_id'];
-    	$federation->country = $data['country'];
+    	$federation->sport_id = $data['sport_id'];
     	$federation->save();
+
+        Federation_representative::where('federation_id', $federation->id)->update(['is_owner' => '0']);
+        $owner = Federation_representative::find($federation->owner_id);
+        $owner->federation_id = $federation->id;
+        $owner->is_owner = '1';
+        $owner->save();
 
         return redirect('federations/lists')->with('message', 'Federation was succesfully saved');
     }
@@ -43,6 +65,12 @@ class FederationsController extends Controller
     public function lists()
     {
         $federations = Federation_account::latest()->get();
+        foreach ($federations as $federation)
+        {
+            $federation['address'] = Address::find($federation->address_id);
+            $federation['sport'] = Sport::find($federation->sport_id);
+            $federation['owner'] = Federation_representative::find($federation->owner_id);
+        }
         return compact('federations');
     }
 
@@ -77,5 +105,45 @@ class FederationsController extends Controller
         {
             return back()->with('message', 'File was successfully uploaded');
         }
+    }
+
+    public function federationsOwnersGet($id = FALSE)
+    {
+        return Federation_representative::where('federation_id', $id)->get();
+    }
+
+    public function federationsOwnersSave($id = FALSE, $data = [])
+    {
+        $this->validate(request(), [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email_address' => 'required|unique:federation_representatives,email_address'
+        ]);
+
+        $owner = new Federation_representative;
+        $owner->first_name = $data['first_name'];
+        $owner->last_name = $data['last_name'];
+        $owner->middle_name = $data['middle_name'];
+        $owner->country = $data['country'];
+        $owner->email_address = $data['email_address'];
+        $owner->phone_number = $data['phone_number'];
+        $owner->federation_id = $data['federation_id'];
+        $owner->save();
+
+        return $owner->id;
+    }
+
+    public function addressSave($id, $data)
+    {
+        $address = Address::firstOrNew(['id' => $id]);
+        $address->address1 = $data['address1'];
+        $address->address2 = $data['address2'];
+        $address->city = $data['city'];
+        $address->region = $data['region'];
+        $address->zipcode = $data['zipcode'];
+        $address->country = $data['country'];
+        $address->details = $data['address_details'];
+        $address->save();
+        return $address->id;
     }
 }
