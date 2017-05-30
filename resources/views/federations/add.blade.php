@@ -17,14 +17,14 @@
 @endsection
 
 @section('content')
-<div class="row">
-    <div class="col-md-6 ">
-        <div class="portlet light bordered">
-            <div class="portlet-body form">
-                <form role="form" action="/federations/add{{ ! empty($id) ? '/'.$id : '' }}" method="post">
-                    {{ csrf_field() }}
-                    {{ method_field('POST') }}
+<form role="form" action="/federations/add{{ ! empty($id) ? '/'.$id : '' }}" method="post">
+    {{ csrf_field() }}
+    {{ method_field('POST') }}
 
+    <div class="row">
+        <div class="col-md-6 col-xs-12">
+            <div class="portlet light bordered">
+                <div class="portlet-body form">
                     <div class="form-body">
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label class="bold">Federation name</label>
@@ -80,15 +80,104 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                        <div class="text-right">
-                            <button type="submit" class="btn green">{{ ! empty($id) ? 'Save' : 'Add' }} federation</button>
+        <div class="col-md-6 col-xs-12">
+            <div class="portlet light bordered">
+                <div class="portlet-body form">
+                    <h4>Home federation address</h4>
+
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-6 col-xs-12 form-group{{ $errors->has('address1') ? ' has-error' : '' }}">
+                                <label class="bold">Address 1</label>
+                                <input name="address1" type="text" class="form-control" value="{{ old('address1') != null ? old('address1') : (isset($federation->address->address1) ? $federation->address->address1 : '') }}" />
+                                @if ($errors->has('address1'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('address1') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
+                            <div class="col-md-6 col-xs-12 form-group{{ $errors->has('address2') ? ' has-error' : '' }}">
+                                <label class="bold">Address 2</label>
+                                <input name="address2" type="text" class="form-control" value="{{ old('address2') != null ? old('address2') : (isset($federation->address->address2) ? $federation->address->address2 : '') }}" />
+                                @if ($errors->has('address2'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('address2') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-xs-12 form-group{{ $errors->has('city') ? ' has-error' : '' }}">
+                                <label class="bold">City</label>
+                                <input name="city" type="text" class="form-control" value="{{ old('city') != null ? old('city') : (isset($federation->address->city) ? $federation->address->city : '') }}" />
+                                @if ($errors->has('city'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('city') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
+                            <div class="col-md-6 col-xs-12 form-group{{ $errors->has('region') ? ' has-error' : '' }}">
+                                <label class="bold">Region</label>
+                                <input name="region" type="text" class="form-control" value="{{ old('region') != null ? old('region') : (isset($federation->address->region) ? $federation->address->region : '') }}" />
+                                @if ($errors->has('region'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('region') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-xs-12 form-group{{ $errors->has('zipcode') ? ' has-error' : '' }}">
+                                <label class="bold">Zip Code</label>
+                                <input name="zipcode" type="text" class="form-control" value="{{ old('zipcode') != null ? old('zipcode') : (isset($federation->address->zipcode) ? $federation->address->zipcode : '') }}" />
+                                @if ($errors->has('zipcode'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('zipcode') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
+                            <div class="col-md-6 col-xs-12 form-group{{ $errors->has('country') ? ' has-error' : '' }}">
+                                <label class="bold">Country</label>
+                                <select name="country" class="form-control">
+                                    <option value="">Select country from a list</option>
+                                    <option value="US" {{ (old('country') == 'US' || old('country') == null && isset($federation->address->country) && $federation->address->country == 'US') ? 'selected="selected"' : '' }}>United States</option>
+                                    <option value="FR" {{ (old('country') == 'FR' || old('country') == null && isset($federation->address->country) && $federation->address->country == 'FR') ? 'selected="selected"' : '' }}>France</option>
+                                    <option value="UK" {{ (old('country') == 'UK' || old('country') == null && isset($federation->address->country) && $federation->address->country == 'UK') ? 'selected="selected"' : '' }}>United Kingdom</option>
+                                    <option value="UA" {{ (old('country') == 'UA' || old('country') == null && isset($federation->address->country) && $federation->address->country == 'UA') ? 'selected="selected"' : '' }}>Ukraine</option>
+                                    <option value="PL" {{ (old('country') == 'PL' || old('country') == null && isset($federation->address->country) && $federation->address->country == 'PL') ? 'selected="selected"' : '' }}>Poland</option>
+                                </select>
+                                @if ($errors->has('country'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('country') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 form-group">
+                                <label class="bold">Details</label>
+                                <textarea name="address_details" class="form-control" rows="3">{{ old('address_details') != null ? old('address_details') : (isset($federation->address->details) ? $federation->address->details : '') }}</textarea>
+                            </div>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
+    <div class="text-center">
+        <button type="submit" class="btn green">{{ ! empty($id) ? 'Save' : 'Add' }} federation</button>
+    </div>
+</form>
 @endsection

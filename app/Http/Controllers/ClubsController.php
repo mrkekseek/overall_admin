@@ -45,7 +45,7 @@ class ClubsController extends Controller
         }
 
     	$club = Club_account::firstOrNew(['id' => $id]);
-        $club->address_id = $this->addressSave($club->id, $data);
+        $club->address_id = $this->addressSave($club->address_id, $data);
     	$club->name = $data['name'];
     	$club->owner_id = $data['owner_id'];
     	$club->main_sport_id = $data['main_sport_id'];
