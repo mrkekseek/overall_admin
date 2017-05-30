@@ -24,6 +24,8 @@
         <link href="/assets/template/global/plugins/morris/morris.css" rel="stylesheet" type="text/css" />
         <link href="/assets/template/global/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet" type="text/css" />
         <link href="/assets/template/global/plugins/jqvmap/jqvmap/jqvmap.css" rel="stylesheet" type="text/css" />
+        <link href="/assets/template/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+        <link href="/assets/template/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
         <!-- END PAGE LEVEL PLUGINS -->
 
         <!-- BEGIN THEME GLOBAL STYLES -->
@@ -35,6 +37,10 @@
         <link href="/assets/template/layouts/layout5/css/layout.min.css" rel="stylesheet" type="text/css" />
         <link href="/assets/template/layouts/layout5/css/custom.min.css" rel="stylesheet" type="text/css" />
         <!-- END THEME LAYOUT STYLES -->
+
+        <!-- BEGIN CUSTOM STYLES -->
+        <link href="/assets/css/app.css" rel="stylesheet" type="text/css" />
+        <!-- END CUSTOM STYLES -->
 
         <link rel="shortcut icon" href="favicon.ico" />
     </head>
@@ -334,6 +340,7 @@
         <script src="/assets/template/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js" type="text/javascript"></script>
         <script src="/assets/template/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js" type="text/javascript"></script>
         <script src="/assets/template/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js" type="text/javascript"></script>
+        <script src="/assets/template/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
         <!-- END PAGE LEVEL PLUGINS -->
 
         <!-- BEGIN THEME GLOBAL SCRIPTS -->
@@ -342,6 +349,7 @@
 
         <!-- BEGIN PAGE LEVEL SCRIPTS -->
         <script src="/assets/template/pages/scripts/dashboard.min.js" type="text/javascript"></script>
+        <!--script src="/assets/template/pages/scripts/components-select2.min.js" type="text/javascript"></script-->
         <!-- END PAGE LEVEL SCRIPTS -->
 
         <!-- BEGIN THEME LAYOUT SCRIPTS -->

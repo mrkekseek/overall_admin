@@ -46,4 +46,24 @@ class RoutesController extends Controller
 
     	return redirect('login');
     }
+
+    public function api($unit, $method, $id = FALSE)
+    {
+        $vars = [];
+        if (Auth::check())
+        {
+            if (class_exists('\App\Http\Controllers\\'.ucfirst($unit).'Controller'))
+            {
+                $controller = app()->make('\App\Http\Controllers\\'.ucfirst($unit).'Controller');
+                if (method_exists($controller, $method))
+                {
+                    $data = request()->all();
+                    $vars = $controller->callAction($method, ['id' => $id, 'data' => $data]);
+                }
+            }
+        }
+
+        $vars = json_encode($vars, JSON_NUMERIC_CHECK);
+        return $vars;
+    }
 }

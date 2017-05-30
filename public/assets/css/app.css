@@ -1,0 +1,16 @@
+.help-block {
+	display: none;
+}
+
+.has-error .help-block {
+	display: block;
+}
+
+.btn.btn-icon {
+	font-size: 20px;
+	margin: 0;
+}
+
+.btn.btn-icon:hover {
+	color: #009dc7;
+}

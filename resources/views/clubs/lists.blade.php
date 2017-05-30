@@ -21,12 +21,12 @@
                     <tr>
                         <th>ID</th>
                         <th class="text-center">New</th>
-                        <th> Club name </th>
-                        <th class="text-center">Owner</th>
-                        <th class="text-center">Details</th>
-                        <th class="text-center">Date of registered</th>
+                        <th>Club name</th>
+                        <th>Owner</th>
+                        <th>Country</th>
+                        <th>Sport</th>
+                        <th>Details</th>
                         <th class="text-center">Manage</th>
-                        <th class="text-center">Details</th>
                     </tr>
                 </thead>
 
@@ -36,14 +36,12 @@
                             <td>{{ $club['id'] }}</td>
                             <td class="text-center">{!! $club['signupFlag'] ? '<i class="fa fa-star font-yellow-crusta"></i>' : '' !!}</td>
                             <td>{{ $club['name'] }}</td>
-                            <td class="text-center">{{ $club['owner_id'] }}</td>
-                            <td class="text-center">{{ $club['details'] }}</td>
-                            <td class="text-center">{{ $club['created_at'] }}</td>
+                            <td>{{ $club['owner']['first_name'] }} {{ $club['owner']['last_name'] }}</td>
+                            <td>{{ $club['address']['country'] }}</td>
+                            <td>{{ $club['sport']['name'] }}</td>
+                            <td>{{ $club['details'] }}</td>
                             <td class="text-center">
-                                <a href="/clubs/add/{{ $club['id'] }}" class="btn btn-outline btn-circle btn-sm purple"><i class="fa fa-edit"></i> Edit </a>
-                            </td>
-                            <td class="text-center">
-                                <a href="/clubs/details/{{ $club['id'] }}" class="btn btn-outline btn-circle btn-sm blue"><i class="fa fa-info"></i> Details </a>
+                                <a href="/clubs/add/{{ $club['id'] }}" class="btn btn-icon"><i class="fa fa-edit"></i></a>
                             </td>
                         </tr>
                     @endforeach
