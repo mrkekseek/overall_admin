@@ -41,7 +41,7 @@
                         <label class="bold">Club owner</label>
                         <div class="row">
                             <div class="col-md-10 col-xs-12 form-group{{ $errors->has('owner_id') ? ' has-error' : '' }}">
-                                <select name="owner_id" class="form-control">
+                                <select name="owner_id" class="form-control" data-placeholder="Select an Owner">
                                     <option></option>
                                     @foreach ($owners as $owner)
                                         <option value="{{ $owner->id }}"  {{ (old('owner_id') == $owner->id || old('owner_id') == null && isset($club->owner_id) && $club->owner_id == $owner->id) ? 'selected="selected"' : '' }}>{{ $owner->first_name }} {{ $owner->last_name }}</option>

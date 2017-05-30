@@ -18,7 +18,10 @@ class ClubsController extends Controller
         $owners = $this->clubsOwnersGet();
         $sports = Sport::all();
         $club = Club_account::find($id);
-        $club->address = Address::find($club->address_id);
+        if ( ! empty($club))
+        {
+            $club->address = Address::find($club->address_id);
+        }
         return compact('club', 'sports', 'owners');
     }
 

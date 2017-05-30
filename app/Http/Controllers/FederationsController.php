@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Validator;
 use App\Federation_account;
+use App\Federation_representative;
 use App\Sport;
 use App\Address;
 
@@ -13,9 +14,13 @@ class FederationsController extends Controller
 {
     public function add($id = FALSE)
     {
+        $owners = $this->federationsOwnersGet($id);
         $federation = Federation_account::find($id);
-        $federation->address = Address::find($federation->address_id);
-        return compact('federation');
+        if ( ! empty($federation))
+        {
+            $federation->address = Address::find($federation->address_id);
+        }
+        return compact('federation', 'owners');
     }
 
     public function addPost($id = FALSE, $data = [])
@@ -46,6 +51,12 @@ class FederationsController extends Controller
     	$federation->owner_id = $data['owner_id'];
     	$federation->country = $data['country'];
     	$federation->save();
+
+        Federation_representative::where('federation_id', $federation->id)->update(['is_owner' => '0']);
+        $owner = Federation_representative::find($federation->owner_id);
+        $owner->federation_id = $federation->id;
+        $owner->is_owner = '1';
+        $owner->save();
 
         return redirect('federations/lists')->with('message', 'Federation was succesfully saved');
     }
@@ -87,6 +98,32 @@ class FederationsController extends Controller
         {
             return back()->with('message', 'File was successfully uploaded');
         }
+    }
+
+    public function federationsOwnersGet($id = FALSE)
+    {
+        return Federation_representative::where('federation_id', $id)->get();
+    }
+
+    public function federationsOwnersSave($id = FALSE, $data = [])
+    {
+        $this->validate(request(), [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email_address' => 'required|unique:federation_representatives,email_address'
+        ]);
+
+        $owner = new Federation_representative;
+        $owner->first_name = $data['first_name'];
+        $owner->last_name = $data['last_name'];
+        $owner->middle_name = $data['middle_name'];
+        $owner->country = $data['country'];
+        $owner->email_address = $data['email_address'];
+        $owner->phone_number = $data['phone_number'];
+        $owner->federation_id = $data['federation_id'];
+        $owner->save();
+
+        return $owner->id;
     }
 
     public function addressSave($id, $data)

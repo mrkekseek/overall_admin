@@ -2,7 +2,7 @@
 
 	$.fn.select2.defaults.set("theme", "bootstrap");
 	$('[name=owner_id]').select2({
-        placeholder: 'Select an Owner',
+        placeholder: $('[name=owner_id]').data('placeholder'),
         width: null
     });
 
@@ -99,5 +99,30 @@ function clubsOwnersGet(id = false)
 function clubsOwnersSaved(data)
 {
 	clubsOwnersGet(data);
+	$('#add-owner').modal('hide');
+}
+
+function federationsOwnersGet(id = false)
+{
+	var federation_id = '/' + (window.location.pathname.split('/')[3] || 0);
+
+	$.get('/api/federations/federationsOwnersGet' + federation_id, {}, function(data) {
+		var owners = '<option></option>';
+		for (var k in data)
+		{
+			owners += '<option value="' + data[k].id + '">' + data[k].first_name + ' ' + data[k].last_name + '</option>';
+		}
+		$('[name=owner_id]').html(owners);
+
+		if (id)
+		{
+			$('[name=owner_id]').val(id).trigger('change');
+		}
+	}, 'json');
+}
+
+function federationsOwnersSaved(data)
+{
+	federationsOwnersGet(data);
 	$('#add-owner').modal('hide');
 }
