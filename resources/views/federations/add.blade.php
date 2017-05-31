@@ -78,7 +78,7 @@
                     <h4>Import members</h4>
 
                     <div class="form-body">
-                        <form role="form" action="/federations/add{{ ! empty($id) ? '/'.$id : '' }}" method="post" enctype="multipart/form-data">
+                        <form role="form" action="/federations/import" method="post" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             {{ method_field('POST') }}
 
@@ -111,6 +111,10 @@
                                         <strong>{{ $errors->first('extension') }}</strong>
                                     </span>
                                 @endif
+                            </div>
+
+                            <div>
+                                <button type="submit" class="btn btn-outline btn-circle blue"><i class="fa fa-upload"></i> Upload</button>
                             </div>
                         </form>
                     </div>
