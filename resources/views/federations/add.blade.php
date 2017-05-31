@@ -72,6 +72,54 @@
                     </div>
                 </div>
             </div>
+
+            <div class="portlet light bordered">
+                <div class="portlet-body form">
+                    <h4>Import members</h4>
+
+                    <div class="form-body">
+                        <form role="form" action="/federations/add{{ ! empty($id) ? '/'.$id : '' }}" method="post" enctype="multipart/form-data">
+                            {{ csrf_field() }}
+                            {{ method_field('POST') }}
+
+                            <div class="form-group{{ $errors->has('file') || $errors->has('extension') ? ' has-error' : '' }}">
+                                <div class="fileinput fileinput-new" data-provides="fileinput">
+                                    <div class="input-group input-large">
+                                        <div class="form-control uneditable-input input-fixed input-medium" data-trigger="fileinput">
+                                            <i class="fa fa-file fileinput-exists"></i>&nbsp;
+                                            <span class="fileinput-filename"> </span>
+                                        </div>
+
+                                        <span class="input-group-addon btn default btn-file">
+                                            <span class="fileinput-new">Select file</span>
+                                            <span class="fileinput-exists">Change</span>
+                                            <input type="file" name="file" />
+                                        </span>
+
+                                        <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                    </div>
+                                </div>
+
+                                @if ($errors->has('file'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('file') }}</strong>
+                                    </span>
+                                @endif
+
+                                @if ($errors->has('extension'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('extension') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
+                            <!--<div>
+                                <button type="submit" class="btn btn-outline btn-circle blue"><i class="fa fa-upload"></i> Upload</button>
+                            </div>-->
+                        </form>
+                    </div>
+                </div>    
+            </div>    
         </div>
 
         <div class="col-md-6 col-xs-12">

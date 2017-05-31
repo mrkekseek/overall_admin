@@ -209,13 +209,6 @@
                                                 Add New
                                             </a>
                                         </li>
-
-                                        <li class="{{ strpos(request()->path(), 'federations/import') !== FALSE ? 'active' : '' }}">
-                                            <a href="/federations/import">
-                                                <i class="fa fa-download"></i>
-                                                Import members
-                                            </a>
-                                        </li>
                                     </ul>
                                 </li>
 
