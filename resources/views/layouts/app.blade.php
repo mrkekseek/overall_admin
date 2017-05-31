@@ -26,6 +26,7 @@
         <link href="/assets/template/global/plugins/jqvmap/jqvmap/jqvmap.css" rel="stylesheet" type="text/css" />
         <link href="/assets/template/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
         <link href="/assets/template/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/assets/template/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css" rel="stylesheet" type="text/css" />
         <!-- END PAGE LEVEL PLUGINS -->
 
         <!-- BEGIN THEME GLOBAL STYLES -->
@@ -209,13 +210,6 @@
                                                 Add New
                                             </a>
                                         </li>
-
-                                        <li class="{{ strpos(request()->path(), 'federations/import') !== FALSE ? 'active' : '' }}">
-                                            <a href="/federations/import">
-                                                <i class="fa fa-download"></i>
-                                                Import members
-                                            </a>
-                                        </li>
                                     </ul>
                                 </li>
 
@@ -341,6 +335,7 @@
         <script src="/assets/template/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js" type="text/javascript"></script>
         <script src="/assets/template/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js" type="text/javascript"></script>
         <script src="/assets/template/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
+        <script src="/assets/template/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script>
         <!-- END PAGE LEVEL PLUGINS -->
 
         <!-- BEGIN THEME GLOBAL SCRIPTS -->
