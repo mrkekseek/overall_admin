@@ -112,10 +112,6 @@
                                     </span>
                                 @endif
                             </div>
-
-                            <!--<div>
-                                <button type="submit" class="btn btn-outline btn-circle blue"><i class="fa fa-upload"></i> Upload</button>
-                            </div>-->
                         </form>
                     </div>
                 </div>    
