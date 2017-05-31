@@ -22,22 +22,48 @@ class RoutesController extends Controller
     			if (method_exists($controller, $func))
     			{
 	    			$data = request()->all();
-				    
-				    return $controller->callAction($func, ['id' => $id, 'data' => $data]);
+				    $vars = $controller->callAction($func, ['id' => $id, 'data' => $data]);
+
+                    if ( ! is_array($vars))
+                    {
+                        return $vars;
+                    }
 	        	}
     		}
 
-    		$view = implode('.', [$unit, $method]);
-    		if (view()->exists($view))
-    		{
-                return view($view);
-			}
-    		else
-    		{
-    			return view('layouts.404');
-    		}
+            $file = implode('.', [$unit, $method]);
+            $view = view('layouts.404');
+            if (view()->exists($file))
+            {
+                $view = view($file);
+            }
+
+            $vars['id'] = $id;
+            $view->with($vars);
+
+            return $view;
     	}
 
     	return redirect('login');
+    }
+
+    public function api($unit, $method, $id = FALSE)
+    {
+        $vars = [];
+        if (Auth::check())
+        {
+            if (class_exists('\App\Http\Controllers\\'.ucfirst($unit).'Controller'))
+            {
+                $controller = app()->make('\App\Http\Controllers\\'.ucfirst($unit).'Controller');
+                if (method_exists($controller, $method))
+                {
+                    $data = request()->all();
+                    $vars = $controller->callAction($method, ['id' => $id, 'data' => $data]);
+                }
+            }
+        }
+
+        $vars = json_encode($vars, JSON_NUMERIC_CHECK);
+        return $vars;
     }
 }
