@@ -13,6 +13,9 @@
 		}
 	});
 
+
+	$('[data-toggle="tooltip"]').tooltip();
+
 	init();
 
 })();
