@@ -261,6 +261,13 @@
                                                 Users
                                             </a>
                                         </li>
+
+                                        <li class="{{ strpos(request()->path(), 'settings/add') !== FALSE ? 'active' : '' }}">
+                                            <a href="/settings/add">
+                                                <i class="fa fa-users"></i>
+                                                Add user
+                                            </a>
+                                        </li>
                                     </ul>
                                 </li>
                             </ul>

@@ -70,7 +70,7 @@ class ClubsController extends Controller
             $club['sport'] = Sport::find($club->main_sport_id);
             $club['owner'] = Club_owner::find($club->owner_id);
         }
-        return view('clubs/lists')->with(compact('clubs'));
+        return compact('clubs');
     }
 
     public function details($id = FALSE)
