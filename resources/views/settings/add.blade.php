@@ -44,7 +44,7 @@
 		                        <select name="role" class="form-control">
 		                        	<option value="">Select a role from a list</option>
 		                            @foreach ($roles as $role)
-		                            	<option value="{{ $role->id }}" {{ (old('role') == $role->id || old('role') == null && isset($user->roles->first()['id']) && $user->roles->first()['id'] == $role->id) ? 'selected="selected"' : '' }}>{{ $role->display_name }}</option>
+		                            	<option value="{{ $role->id }}" {{ (old('role') == $role->id || old('role') == null && isset($user->roles) && $user->roles->first()['id'] == $role->id) ? 'selected="selected"' : '' }}>{{ $role->display_name }}</option>
 		                            @endforeach
 		                        </select>
 		                        @if ($errors->has('role'))
