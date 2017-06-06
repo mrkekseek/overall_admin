@@ -22,5 +22,11 @@ class RolesSeeder extends Seeder
             'display_name' => 'Employee',
             'description' => 'Employee',
         ]);
+
+        DB::table('roles')->insert([
+            'name' => 'financial_manager',
+            'display_name' => 'Financial manager',
+            'description' => 'financial manager',
+        ]);
     }
 }

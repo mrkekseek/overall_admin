@@ -146,11 +146,9 @@
                                 <label class="bold">Country</label>
                                 <select name="country" class="form-control">
                                     <option value="">Select country from a list</option>
-                                    <option value="US" {{ (old('country') == 'US' || old('country') == null && isset($club->address->country) && $club->address->country == 'US') ? 'selected="selected"' : '' }}>United States</option>
-                                    <option value="FR" {{ (old('country') == 'FR' || old('country') == null && isset($club->address->country) && $club->address->country == 'FR') ? 'selected="selected"' : '' }}>France</option>
-                                    <option value="UK" {{ (old('country') == 'UK' || old('country') == null && isset($club->address->country) && $club->address->country == 'UK') ? 'selected="selected"' : '' }}>United Kingdom</option>
-                                    <option value="UA" {{ (old('country') == 'UA' || old('country') == null && isset($club->address->country) && $club->address->country == 'UA') ? 'selected="selected"' : '' }}>Ukraine</option>
-                                    <option value="PL" {{ (old('country') == 'PL' || old('country') == null && isset($club->address->country) && $club->address->country == 'PL') ? 'selected="selected"' : '' }}>Poland</option>
+                                    @foreach($countries as $country)
+                                        <option value="{{ $country->iso_3166_2 }}" {{ (old('country') == $country->iso_3166_2 || old('country') == null && isset($club->address->country) && $club->address->country == $country->iso_3166_2) ? 'selected="selected"' : '' }}>{{ $country->full_name }}</option>
+                                    @endforeach
                                 </select>
                                 @if ($errors->has('country'))
                                     <span class="help-block">
@@ -216,11 +214,9 @@
                         <label class="bold">Country</label>
                         <select name="country" class="form-control">
                             <option value="">Select country from a list</option>
-                            <option value="US">United States</option>
-                            <option value="FR">France</option>
-                            <option value="UK">United Kingdom</option>
-                            <option value="UA">Ukraine</option>
-                            <option value="PL">Poland</option>
+                            @foreach($countries as $country)
+                                <option value="{{ $country->iso_3166_2 }}" {{ (old('country') == $country->iso_3166_2 || old('country') == null && isset($club->address->country) && $club->address->country == $country->iso_3166_2) ? 'selected="selected"' : '' }}>{{ $country->full_name }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>

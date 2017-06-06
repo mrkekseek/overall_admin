@@ -103,12 +103,10 @@
 		                	<div class="col-sm-6 col-xs-12 form-group{{ $errors->has('country') ? ' has-error' : '' }}">
 		                        <label class="bold">Country</label>
 		                        <select name="country" class="form-control">
-		                            <option value="" {{ (old('country') == '' || old('country') == null && isset($user->country) && $user->country == '') ? 'selected="selected"' : '' }}>Select country from a list</option>
-		                            <option value="US" {{ (old('country') == 'US' || old('country') == null && isset($user->country) && $user->country == 'US') ? 'selected="selected"' : '' }}>United States</option>
-		                            <option value="FR" {{ (old('country') == 'FR' || old('country') == null && isset($user->country) && $user->country == 'FR') ? 'selected="selected"' : '' }}>France</option>
-		                            <option value="UK" {{ (old('country') == 'UK' || old('country') == null && isset($user->country) && $user->country == 'UK') ? 'selected="selected"' : '' }}>United Kingdom</option>
-		                            <option value="UA" {{ (old('country') == 'UA' || old('country') == null && isset($user->country) && $user->country == 'UA') ? 'selected="selected"' : '' }}>Ukraine</option>
-		                            <option value="PL" {{ (old('country') == 'PL' || old('country') == null && isset($user->country) && $user->country == 'PL') ? 'selected="selected"' : '' }}>Poland</option>
+		                        	<option value="">Select country from a list</option>
+	                            @foreach($countries as $country)
+                                    <option value="{{ $country->iso_3166_2 }}" {{ (old('country') == $country->iso_3166_2 || old('country') == null && isset($club->address->country) && $club->address->country == $country->iso_3166_2) ? 'selected="selected"' : '' }}>{{ $country->full_name }}</option>
+                                @endforeach
 		                        </select>
 		                        @if ($errors->has('country'))
 	                                <span class="help-block">

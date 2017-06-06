@@ -158,6 +158,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * Laravel Countries...
+         */
+        Webpatser\Countries\CountriesServiceProvider::class,
+
     ],
 
     /*
@@ -205,6 +210,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Entrust' => Zizaco\Entrust\EntrustServiceProvider::class,
+
+        'Countries' => Webpatser\Countries\CountriesFacade::class,
 
     ],
 

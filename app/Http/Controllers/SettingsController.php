@@ -7,6 +7,7 @@ use App\Http\Requests;
 use Validator;
 use App\User;
 use App\Role;
+use App\Countries;
 
 class SettingsController extends Controller
 {
@@ -14,7 +15,8 @@ class SettingsController extends Controller
     {
         $roles = Role::all();
         $user = User::find($id);
-        return compact('user', 'roles');
+        $countries = Countries::all();
+        return compact('user', 'roles', 'countries');
     }
 
     public function addPost($id = FALSE, $data = [])

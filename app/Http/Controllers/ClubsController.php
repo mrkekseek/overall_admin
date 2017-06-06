@@ -10,6 +10,7 @@ use App\Club_account;
 use App\Club_owner;
 use App\Sport;
 use App\Address;
+use App\Countries;
 
 class ClubsController extends Controller
 {
@@ -18,11 +19,12 @@ class ClubsController extends Controller
         $owners = $this->clubsOwnersGet();
         $sports = Sport::all();
         $club = Club_account::find($id);
+        $countries = Countries::all();
         if ( ! empty($club))
         {
             $club->address = Address::find($club->address_id);
         }
-        return compact('club', 'sports', 'owners');
+        return compact('countries', 'club', 'sports', 'owners');
     }
 
     public function addPost($id = FALSE, $data = [])

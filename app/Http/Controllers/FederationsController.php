@@ -9,6 +9,7 @@ use App\Federation_account;
 use App\Federation_representative;
 use App\Sport;
 use App\Address;
+use App\Countries;
 
 class FederationsController extends Controller
 {
@@ -17,11 +18,12 @@ class FederationsController extends Controller
         $owners = $this->federationsOwnersGet($id);
         $sports = Sport::all();
         $federation = Federation_account::find($id);
+        $countries = Countries::all();
         if ( ! empty($federation))
         {
             $federation->address = Address::find($federation->address_id);
         }
-        return compact('federation', 'owners', 'sports');
+        return compact('federation', 'owners', 'sports', 'countries');
     }
 
     public function addPost($id = FALSE, $data = [])
