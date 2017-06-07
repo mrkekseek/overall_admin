@@ -34,7 +34,7 @@
 		                    <td>{{ $federation['id'] }}</td>
 		                    <td>{{ $federation['name'] }}</td>
 		                    <td>{{ $federation['owner']['first_name'] }} {{ $federation['owner']['last_name'] }}</td>
-		                    <td>{{ $federation['country'] }}</td>
+		                    <td>{{ $federation['address']['country'] }}</td>
 		                    <td>{{ $federation['sport']['name'] }}</td>
 		                    <td class="text-center">
 		                        <a href="/federations/add/{{ $federation['id'] }}" class="btn btn-icon"><i class="fa fa-edit"></i></a>

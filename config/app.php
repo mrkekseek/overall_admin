@@ -163,6 +163,11 @@ return [
          */
         Webpatser\Countries\CountriesServiceProvider::class,
 
+        /*
+         * ActivityLog...
+         */
+        Regulus\ActivityLog\ActivityLogServiceProvider::class,
+
     ],
 
     /*
@@ -212,6 +217,7 @@ return [
         'Entrust' => Zizaco\Entrust\EntrustServiceProvider::class,
 
         'Countries' => Webpatser\Countries\CountriesFacade::class,
+        'Activity' => Regulus\ActivityLog\Models\Activity::class,
 
     ],
 

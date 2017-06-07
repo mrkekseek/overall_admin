@@ -15,7 +15,7 @@ class FederationsController extends Controller
 {
     public function add($id = FALSE)
     {
-        $owners = $this->federationsOwnersGet($id);
+        $owners = $this->federationsOwnersGet();
         $sports = Sport::all();
         $federation = Federation_account::find($id);
         $countries = Countries::all();
@@ -109,9 +109,9 @@ class FederationsController extends Controller
         }
     }
 
-    public function federationsOwnersGet($id = FALSE)
+    public function federationsOwnersGet()
     {
-        return Federation_representative::where('federation_id', $id)->get();
+        return Federation_representative::all();
     }
 
     public function federationsOwnersSave($id = FALSE, $data = [])
@@ -137,13 +137,15 @@ class FederationsController extends Controller
 
     public function addressSave($id, $data)
     {
+        $country = Countries::where(['id' => $data['country']])->first();
+
         $address = Address::firstOrNew(['id' => $id]);
         $address->address1 = $data['address1'];
         $address->address2 = $data['address2'];
         $address->city = $data['city'];
         $address->region = $data['region'];
         $address->zipcode = $data['zipcode'];
-        $address->country = $data['country'];
+        $address->country = $country['full_name'];
         $address->details = $data['address_details'];
         $address->save();
         return $address->id;

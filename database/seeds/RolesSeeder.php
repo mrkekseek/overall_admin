@@ -18,15 +18,21 @@ class RolesSeeder extends Seeder
         ]);
 
         DB::table('roles')->insert([
+            'name' => 'owner',
+            'display_name' => 'Owner',
+            'description' => 'Owner',
+        ]);
+
+        DB::table('roles')->insert([
             'name' => 'employee',
             'display_name' => 'Employee',
             'description' => 'Employee',
         ]);
 
         DB::table('roles')->insert([
-            'name' => 'financial_manager',
-            'display_name' => 'Financial manager',
-            'description' => 'financial manager',
+            'name' => 'manager',
+            'display_name' => 'Manager',
+            'description' => 'Manager',
         ]);
     }
 }

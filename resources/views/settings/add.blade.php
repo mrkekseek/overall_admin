@@ -39,8 +39,30 @@
 	                            @endif
 		                    </div>
 
-		                    <div class="col-sm-6 col-xs-12 form-group{{ $errors->has('role') ? ' has-error' : '' }}">
-			                    <label class="bold">Role</label>
+		                    <div class="col-sm-6 col-xs-12 form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+			                    <label class="bold">Email Address</label>
+		                        <input type="email" class="form-control" name="email" value="{{ old('email') != null ? old('email') : (isset($user->email) ? $user->email : '') }}" />
+		                        @if ($errors->has('email'))
+	                                <span class="help-block">
+	                                    <strong>{{ $errors->first('email') }}</strong>
+	                                </span>
+	                            @endif
+		               		 </div>
+		                </div>
+
+		                <div class="row">
+		                	<div class="col-sm-6 col-xs-12 form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+		                        <label class="bold">Password</label>
+		                        <input type="password" class="form-control" name="password" value="" />
+		                        @if ($errors->has('password'))
+	                                <span class="help-block">
+	                                    <strong>{{ $errors->first('password') }}</strong>
+	                                </span>
+	                            @endif
+		                    </div>
+
+		                	<div class="col-sm-6 col-xs-12 form-group{{ $errors->has('role') ? ' has-error' : '' }}">
+		                		<label class="bold">Role</label>
 		                        <select name="role" class="form-control">
 		                        	<option value="">Select a role from a list</option>
 		                            @foreach ($roles as $role)
@@ -50,28 +72,6 @@
 		                        @if ($errors->has('role'))
 	                                <span class="help-block">
 	                                    <strong>{{ $errors->first('role') }}</strong>
-	                                </span>
-	                            @endif
-		               		 </div>
-		                </div>
-
-		                <div class="row">
-		                	<div class="col-sm-6 col-xs-12 form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-		                        <label class="bold">Email Address</label>
-		                        <input type="email" class="form-control" name="email" value="{{ old('email') != null ? old('email') : (isset($user->email) ? $user->email : '') }}" />
-		                        @if ($errors->has('email'))
-	                                <span class="help-block">
-	                                    <strong>{{ $errors->first('email') }}</strong>
-	                                </span>
-	                            @endif
-		                    </div>
-
-		                	<div class="col-sm-6 col-xs-12 form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-		                        <label class="bold">Password</label>
-		                        <input type="password" class="form-control" name="password" value="" />
-		                        @if ($errors->has('password'))
-	                                <span class="help-block">
-	                                    <strong>{{ $errors->first('password') }}</strong>
 	                                </span>
 	                            @endif
 		                    </div>
@@ -105,12 +105,39 @@
 		                        <select name="country" class="form-control">
 		                        	<option value="">Select country from a list</option>
 	                            @foreach($countries as $country)
-                                    <option value="{{ $country->iso_3166_2 }}" {{ (old('country') == $country->iso_3166_2 || old('country') == null && isset($club->address->country) && $club->address->country == $country->iso_3166_2) ? 'selected="selected"' : '' }}>{{ $country->full_name }}</option>
+                                    <option value="{{ $country->id }}" {{ (old('country') == $country->id || old('country') == null) ? 'selected="selected"' : '' }}>{{ $country->full_name }}</option>
                                 @endforeach
 		                        </select>
 		                        @if ($errors->has('country'))
 	                                <span class="help-block">
 	                                    <strong>{{ $errors->first('country') }}</strong>
+	                                </span>
+	                            @endif
+		                    </div>
+
+		                    <div class="col-sm-6 col-xs-12 form-group{{ $errors->has('phone_number') ? ' has-error' : '' }}">
+		                        <label class="bold">Phone</label>
+		                        <input type="text" class="form-control" name="phone_number" value="{{ old('phone_number') != null ? old('phone_number') : (isset($user->phone_number) ? $user->phone_number : '') }}" />
+		                        @if ($errors->has('phone_number'))
+	                                <span class="help-block">
+	                                    <strong>{{ $errors->first('phone_number') }}</strong>
+	                                </span>
+	                            @endif
+		                    </div>
+		                </div>
+
+		                <div class="row">
+		                	<div class="col-sm-6 col-xs-12 form-group{{ $errors->has('user_statuses') ? ' has-error' : '' }}">
+		                        <label class="bold">Status</label>
+		                        <select name="user_status" class="form-control">
+		                        	<option value="">Select status of the user</option>
+		                        	@foreach($user_statuses as $status)
+		                        		<option value="{{ $status->id }}">{{ $status->status_name }}</option>
+		                        	@endforeach
+		                        </select>
+		                        @if ($errors->has('user_statuses'))
+	                                <span class="help-block">
+	                                    <strong>{{ $errors->first('user_statuses') }}</strong>
 	                                </span>
 	                            @endif
 		                    </div>

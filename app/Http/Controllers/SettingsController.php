@@ -8,6 +8,7 @@ use Validator;
 use App\User;
 use App\Role;
 use App\Countries;
+use App\User_statuses;
 
 class SettingsController extends Controller
 {
@@ -16,7 +17,8 @@ class SettingsController extends Controller
         $roles = Role::all();
         $user = User::find($id);
         $countries = Countries::all();
-        return compact('user', 'roles', 'countries');
+        $user_statuses = User_statuses::all();
+        return compact('user', 'roles', 'countries', 'user_statuses');
     }
 
     public function addPost($id = FALSE, $data = [])
@@ -27,6 +29,8 @@ class SettingsController extends Controller
             'role' => 'required',
             'email' => 'required|email|unique:users,email,'.$id,
             'password' => 'required_without:id',
+            'country' => 'required|max:45',
+            'user_status' => 'required|max:45'
         ]);
 
         if ($validator->fails())
@@ -36,13 +40,19 @@ class SettingsController extends Controller
                 ->withInput();
         }
 
+        $country = Countries::where(['id' => $data['country']])->first();
+        $user_status = User_statuses::where(['id' => $data['user_status']])->first();
+
         $user = User::firstOrNew(['id' => $id]);
         $user->name = $data['name'];
         $user->username = $data['email'];
         $user->email = $data['email'];
         $user->address = $data['address'];
         $user->city = $data['city'];
-        $user->country = $data['country'];
+        $user->country = $country['full_name'];
+        $user->attachRole($user->id, $data['role']);
+        $user->phone_number = $data['phone_number'];
+        $user->user_status = $user_status['status_name'];
         if ( ! empty($data['password']))
         {
             $user->password = bcrypt($data['password']);
@@ -58,5 +68,12 @@ class SettingsController extends Controller
     {
         $users = User::all();
         return compact('users');
+    }
+
+    public function details($id = FALSE)
+    {
+        $user = User::find($id);
+
+        return compact('user');
     }
 }

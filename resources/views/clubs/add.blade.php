@@ -147,7 +147,7 @@
                                 <select name="country" class="form-control">
                                     <option value="">Select country from a list</option>
                                     @foreach($countries as $country)
-                                        <option value="{{ $country->iso_3166_2 }}" {{ (old('country') == $country->iso_3166_2 || old('country') == null && isset($club->address->country) && $club->address->country == $country->iso_3166_2) ? 'selected="selected"' : '' }}>{{ $country->full_name }}</option>
+                                        <option value="{{ $country->id }}" {{ (old('country') == $country->id || old('country') == null && isset($club->address->country) && $club->address->country == $country->id) ? 'selected="selected"' : '' }}>{{ $country->full_name }}</option>
                                     @endforeach
                                 </select>
                                 @if ($errors->has('country'))
@@ -215,7 +215,7 @@
                         <select name="country" class="form-control">
                             <option value="">Select country from a list</option>
                             @foreach($countries as $country)
-                                <option value="{{ $country->iso_3166_2 }}" {{ (old('country') == $country->iso_3166_2 || old('country') == null && isset($club->address->country) && $club->address->country == $country->iso_3166_2) ? 'selected="selected"' : '' }}>{{ $country->full_name }}</option>
+                                <option value="{{ $country->id }}" {{ (old('country') == $country->id || old('country') == null && isset($club->address->country) && $club->address->country == $country->id) ? 'selected="selected"' : '' }}>{{ $country->full_name }}</option>
                             @endforeach
                         </select>
                     </div>
