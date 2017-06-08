@@ -127,17 +127,17 @@
 		                </div>
 
 		                <div class="row">
-		                	<div class="col-sm-6 col-xs-12 form-group{{ $errors->has('user_statuses') ? ' has-error' : '' }}">
+		                	<div class="col-sm-6 col-xs-12 form-group{{ $errors->has('user_status') ? ' has-error' : '' }}">
 		                        <label class="bold">Status</label>
 		                        <select name="user_status" class="form-control">
 		                        	<option value="">Select status of the user</option>
 		                        	@foreach($user_statuses as $status)
-		                        		<option value="{{ $status->id }}">{{ $status->status_name }}</option>
+		                        		<option value="{{ $status->id }}" {{ (old('user_status') == $status->id || old('user_status') == null) ? 'selected="selected"' : '' }}>{{ $status->status_name }}</option>
 		                        	@endforeach
 		                        </select>
-		                        @if ($errors->has('user_statuses'))
+		                        @if ($errors->has('user_status'))
 	                                <span class="help-block">
-	                                    <strong>{{ $errors->first('user_statuses') }}</strong>
+	                                    <strong>{{ $errors->first('user_status') }}</strong>
 	                                </span>
 	                            @endif
 		                    </div>

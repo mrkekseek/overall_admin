@@ -40,8 +40,8 @@ class SettingsController extends Controller
                 ->withInput();
         }
 
-        $country = Countries::where(['id' => $data['country']])->first();
-        $user_status = User_statuses::where(['id' => $data['user_status']])->first();
+        $country = Countries::find($data['country']);
+        $user_status = User_statuses::find($data['user_status']);
 
         $user = User::firstOrNew(['id' => $id]);
         $user->name = $data['name'];
@@ -50,7 +50,6 @@ class SettingsController extends Controller
         $user->address = $data['address'];
         $user->city = $data['city'];
         $user->country = $country['full_name'];
-        $user->attachRole($user->id, $data['role']);
         $user->phone_number = $data['phone_number'];
         $user->user_status = $user_status['status_name'];
         if ( ! empty($data['password']))

@@ -71,6 +71,40 @@
                                 @endforeach
                             </select>
                         </div>
+
+                        <label class="bold">Federation Countries</label>
+                        <div class="row">
+                            <div class="col-lg-10 col-sm-9 col-xs-12 form-group{{ $errors->has('owner_id') ? ' has-error' : '' }}">
+                                <select name="federation_countries" class="form-control" data-placeholder="Select a Federation Country">
+                                    <option></option>
+                                    @foreach ($countries as $country)
+                                        <option value="{{ $country->id }}"  {{ (old('federation_countries') == $country->id || old('federation_countries') == null) ? 'selected="selected"' : '' }}>{{ $country->full_name }}</option>
+                                    @endforeach
+                                </select>
+
+                                @if ($errors->has('federation_countries'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('federation_countries') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
+                            <div class="col-lg-2 col-sm-3 col-xs-12 form-group">
+                                <div data-toggle="tooltip" data-placement="top" title="Add country">
+                                    <button type="button" class="btn btn-default btn-block" data-toggle="modal"><i class="fa fa-plus-circle"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--<div class="form-group">
+                            <label class="bold">Assign Federation to Subdomain</label>
+                            <select name="federation_subdomain" class="form-control">
+                                <option value="0" {{ (old('sport_id') == '0' || old('sport_id') == null && isset($federation->sport_id) && $federation->sport_id == '0') ? 'selected="selected"' : '' }}>Choose federation sport</option>
+                                @foreach ($sports as $sport)
+                                    <option value="{{ $sport->id }}" {{ (old('sport_id') == $sport->id || old('sport_id') == null && isset($federation->sport_id) && $federation->sport_id == $sport->id) ? 'selected="selected"' : '' }}>{{ $sport->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>-->
                     </div>
                 </div>
             </div>  

@@ -36,6 +36,41 @@
                             @endif
                         </div>
 
+                        <div class="row">
+                            <div class="col-sm-6 col-xs-12 form-group{{ $errors->has('server_type') ? ' has-error' : '' }}">
+                                <label class="bold">Server Type</label>
+                                <select name="server_type" class="form-control">
+                                    <option value="">Select a server type from a list</option>
+                                        <option value="web" {{ (old('server_type') == "web") ? 'selected="selected"' : '' }}>Web</option>
+                                        <option value="fileserver" {{ (old('server_type') == "fileserver") ? 'selected="selected"' : '' }}>Fileserver</option>
+                                        <option value="database" {{ (old('server_type') == "database") ? 'selected="selected"' : '' }}>Database</option>
+                                        <option value="backup" {{ (old('server_type') == "backup") ? 'selected="selected"' : '' }}>Backup</option>
+                                </select>
+                                @if ($errors->has('server_type'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('server_type') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
+                            <div class="col-sm-6 col-xs-12 form-group{{ $errors->has('perfomance_level') ? ' has-error' : '' }}">
+                                <label class="bold">Performance Level</label>
+                                <select name="perfomance_level" class="form-control">
+                                    <option value="">Select a performance Level from a list</option>
+                                        <option value="1" {{ (old('perfomance_level') == "1") ? 'selected="selected"' : '' }}>1</option>
+                                        <option value="2" {{ (old('perfomance_level') == "2") ? 'selected="selected"' : '' }}>2</option>
+                                        <option value="3" {{ (old('perfomance_level') == "3") ? 'selected="selected"' : '' }}>3</option>
+                                        <option value="4" {{ (old('perfomance_level') == "4") ? 'selected="selected"' : '' }}>4</option>
+                                        <option value="5" {{ (old('perfomance_level') == "5") ? 'selected="selected"' : '' }}>5</option>
+                                </select>
+                                @if ($errors->has('perfomance_level'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('perfomance_level') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label class="bold">Description</label>
                             <textarea name="description" class="form-control" rows="3">{{ old('description') != null ? old('description') : (isset($server->description) ? $server->description : '') }}</textarea>

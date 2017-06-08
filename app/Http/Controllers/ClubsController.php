@@ -11,6 +11,9 @@ use App\Club_owner;
 use App\Sport;
 use App\Address;
 use App\Countries;
+use Regulus\ActivityLog\Models\Activity;
+use Illuminate\Support\Facades\Auth;
+use App\Subdomain_specific;
 
 class ClubsController extends Controller
 {
@@ -20,11 +23,13 @@ class ClubsController extends Controller
         $sports = Sport::all();
         $club = Club_account::find($id);
         $countries = Countries::all();
+        $subdomains = Subdomain_specific::all();
         if ( ! empty($club))
         {
             $club->address = Address::find($club->address_id);
         }
-        return compact('countries', 'club', 'sports', 'owners');
+
+        return compact('countries', 'club', 'sports', 'owners', 'subdomains');
     }
 
     public function addPost($id = FALSE, $data = [])
@@ -55,8 +60,17 @@ class ClubsController extends Controller
     	$club->owner_id = $data['owner_id'];
     	$club->main_sport_id = $data['main_sport_id'];
         $club->details = $data['details'];
-        $club->subdomain_specific_id = time();
+        $club->subdomain_specific_id = $data['assign_subdomain'];
     	$club->save();
+
+        Activity::log([
+            'contentId'   => Auth::id(),
+            'contentType' => 'Club',
+            'action'      => 'Create',
+            'description' => 'Created a Club',
+            'details'     => 'Club name: '.$club->name,
+            'updated'     => TRUE,
+        ]);
 
         return redirect('clubs/lists')->with('message', 'Club was succesfully saved');
     }

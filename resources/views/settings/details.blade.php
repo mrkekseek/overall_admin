@@ -75,5 +75,17 @@
             </div>
         </div>
     </div>
+
+    <div class="col-md-6 col-xs-12">
+        <div class="portlet light bordered">
+            <div class="portlet-body form">
+                <h4>User activity</h4>
+
+                <div class="form-body">
+                   
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
