@@ -9,6 +9,9 @@ use App\User;
 use App\Role;
 use App\Countries;
 use App\User_statuses;
+use Regulus\ActivityLog\Models\Activity;
+use Illuminate\Support\Facades\Auth;
+use App\Activity_log;
 
 class SettingsController extends Controller
 {
@@ -60,6 +63,29 @@ class SettingsController extends Controller
 
         $user->roles()->sync([$data['role']]);
 
+         if (empty($id))
+        {
+            Activity::log([
+                'contentId'   => Auth::id(),
+                'contentType' => 'User',
+                'action'      => 'Add',
+                'description' => 'Add a new User',
+                'details'     => 'User name: '.$user->name,
+                'updated'     => FALSE,
+            ]);
+        }
+        else
+        {
+             Activity::log([
+                'contentId'   => Auth::id(),
+                'contentType' => 'User',
+                'action'      => 'Create',
+                'description' => 'Created a User',
+                'details'     => 'User name: '.$user->name,
+                'updated'     => TRUE,
+            ]);
+        }
+
         return redirect('settings/users')->with('message', 'User was succesfully saved');
     }
 
@@ -72,7 +98,7 @@ class SettingsController extends Controller
     public function details($id = FALSE)
     {
         $user = User::find($id);
-
-        return compact('user');
+        $logs = Activity_log::where(['content_id' => $id])->get();
+        return compact('user', 'logs');
     }
 }

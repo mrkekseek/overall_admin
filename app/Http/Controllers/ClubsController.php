@@ -63,14 +63,28 @@ class ClubsController extends Controller
         $club->subdomain_specific_id = $data['assign_subdomain'];
     	$club->save();
 
-        Activity::log([
-            'contentId'   => Auth::id(),
-            'contentType' => 'Club',
-            'action'      => 'Create',
-            'description' => 'Created a Club',
-            'details'     => 'Club name: '.$club->name,
-            'updated'     => TRUE,
-        ]);
+        if (empty($id))
+        {
+            Activity::log([
+                'contentId'   => Auth::id(),
+                'contentType' => 'Club',
+                'action'      => 'Add',
+                'description' => 'Add a new Club',
+                'details'     => 'Club name: '.$club->name,
+                'updated'     => FALSE,
+            ]);
+        }
+        else
+        {
+             Activity::log([
+                'contentId'   => Auth::id(),
+                'contentType' => 'Club',
+                'action'      => 'Create',
+                'description' => 'Created a Club',
+                'details'     => 'Club name: '.$club->name,
+                'updated'     => TRUE,
+            ]);
+        }
 
         return redirect('clubs/lists')->with('message', 'Club was succesfully saved');
     }

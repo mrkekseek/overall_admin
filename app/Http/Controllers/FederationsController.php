@@ -7,6 +7,8 @@ use App\Http\Requests;
 use Validator;
 use App\Federation_account;
 use App\Federation_representative;
+use Regulus\ActivityLog\Models\Activity;
+use Illuminate\Support\Facades\Auth;
 use App\Sport;
 use App\Address;
 use App\Countries;
@@ -38,7 +40,8 @@ class FederationsController extends Controller
             'city' => 'required|max:45',
             'region' => 'required|max:45',
             'zipcode' => 'required|max:45',
-            'country' => 'required|max:45'
+            'country' => 'required|max:45',
+            'owner_id' => 'required|max:45'
         ], [
             'new_contact_person.required_if' => 'You should enter name of contact person'
         ]);
@@ -62,6 +65,29 @@ class FederationsController extends Controller
         $owner->federation_id = $federation->id;
         $owner->is_owner = '1';
         $owner->save();
+
+         if (empty($id))
+        {
+            Activity::log([
+                'contentId'   => Auth::id(),
+                'contentType' => 'Federation',
+                'action'      => 'Add',
+                'description' => 'Add a new Federation',
+                'details'     => 'Federation name: '.$federation->name,
+                'updated'     => FALSE,
+            ]);
+        }
+        else
+        {
+             Activity::log([
+                'contentId'   => Auth::id(),
+                'contentType' => 'Federation',
+                'action'      => 'Create',
+                'description' => 'Created a Federation',
+                'details'     => 'Federation name: '.$federation->name,
+                'updated'     => TRUE,
+            ]);
+        }
 
         return redirect('federations/lists')->with('message', 'Federation was succesfully saved');
     }
