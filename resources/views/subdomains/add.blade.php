@@ -40,8 +40,8 @@
                             <label class="bold">Web Server</label>
                             <select name="web_server" class="form-control">
                                 <option value="">Select web server from a list</option>
-                            @foreach($servers as $server)
-                                <option value="{{ $server->id }}" {{ (old('web_server') == $server->id) ? 'selected="selected"' : '' }}>{{ $server->ip_address }}</option>
+                            @foreach($web_servers as $web_server)
+                                <option value="{{ $web_server->id }}" {{ (old('web_server') == $web_server->id) ? 'selected="selected"' : '' }}>{{ $web_server->ip_address }}</option>
                             @endforeach
                             </select>
                             @if ($errors->has('web_server'))
@@ -55,6 +55,9 @@
                             <label class="bold">Database Server</label>
                             <select name="database_server" class="form-control">
                                 <option value="">Select database server from a list</option>
+                            @foreach($database_servers as $database_server)
+                                <option value="{{ $database_server->id }}" {{ (old('web_server') == $database_server->id) ? 'selected="selected"' : '' }}>{{ $database_server->ip_address }}</option>
+                            @endforeach
                             </select>
                             @if ($errors->has('database_server'))
                                 <span class="help-block">

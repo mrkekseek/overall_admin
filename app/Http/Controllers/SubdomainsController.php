@@ -14,7 +14,9 @@ class SubdomainsController extends Controller
     {
         $subdomain = Subdomain_specific::find($id);
         $servers = Server::all();
-        return compact('subdomain', 'servers');
+        $web_servers = Server::where('server_type', 'web')->get();
+        $database_servers = Server::where('server_type', 'database')->get();
+        return compact('subdomain', 'servers', 'web_servers', 'database_servers');
     }
 
     public function addPost($id = FALSE, $data = [])
