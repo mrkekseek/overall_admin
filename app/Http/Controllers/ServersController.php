@@ -58,23 +58,22 @@ class ServersController extends Controller
         return redirect('servers/lists')->with('message', 'Server was successfully removed');
     }
 
-    public function filledPost($id = FALSE)
+    public function filledPost($id = FALSE, $data = [])
     {
         $server = Server::find($id);
-
-        if (empty($server->is_filled))
+        $server->is_filled = $data['filled'];
+        $message = "";
+        if($data['filled'] == '1')
         {
-            $server->is_filled = '0';
-            $message = 'Server is not filled';
+            $messgae = 'Server is filled';
         }
         else
         {
-            $server->is_filled = '1';
-            $message = 'Server is filled';
+            $message = 'Server is not filled';
         }
-
+        
         $server->save();
         
-        return redirect('servers/details/{{$ id }}')->with('message', $message);
+        return redirect('servers/lists')->with('message', $message);
     }
 }

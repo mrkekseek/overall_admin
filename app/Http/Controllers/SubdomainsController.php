@@ -6,13 +6,15 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Validator;
 use App\Subdomain_specific;
+use App\Server;
 
 class SubdomainsController extends Controller
 {
     public function add($id = FALSE)
     {
         $subdomain = Subdomain_specific::find($id);
-        return compact('subdomain');
+        $servers = Server::all();
+        return compact('subdomain', 'servers');
     }
 
     public function addPost($id = FALSE, $data = [])
@@ -29,7 +31,9 @@ class SubdomainsController extends Controller
         }
 
     	$subdomain = Subdomain_specific::firstOrNew(['id' => $id]);
-    	$subdomain->subdomain_link = $data['subdomain_link'];
+        $subdomain->subdomain_link = $data['subdomain_link'];
+        $subdomain->database_name = $data['database_name'];
+    	$subdomain->database_user = $data['database_user'];
     	$subdomain->save();
 
         return redirect('subdomains/lists')->with('message', 'Subdomain was succesfully saved');

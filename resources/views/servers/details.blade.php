@@ -21,6 +21,7 @@
     <div class="col-sm-12">
         <div class="portlet light bordered">
             <div class="portlet-body form">
+                @if( ! empty($subdomains->web_server_id))
                 <h4><strong>Associated subdomains</strong></h4>
 
                 @foreach($subdomains as $subdomain)
@@ -28,39 +29,47 @@
                     {{ $subdomain->subdomain_link }}
                 </p>
                 @endforeach
+                @endif
 
+                @if( ! empty($server->server_type))
                 <h4><strong>Server Type</strong></h4>
 
                 <p>
                     {{ $server->server_type }}
                 </p>
+                @endif
 
+                @if( ! empty($server->perfomance_level))
                 <h4><strong>Perfomance Level</strong></h4>
 
                 <p>
                     {{ $server->perfomance_level }}
                 </p>
+                @endif
 
+                @if( ! empty($server->description))
                 <h4><strong>Description</strong></h4>
 
                 <p>
                     {{ $server->description }}
                 </p>
+                @endif
             </div>
 
             <form role="form" action="/servers/filled/{{ $id }}" method="post">
                 {{ csrf_field() }}
                 {{ method_field('POST') }}
+                <input type="hidden" name="filled" value="{{ empty($server->is_filled) ? '1' : '0'}}" />
                 
                 <div>
-                    <button type="submit" class="btn btn-outline btn-circle blue">Mark as Filled</button>
+                    <button type="submit" class="btn btn-outline btn-circle blue">Mark as {{ empty($server->is_filled) ? 'Filled' : 'not Filled'}} </button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-@if(empty($subdomain))
+@if(empty($subdomains->web_server_id))
 <div>
     <button class="btn btn-outline btn-circle red" data-remove="/servers/remove/{{ $id }}"><i class="fa fa-trash"></i> Remove Server</button>
 </div>

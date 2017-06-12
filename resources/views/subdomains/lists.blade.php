@@ -32,10 +32,10 @@
                             <td>{{ $subdomain['id'] }}</td>
                             <td>{{ $subdomain['subdomain_link'] }}</td>
                             <td class="text-center">
-                                <a href="/subdomains/add/{{ $subdomain['id'] }}" class="btn btn-outline btn-circle btn-sm purple"><i class="fa fa-edit"></i> Edit </a>
+                                <a href="/subdomains/add/{{ $subdomain['id'] }}" class="btn btn-icon"><i class="fa fa-edit"></i></a>
                             </td>
                             <td class="text-center">
-                                <a href="/subdomains/details/{{ $subdomain['id'] }}" class="btn btn-outline btn-circle btn-sm blue"><i class="fa fa-info"></i> Details </a>
+                                <a href="/subdomains/details/{{ $subdomain['id'] }}" class="btn btn-icon"><i class="fa fa-eye"></i></a>
                             </td>
                         </tr>
                     @endforeach
