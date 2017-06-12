@@ -20,7 +20,12 @@ class SubdomainsController extends Controller
     public function addPost($id = FALSE, $data = [])
     {
     	$validator = Validator::make($data, [
-            'subdomain_link' => 'required'
+            'subdomain_link' => 'required',
+            'web_server' => 'required',
+            //'database_server' => 'required',
+            'database_name' => 'required',
+            'database_user' => 'required',
+            'database_password' => 'required|min:6'
         ]);
 
         if ($validator->fails())

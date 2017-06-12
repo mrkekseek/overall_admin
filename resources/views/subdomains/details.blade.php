@@ -27,15 +27,19 @@
                 </p>
                 <h4><strong>Web Server</strong></h4>
                 <p>
-                    {{  $subdomain->web_server_id }}
+                    {{ $subdomain->web_server_id }}
                 </p>
                 <h4><strong>Database Server</strong></h4>
                 <p>
-                    {{  $subdomain->database_server_id }}
+                    {{ $subdomain->database_server_id }}
                 </p>
                 <h4><strong>Database Name</strong></h4>
                 <p>
-                    {{  $subdomain->database_name }}
+                    {{ $subdomain->database_name }}
+                </p>
+                <h4><strong>Database User</strong></h4>
+                <p>
+                    {{ $subdomain->database_user }}
                 </p>
             </div>
         </div>
