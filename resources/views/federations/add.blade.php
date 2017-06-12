@@ -91,7 +91,7 @@
 
                             <div class="col-lg-2 col-sm-3 col-xs-12 form-group">
                                 <div data-toggle="tooltip" data-placement="top" title="Add country">
-                                    <button type="button" class="btn btn-default btn-block"><i class="fa fa-plus-circle"></i></button>
+                                    <button type="button" class="btn btn-default btn-block" id="add-country"><i class="fa fa-plus-circle"></i></button>
                                 </div>
                             </div>
 

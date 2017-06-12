@@ -129,3 +129,13 @@ function federationsOwnersSaved(data)
 	federationsOwnersGet(data);
 	$('#add-owner').modal('hide');
 }
+
+(function() {
+
+	$('#add-country').click(function(){
+		$('[name="federation_countries"]').append('<option value="foo">Foo</option>');
+	});
+
+})();
+
+;
