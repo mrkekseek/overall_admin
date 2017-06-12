@@ -32,8 +32,11 @@ class SubdomainsController extends Controller
 
     	$subdomain = Subdomain_specific::firstOrNew(['id' => $id]);
         $subdomain->subdomain_link = $data['subdomain_link'];
+        $subdomain->web_server_id = $data['web_server'];
+        $subdomain->database_server_id = $data['database_server'];
         $subdomain->database_name = $data['database_name'];
     	$subdomain->database_user = $data['database_user'];
+        $subdomain->database_password = bcrypt($data['database_password']);
     	$subdomain->save();
 
         return redirect('subdomains/lists')->with('message', 'Subdomain was succesfully saved');

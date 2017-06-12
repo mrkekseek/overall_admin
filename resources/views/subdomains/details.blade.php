@@ -22,9 +22,20 @@
         <div class="portlet light bordered">
             <div class="portlet-body form">
                 <h4><strong>Subdomain Link</strong></h4>
-
                 <p>
                     {{ $subdomain->subdomain_link }}
+                </p>
+                <h4><strong>Web Server</strong></h4>
+                <p>
+                    {{  $subdomain->web_server_id }}
+                </p>
+                <h4><strong>Database Server</strong></h4>
+                <p>
+                    {{  $subdomain->database_server_id }}
+                </p>
+                <h4><strong>Database Name</strong></h4>
+                <p>
+                    {{  $subdomain->database_name }}
                 </p>
             </div>
         </div>
