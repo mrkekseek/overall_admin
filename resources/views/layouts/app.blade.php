@@ -102,7 +102,7 @@
                                 <!-- BEGIN USER PROFILE -->
                                 <div class="btn-group-img btn-group">
                                     <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                        <span>Hi, Marcus</span>
+                                        <span>Hi, {{ Auth::user()->name }}</span>
                                         <img src="/assets/template/layouts/layout5/img/avatar1.jpg" alt="">
                                     </button>
 

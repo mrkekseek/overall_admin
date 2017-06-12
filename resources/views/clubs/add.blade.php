@@ -79,6 +79,25 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="portlet light bordered">
+                        <div class="portlet-body form">
+                            <h4>Assign Club to Subdomain</h4>
+
+                            <div class="form-group">
+                                <select name="assign_subdomain" class="form-control">
+                                    <option value="">Select subdomain from a list</option>
+                                    @foreach ($subdomains as $subdomain)
+                                        <option value="{{ $subdomain->id }}" {{ (old('assign_subdomain') == $subdomain->id || old('assign_subdomain') == null) ? 'selected="selected"' : '' }}>{{ $subdomain->subdomain_link }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="col-md-6 col-xs-12">
@@ -164,25 +183,6 @@
                                 <textarea name="address_details" class="form-control" rows="3">{{ old('address_details') != null ? old('address_details') : (isset($club->address->details) ? $club->address->details : '') }}</textarea>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-         <div class="col-md-6 col-xs-12">
-            <div class="portlet light bordered">
-                <div class="portlet-body form">
-                    <h4>Assign subdomain to club</h4>
-
-                    <div class="form-group">
-                        <select name="assign_subdomain" class="form-control">
-                            <option value="">Select subdomain from a list</option>
-                            @foreach ($subdomains as $subdomain)
-                                <option value="{{ $subdomain->id }}" {{ (old('assign_subdomain') == $subdomain->id || old('assign_subdomain') == null) ? 'selected="selected"' : '' }}>{{ $subdomain->subdomain_link }}</option>
-                            @endforeach
-                        </select>
                     </div>
                 </div>
             </div>

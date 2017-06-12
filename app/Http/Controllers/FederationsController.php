@@ -10,6 +10,7 @@ use App\Federation_representative;
 use App\Sport;
 use App\Address;
 use App\Countries;
+use App\Subdomain_specific;
 
 class FederationsController extends Controller
 {
@@ -19,11 +20,12 @@ class FederationsController extends Controller
         $sports = Sport::all();
         $federation = Federation_account::find($id);
         $countries = Countries::all();
+        $subdomains = Subdomain_specific::all();
         if ( ! empty($federation))
         {
             $federation->address = Address::find($federation->address_id);
         }
-        return compact('federation', 'owners', 'sports', 'countries');
+        return compact('federation', 'owners', 'sports', 'countries', 'subdomains');
     }
 
     public function addPost($id = FALSE, $data = [])
