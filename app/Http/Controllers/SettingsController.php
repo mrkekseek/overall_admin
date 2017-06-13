@@ -42,7 +42,7 @@ class SettingsController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-
+        
         $country = Countries::find($data['country']);
         $user_status = User_statuses::find($data['user_status']);
 

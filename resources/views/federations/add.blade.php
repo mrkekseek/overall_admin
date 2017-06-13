@@ -20,7 +20,8 @@
 <form role="form" action="/federations/add{{ ! empty($id) ? '/'.$id : '' }}" method="post">
     {{ csrf_field() }}
     {{ method_field('POST') }}
-
+    
+    <input type="hidden" name="countries_id">
     <div class="row">
         <div class="col-md-6 col-xs-12">
             <div class="portlet light bordered">
@@ -56,7 +57,7 @@
                             </div>
 
                             <div class="col-lg-2 col-sm-3 col-xs-12 form-group">
-                                <div data-toggle="tooltip" data-placement="top" title="Add contact person">
+                                <div data-toggle="tooltip" data-placement="top" title="Add contact person" data-trigger="hover">
                                     <button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#add-owner" ><i class="fa fa-plus-circle"></i></button>
                                 </div>
                             </div>
@@ -90,7 +91,7 @@
                             </div>
 
                             <div class="col-lg-2 col-sm-3 col-xs-12 form-group">
-                                <div data-toggle="tooltip" data-placement="top" title="Add country">
+                                <div data-toggle="tooltip" data-placement="top" title="Add country" data-trigger="hover">
                                     <button type="button" class="btn btn-default btn-block" id="add-country"><i class="fa fa-plus-circle"></i></button>
                                 </div>
                             </div>
@@ -99,6 +100,12 @@
                                 <select multiple name="federation_countries" class="form-control">
                                     
                                 </select>
+                            </div>
+
+                            <div class="col-lg-2 col-sm-3 col-xs-12 form-group">
+                                <div data-toggle="tooltip" data-placement="top" title="Remove country" data-trigger="hover">
+                                    <button type="button" class="btn btn-default btn-block" id="remove-country"><i class="fa fa-minus-circle"></i></button>
+                                </div>
                             </div>
                         </div>
                     </div>

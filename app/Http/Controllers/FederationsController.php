@@ -13,6 +13,7 @@ use App\Sport;
 use App\Address;
 use App\Countries;
 use App\Subdomain_specific;
+use App\Federation_countries;
 
 class FederationsController extends Controller
 {
@@ -21,13 +22,14 @@ class FederationsController extends Controller
         $owners = $this->federationsOwnersGet();
         $sports = Sport::all();
         $federation = Federation_account::find($id);
+        $countries_federation = Federation_countries::find($id);
         $countries = Countries::all();
         $subdomains = Subdomain_specific::all();
         if ( ! empty($federation))
         {
             $federation->address = Address::find($federation->address_id);
         }
-        return compact('federation', 'owners', 'sports', 'countries', 'subdomains');
+        return compact('federation', 'owners', 'sports', 'countries', 'subdomains', 'countries_federation');
     }
 
     public function addPost($id = FALSE, $data = [])
@@ -52,13 +54,15 @@ class FederationsController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-
+        
     	$federation = Federation_account::firstOrNew(['id' => $id]);
         $federation->address_id = $this->addressSave($federation->address_id, $data);
     	$federation->name = $data['name'];
     	$federation->owner_id = $data['owner_id'];
     	$federation->sport_id = $data['sport_id'];
-    	$federation->save();
+        $federation->save();
+        $data_countries_id = explode(',', $data['countries_id']);
+        $federation->countries()->sync($data_countries_id);
 
         Federation_representative::where('federation_id', $federation->id)->update(['is_owner' => '0']);
         $owner = Federation_representative::find($federation->owner_id);
@@ -66,7 +70,7 @@ class FederationsController extends Controller
         $owner->is_owner = '1';
         $owner->save();
 
-         if (empty($id))
+        if (empty($id))
         {
             Activity::log([
                 'contentId'   => Auth::id(),
@@ -157,7 +161,7 @@ class FederationsController extends Controller
         $owner->country = $data['country'];
         $owner->email_address = $data['email_address'];
         $owner->phone_number = $data['phone_number'];
-        $owner->federation_id = $data['federation_id'];
+        $owner->federation_id = $data['federation_id']; 
         $owner->save();
 
         return $owner->id;
@@ -176,6 +180,7 @@ class FederationsController extends Controller
         $address->country = $country['full_name'];
         $address->details = $data['address_details'];
         $address->save();
+        
         return $address->id;
     }
 }

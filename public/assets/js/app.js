@@ -49,7 +49,6 @@ function formAjax()
 				fields[$(this).attr('name')] = $.trim($(this).val());
 			}
 		});
-
 		if (errors)
 		{
 			$.ajax({
@@ -131,10 +130,33 @@ function federationsOwnersSaved(data)
 }
 
 (function() {
+	var dataSelect = [];
 
 	$('#add-country').click(function(){
-		$('[name="federation_countries"]').append('<option value="foo">Foo</option>');
+		var optionText = $('[name="assign_countries"] option:selected').text();
+		var optionValue = $('[name="assign_countries"] option:selected').val();
+		if (dataSelect.indexOf(optionValue) !== -1) return;
+		$('[name="federation_countries"]').append('<option value="' + optionValue + '">' + optionText + '</option>');
+		dataSelect.push(optionValue);
+		$('[name="countries_id"]').val(dataSelect.join(','));
 	});
+
+	$('#remove-country').click(function(){
+		var removeOption = $('[name="federation_countries"] option:selected').remove().val();
+		var newValues = [];
+		for (key in dataSelect)
+		{
+			if (dataSelect[key] != removeOption)
+			{
+				newValues.push(dataSelect[key]);
+			}
+		}
+
+		dataSelect = newValues;
+		$('[name="countries_id"]').val(dataSelect.join(','));
+	});
+
+
 
 })();
 
