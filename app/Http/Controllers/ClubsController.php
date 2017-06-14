@@ -156,7 +156,4 @@ class ClubsController extends Controller
 
         return $address->id;
     }
-
-    $owner = new Role();
-    $owner->name = 'people';
 }
