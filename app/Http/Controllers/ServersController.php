@@ -61,19 +61,17 @@ class ServersController extends Controller
     public function filledPost($id = FALSE, $data = [])
     {
         $server = Server::find($id);
-        $server->is_filled = $data['filled'];
-        $message = "";
+        $server->is_filled = empty($data['filled']) ? 1 : 0;
+        $message ='';
         if($data['filled'] == '1')
         {
-            $messgae = 'Server is filled';
+            $message = 'Server is filled';;
         }
         else
         {
             $message = 'Server is not filled';
-        }
-        
+        }        
         $server->save();
-        
-        return redirect('servers/lists')->with('message', $message);
+        return $server->is_filled->with('message', TRUE);
     }
 }

@@ -282,6 +282,8 @@
             <div class="container-fluid">
                 <div class="page-content">
                     @yield('breadcrumbs')
+                    
+                    @yield('content')
 
                     @if (session('message'))
                     <div class="row">
@@ -293,8 +295,6 @@
                         </div>
                     </div>
                     @endif
-                    
-                    @yield('content')
 
                     @if (session('openModal'))
                     <div class="modal fade" id="not-club-add-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -377,5 +377,6 @@
         <!-- BEGIN PAGE CUSTOM SCRIPTS -->
         <script src="/assets/js/app.js" type="text/javascript"></script>
         <!-- END PAGE CUSTOM SCRIPTS -->
+        @yield('customJS')
     </body>
 </html>
