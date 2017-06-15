@@ -20,7 +20,7 @@ Route::get('/', function () {
 });
 
 Route::any('api/{unit}/{method}/{id?}', 'RoutesController@api');
-Route::any('{unit}/{method}/{id?}', 'RoutesController@index');
+Route::any('{unit}/{method}/{id?}', 'RoutesController@index')->middleware('roles');
 
 /*
 Route::get('/clubs/lists', 'ClubsController@lists');

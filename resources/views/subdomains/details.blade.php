@@ -25,14 +25,21 @@
                 <p>
                     {{ $subdomain->subdomain_link }}
                 </p>
-                <h4><strong>Web Server</strong></h4>
-                <p>
-                    {{ $subdomain->web_server_id }}
-                </p>
-                <h4><strong>Database Server</strong></h4>
-                <p>
-                    {{ $subdomain->database_server_id }}
-                </p>
+
+                @if (! empty($subdomain->web_server))
+                    <h4><strong>Web Server</strong></h4>
+                    <p>
+                        {{ $subdomain->web_server->ip_address }}
+                    </p>
+                @endif
+
+                @if (! empty($subdomain->database_server))
+                    <h4><strong>Database Server</strong></h4>
+                    <p>
+                        {{ $subdomain->database_server->ip_address }}
+                    </p>
+                @endif
+                
                 <h4><strong>Database Name</strong></h4>
                 <p>
                     {{ $subdomain->database_name }}

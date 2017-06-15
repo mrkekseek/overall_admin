@@ -57,7 +57,7 @@ class SubdomainsController extends Controller
 
     public function details($id = FALSE)
     {
-        $subdomain = Subdomain_specific::find($id);
+        $subdomain = Subdomain_specific::with('web_server', 'database_server')->find($id);
         return compact('subdomain');
     }
 

@@ -293,8 +293,23 @@
                         </div>
                     </div>
                     @endif
-
+                    
                     @yield('content')
+
+                    @if (session('openModal'))
+                    <div class="modal fade" id="not-club-add-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h3 class="text-center text-danger">Sorry!</h3>
+                                <p class="text-center">But, оnly the administrator has access to the page</p>
+                              </div>
+                        </div>
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>

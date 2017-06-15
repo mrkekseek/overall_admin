@@ -156,8 +156,11 @@ function federationsOwnersSaved(data)
 		$('[name="countries_id"]').val(dataSelect.join(','));
 	});
 
-
-
 })();
 
+;
+
+(function() {
+	$('#not-club-add-modal').modal('show');
+})()
 ;
