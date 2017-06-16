@@ -46,7 +46,7 @@ class RoutesController extends Controller
     	return redirect('login');
     }
 
-    public function api($unit, $method, $id = FALSE)
+    public function ajax($unit, $method, $id = FALSE)
     {
         $vars = [];
         if (Auth::check())
