@@ -277,7 +277,7 @@
 
 <div class="modal fade" id="add-owner" tabindex="-1" role="basic" aria-hidden="true">
     <div class="modal-dialog">
-        <form action="/api/federations/federationsOwnersSave/" method="post" class="modal-content formAjax" data-callback="federationsOwnersSaved">
+        <form action="/ajax/federations/federationsOwnersSave/" method="post" class="modal-content formAjax" data-callback="federationsOwnersSaved">
             {{ csrf_field() }}
             {{ method_field('POST') }}
 

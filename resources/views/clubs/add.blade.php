@@ -196,7 +196,7 @@
 
 <div class="modal fade" id="add-owner" tabindex="-1" role="basic" aria-hidden="true">
     <div class="modal-dialog">
-        <form action="/api/clubs/clubsOwnersSave/" method="post" class="modal-content formAjax" data-callback="clubsOwnersSaved">
+        <form action="/ajax/clubs/clubsOwnersSave/" method="post" class="modal-content formAjax" data-callback="clubsOwnersSaved">
             {{ csrf_field() }}
             {{ method_field('POST') }}
 
