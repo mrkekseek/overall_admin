@@ -282,20 +282,20 @@
             <div class="container-fluid">
                 <div class="page-content">
                     @yield('breadcrumbs')
-                    
-                    @yield('content')
 
-                    @if (session('message'))
                     <div class="row">
-                        <div class="col-sm-6">
-                            <div class="alert alert-success alert-dismissable">
-                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
-                                {{ session('message') }}
-                            </div>
+                        <div class="col-sm-6" data-target="message">
+                            @if (session('message'))
+                                <div class="alert alert-success alert-dismissable">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                                    {{ session('message') }}
+                                </div>                                
+                            @endif 
                         </div>
                     </div>
-                    @endif
 
+                    @yield('content')
+                    
                     @if (session('openModal'))
                     <div class="modal fade" id="not-club-add-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                         <div class="modal-dialog" role="document">
@@ -307,12 +307,12 @@
                                 <h3 class="text-center text-danger">Sorry!</h3>
                                 <p class="text-center">But, оnly the administrator has access to the page</p>
                               </div>
+                            </div>
                         </div>
-                    </div>
                     @endif
+                    </div>
                 </div>
             </div>
-        </div>
         <!-- END CONTAINER -->
 
         <!-- BEGIN CORE PLUGINS -->
@@ -377,6 +377,5 @@
         <!-- BEGIN PAGE CUSTOM SCRIPTS -->
         <script src="/assets/js/app.js" type="text/javascript"></script>
         <!-- END PAGE CUSTOM SCRIPTS -->
-        @yield('customJS')
     </body>
 </html>

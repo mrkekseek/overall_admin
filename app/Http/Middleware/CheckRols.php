@@ -22,7 +22,6 @@ class CheckRols
     public function handle($request, Closure $next, $guard = null)
     {
         $user = Auth::user();
-
         if ($request->path() == 'clubs/add')
         {
             if ($user->hasRole('admin'))

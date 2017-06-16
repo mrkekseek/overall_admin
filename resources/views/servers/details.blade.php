@@ -62,7 +62,7 @@
                 <input type="hidden" name="filled" value="0" />
                 
                 <div>
-                    <button type="button" class="btn btn-outline btn-circle blue" id="sendFilled">Mark as {{ empty($server->is_filled) ? 'Filled' : 'not Filled'}} </button>
+                    <button type="button" class="btn btn-outline btn-circle blue" id="sendFilled" data-id="{{ $id }}"></button>
                 </div>
             </form>
         </div>
@@ -74,21 +74,4 @@
     <button class="btn btn-outline btn-circle red" data-remove="/servers/remove/{{ $id }}"><i class="fa fa-trash"></i> Remove Server</button>
 </div>
 @endif
-@endsection
-
-@section('customJS')
-<script>
-    $('#sendFilled').click(function(){
-        var dataFilled = {'filled': $('input[name="filled"]').val(), '_token': "{{ csrf_token() }}" };
-        $.ajax({
-            type:'POST',
-            url:'/servers/filled/{{$id}}',
-            data: dataFilled,
-            success: function(data){
-                console.log(data);
-                $('input[name="filled"]').val(data);
-            }
-        });
-    })
-</script>
 @endsection

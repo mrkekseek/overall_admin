@@ -15,9 +15,8 @@
 	color: #009dc7;
 }
 
-#add-stop-new-club {
-	display: block;
-	color:#000;
-	background-color: green;
-	z-index: 1000000000000;
+#sendFilled{
+	-webkit-transition: all 1s;
+	-o-transition: all 1s;
+	transition: all 1s;
 }

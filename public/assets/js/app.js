@@ -164,3 +164,31 @@ function federationsOwnersSaved(data)
 	$('#not-club-add-modal').modal('show');
 })()
 ;
+
+(function() {
+
+$('#sendFilled').click(function(event){
+        var id = $('#sendFilled').data('id');
+        var dataFilled = {'filled': $('input[name="filled"]').val(), '_token':  $('input[name="_token"]').val()};
+
+        $.ajax({
+            type:'POST',
+            url:'/api/servers/filled/' + id,
+            data: dataFilled,
+            success: function(data)
+            { 
+               //var data = JSON.parse(data);
+               $('input[name="filled"]').val(data)
+               console.log(data)
+            }
+        });
+       
+    });
+
+    function message(text, type = 'success')
+    {
+        var content = '<div class="alert alert-success alert-dismissable fade in"><button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button> <span>Server ' + '' + text + '</span></div>';
+        $('[data-target="message"]').html(content);
+    };
+})()
+;
