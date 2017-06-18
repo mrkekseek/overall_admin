@@ -61,7 +61,7 @@ class ServersController extends Controller
     public function filled($id = FALSE, $data = [])
     {
         $server = Server::find($id);
-        $server->is_filled = ! empty($data['filled']);
+        $server->is_filled =  ! empty($data['filled']) ?  1 : 0;
         $server->save(); 
         return ['is_filled' => $server->is_filled];
     }

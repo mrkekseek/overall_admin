@@ -167,28 +167,53 @@ function federationsOwnersSaved(data)
 
 (function() {
 
+	buttonSendText();
+
 $('#sendFilled').click(function(event){
         var id = $('#sendFilled').data('id');
         var dataFilled = {'filled': $('input[name="filled"]').val(), '_token':  $('input[name="_token"]').val()};
 
         $.ajax({
             type:'POST',
-            url:'/api/servers/filled/' + id,
+            url:'/ajax/servers/filled/' + id,
             data: dataFilled,
             success: function(data)
             { 
-               //var data = JSON.parse(data);
-               $('input[name="filled"]').val(data)
-               console.log(data)
+            	data = JSON.parse(data);
+            	if (data.is_filled == 1)
+            	{
+            		$('input[name="filled"]').val(0);
+            		message('is filled', type = 'success');
+            		buttonSendText();
+            	}
+            	else
+            	{
+            		$('input[name="filled"]').val(1);
+            		message('is not filled', type = 'success');
+            		buttonSendText();
+            	}
             }
         });
-       
     });
-
+	
     function message(text, type = 'success')
     {
         var content = '<div class="alert alert-success alert-dismissable fade in"><button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button> <span>Server ' + '' + text + '</span></div>';
         $('[data-target="message"]').html(content);
     };
+
+    function buttonSendText()
+    {
+	    if ($('input[name="filled"]').val() == 1)
+		{
+			$('#sendFilled').text('Mark is not filled');
+		}
+		else
+		{
+			$('#sendFilled').text('Mark is filled');
+		}
+    };
+
+    
 })()
 ;

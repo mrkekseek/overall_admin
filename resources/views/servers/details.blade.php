@@ -59,7 +59,7 @@
             <form role="form" method="post">
                 {{ csrf_field() }}
                 {{ method_field('POST') }}
-                <input type="hidden" name="filled" value="0" />
+                <input type="hidden" name="filled" value="{{ empty($server->is_filled) ? '1' : '0'}}" />
                 
                 <div>
                     <button type="button" class="btn btn-outline btn-circle blue" id="sendFilled" data-id="{{ $id }}"></button>
