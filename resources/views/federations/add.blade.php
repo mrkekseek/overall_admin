@@ -79,7 +79,7 @@
                                 <select name="assign_countries" class="form-control" data-placeholder="Select a Federation Country">
                                     <option value="">Select country from a list</option>
                                     @foreach ($countries as $country)
-                                         <option value="{{ $country->id }}" {{ (old('country') == $country->id || old('country') == null && isset($federation->address->country) && $federation->address->country == $country->id) ? 'selected="selected"' : '' }}>{{ $country->full_name }}</option>
+                                         <option value="{{ $country->id }}">{{ $country->full_name }} </option>
                                     @endforeach
                                 </select>
 
@@ -98,7 +98,9 @@
 
                             <div class="col-lg-10 col-sm-9 col-xs-12 form-group">
                                 <select multiple name="federation_countries" class="form-control">
-                                    
+                                    @foreach ($federation->countries as $country_option)
+                                        <option value="{{ $country_option->id }}"> {{ $country_option->full_name }} </option>
+                                    @endforeach
                                 </select>
                             </div>
 
@@ -247,9 +249,10 @@
                                 <select name="country" class="form-control">
                                     <option value="">Select country from a list</option>
                                     @foreach ($countries as $country)
-                                        <option value="{{ $country->id }}" {{ (old('country') == $country->id || old('country') == null && isset($federation->address->country) && $federation->address->country == $country->id) ? 'selected="selected"' : '' }}>{{ $country->full_name }}</option>
+                                        <option value="{{ $country->id }}" {{ (old('country') == $country->id || old('country') == null && isset($federation->address->country) && $federation->address->country == $country->full_name) ? 'selected="selected"' : '' }}>{{ $country->full_name }}</option>
                                     @endforeach
                                 </select>
+
                                 @if ($errors->has('country'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('country') }}</strong>
