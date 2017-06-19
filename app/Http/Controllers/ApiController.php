@@ -22,6 +22,7 @@ class ApiController extends Controller
     }
      * 
      */
+    const APIKEY = 'apiKey-@f4g8-FH2-8809x-dj22aSwrL=cP24Zd234-TuJh87EqChVBGfs=SG564SD-fgAG47-747AhAP=U456=O97=Y=O6A=OC7b5645MNB-V4OO7Z-qw-OARSOc-SD456OFoCE-=64RW67=QOVq=';
     
     private static $message = [];
     private static $code;
@@ -38,7 +39,7 @@ class ApiController extends Controller
      */
     
     
-    public function get_federation_url($id = FALSE, $data = [], $request_method = FALSE)
+    public function get_federation_url($id = FALSE, $data = [], $request_method = FALSE, $api_key = FALSE)
     {
         $data = array_only($data, ['country', 'activity']);
         $data['request_method'] = $request_method;
@@ -47,7 +48,7 @@ class ApiController extends Controller
             'activity' => 'required|integer|exists:sports,id',
             'request_method' => 'in:GET',
         ];
-        if (! $this->validate_request($data, $rules) )
+        if (! $this->validate_request($data, $rules, $api_key) )
         {
             $response = [
                 'code' => self::$code,
@@ -84,7 +85,7 @@ class ApiController extends Controller
         return $response;
     }
     
-    public function register_club($id = FALSE, $data = [], $request_method = FALSE)
+    public function register_club($id = FALSE, $data = [], $request_method = FALSE, $api_key = FALSE)
     {
         $data = array_only($data, ['first_name', 'last_name', 'email', 'phone_no', 'club_name', 'country', 'base_activity']);
         $data['request_method'] = $request_method;
@@ -98,7 +99,7 @@ class ApiController extends Controller
             'base_activity' => 'required|integer|exists:sports,id',
             'request_method' => 'in:POST',
         ];
-        if (! $this->validate_request($data , $rules) )
+        if ( ! $this->validate_request($data , $rules, $api_key) )
         {
             $response = [
                 'code' => self::$code,
@@ -125,7 +126,7 @@ class ApiController extends Controller
             }
             else
             {
-                $club->country = $country->id;
+                $club->country = $country->iso_3166_2;
                 $club->main_sport_id = $data['base_activity'];
                 self::$message[] = $club->save() ? 'Club '.$data['club_name'].' created.' : '';
                 $response = [
@@ -138,7 +139,7 @@ class ApiController extends Controller
         return $response;
     }
     
-    public function update_default_activity($id = FALSE, $data = [], $request_method = FALSE)
+    public function update_default_activity($id = FALSE, $data = [], $request_method = FALSE, $api_key = FALSE)
     {
         $data = array_only($data, ['club_url', 'activity']);
         $data['request_method'] = $request_method;
@@ -147,7 +148,7 @@ class ApiController extends Controller
             'activity' => 'required|integer|exists:sports,id',
             'request_method' => 'in:POST',
         ];
-        if ( ! $this->validate_request($data , $rules) )
+        if ( ! $this->validate_request($data , $rules, $api_key) )
         {
             $response = [
                 'code' => self::$code,
@@ -181,7 +182,7 @@ class ApiController extends Controller
         return $response;
     }
     
-    private function validate_request($data, $rules, $messages = [])
+    private function validate_request($data, $rules, $api_key = FALSE)
     {
         $validator = Validator::make($data, $rules);
         if ($validator->fails())
@@ -195,7 +196,41 @@ class ApiController extends Controller
         }
         else
         {
-            return TRUE;
+            return $this->validate_api_key($data, $api_key);
         }
+    }
+    
+    private function validate_api_key($data, $api_key)
+    {
+        if ( ! empty($api_key))
+        {
+            $validate_data = $this->generate_api_key($data);
+            if ($api_key !== $validate_data['hash'])
+            {
+                self::$code = 2;
+                self::$message[] = 'Incorect Api key for '.$validate_data['data_encoded'].'.';
+            }
+            else
+            {
+                return TRUE;
+            }
+        }
+        else
+        {
+            self::$code = 2;
+            self::$message[] = 'Api key reqired.';
+        }
+        return FALSE;
+    }
+    
+    private function generate_api_key($data)
+    {
+        $method = $data['request_method'];
+        unset($data['request_method']);
+        $data = ($method == 'GET') ? http_build_query($data) : json_encode($data,JSON_UNESCAPED_SLASHES);
+        $result['hash'] = base64_encode(hash_hmac('sha256', $data, self::APIKEY, TRUE));
+        //dd($result['hash']);
+        $result['data_encoded'] = $data;
+        return $result;
     }
 }

@@ -74,7 +74,8 @@ class RoutesController extends Controller
         {
             $data = request()->all();
             $request_method = request()->method();
-            $vars = $controller->callAction($method, ['id' => $id, 'data' => $data, 'request_method'=>$request_method]);
+            $api_key = request()->header('ApiKey');
+            $vars = $controller->callAction($method, ['id' => $id, 'data' => $data, 'request_method'=>$request_method, 'api_key'=>$api_key]);
         }
         $vars = json_encode($vars, JSON_NUMERIC_CHECK);
         return $vars;
