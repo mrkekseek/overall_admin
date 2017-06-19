@@ -172,7 +172,6 @@ function federationsOwnersSaved(data)
 $('#sendFilled').click(function(event){
         var id = $('#sendFilled').data('id');
         var dataFilled = {'filled': $('input[name="filled"]').val(), '_token':  $('input[name="_token"]').val()};
-
         $.ajax({
             type:'POST',
             url:'/ajax/servers/filled/' + id,
@@ -213,7 +212,6 @@ $('#sendFilled').click(function(event){
 			$('#sendFilled').text('Mark is filled');
 		}
     };
-
-    
+ 
 })()
 ;

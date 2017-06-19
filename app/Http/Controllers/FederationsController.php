@@ -23,7 +23,7 @@ class FederationsController extends Controller
         $sports = Sport::all();
         $federation = Federation_account::find($id);
         $countries_federation = Federation_countries::find($id);
-        $countries = Countries::all();
+        $countries = Countries::orderBy('full_name', 'asc')->get();
         $subdomains = Subdomain_specific::all();
         if ( ! empty($federation))
         {

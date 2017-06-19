@@ -22,7 +22,7 @@ class ClubsController extends Controller
         $owners = $this->clubsOwnersGet();
         $sports = Sport::all();
         $club = Club_account::find($id);
-        $countries = Countries::all();
+        $countries = Countries::orderBy('full_name', 'asc')->get();
         $subdomains = Subdomain_specific::all();
         if ( ! empty($club))
         {

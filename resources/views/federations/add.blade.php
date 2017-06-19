@@ -77,9 +77,9 @@
                         <div class="row">
                             <div class="col-lg-10 col-sm-9 col-xs-12 form-group{{ $errors->has('assign_countries') ? ' has-error' : '' }}">
                                 <select name="assign_countries" class="form-control" data-placeholder="Select a Federation Country">
-                                    <option></option>
+                                    <option value="">Select country from a list</option>
                                     @foreach ($countries as $country)
-                                        <option value="{{ $country->id }}"  {{ (old('assign_countries') == $country->id || old('assign_countries') == null) ? 'selected="selected"' : '' }}>{{ $country->full_name }}</option>
+                                         <option value="{{ $country->id }}" {{ (old('country') == $country->id || old('country') == null && isset($federation->address->country) && $federation->address->country == $country->id) ? 'selected="selected"' : '' }}>{{ $country->full_name }}</option>
                                     @endforeach
                                 </select>
 
