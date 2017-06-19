@@ -12,4 +12,9 @@ class Federation_account extends Model
     {
         return $this->belongsToMany('App\Countries', 'federation_countries', 'federation_id', 'country_id')->withTimestamps();
     }
+    
+    public function subdomains()
+    {
+        return $this->belongsTo('App\Subdomain_specific', 'subdomain_specific_id');
+    }
 }

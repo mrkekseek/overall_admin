@@ -65,4 +65,18 @@ class RoutesController extends Controller
         $vars = json_encode($vars, JSON_NUMERIC_CHECK);
         return $vars;
     }
+    
+    public function api($method, $id = FALSE)
+    {
+        $vars = [];
+        $controller = app()->make('\App\Http\Controllers\ApiController');
+        if (method_exists($controller, $method))
+        {
+            $data = request()->all();
+            $request_method = request()->method();
+            $vars = $controller->callAction($method, ['id' => $id, 'data' => $data, 'request_method'=>$request_method]);
+        }
+        $vars = json_encode($vars, JSON_NUMERIC_CHECK);
+        return $vars;
+    }
 }
