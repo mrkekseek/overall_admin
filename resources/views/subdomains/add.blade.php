@@ -2,7 +2,7 @@
 
 @section('breadcrumbs')
 <div class="breadcrumbs">
-    <h1>Add New Subdomain</h1>
+   <h1>{{ ! empty($id) ? 'Edit' : 'Add New' }} Subdomain</h1>
 
     <ol class="breadcrumb">
         <li>
