@@ -131,7 +131,7 @@ function federationsOwnersSaved(data)
 
 (function() {
 	var dataSelect = [];
-
+	
 	$('#add-country').click(function(){
 		var optionText = $('[name="assign_countries"] option:selected').text();
 		var optionValue = $('[name="assign_countries"] option:selected').val();
@@ -155,6 +155,16 @@ function federationsOwnersSaved(data)
 		dataSelect = newValues;
 		$('[name="countries_id"]').val(dataSelect.join(','));
 	});
+
+	function selectInit()
+    {
+    	$('[name="federation_countries"] option').each(function(){
+			dataSelect.push($(this).val());
+		});
+		$('[name="countries_id"]').val(dataSelect.join(','));
+    };
+
+    selectInit();
 
 })();
 

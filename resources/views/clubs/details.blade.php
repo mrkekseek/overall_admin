@@ -84,7 +84,7 @@
 </div>
 
 <div>
-    <button class="btn btn-outline btn-circle red" data-remove="/clubs/remove/{{ $id }}"><i class="fa fa-trash"></i> Remove Account</button>
+    <button class="btn btn-outline red" data-remove="/clubs/remove/{{ $id }}"><i class="fa fa-trash"></i> Remove Account</button>
 </div>
 
 @endsection

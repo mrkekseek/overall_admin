@@ -2,7 +2,7 @@
 
 @section('breadcrumbs')
 <div class="breadcrumbs">
-    <h1>Add New Subdomain</h1>
+   <h1>{{ ! empty($id) ? 'Edit' : 'Add New' }} Subdomain</h1>
 
     <ol class="breadcrumb">
         <li>
@@ -41,9 +41,10 @@
                             <select name="web_server" class="form-control">
                                 <option value="">Select web server from a list</option>
                             @foreach($web_servers as $web_server)
-                                <option value="{{ $web_server->id }}" {{ (old('web_server') == $web_server->id) ? 'selected="selected"' : '' }}>{{ $web_server->ip_address }}</option>
+                                <option value="{{ $web_server->id }}" {{ (old('web_server') == $web_server->id || old('web_server') == null && isset($subdomain->web_server_id) && $subdomain->web_server_id == $web_server->id) ? 'selected="selected"' : '' }}> {{ $web_server->ip_address }}</option>
                             @endforeach
                             </select>
+
                             @if ($errors->has('web_server'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('web_server') }}</strong>
@@ -56,7 +57,7 @@
                             <select name="database_server" class="form-control">
                                 <option value="">Select database server from a list</option>
                             @foreach($database_servers as $database_server)
-                                <option value="{{ $database_server->id }}" {{ (old('web_server') == $database_server->id) ? 'selected="selected"' : '' }}>{{ $database_server->ip_address }}</option>
+                                <option value="{{ $database_server->id }}" {{ (old('database_server') == $database_server->id || old('database_server') == null && isset($subdomain->database_server_id) && $subdomain->database_server_id == $database_server->id) ? 'selected="selected"' : '' }}>{{ $database_server->ip_address }}</option>
                             @endforeach
                             </select>
                             @if ($errors->has('database_server'))
@@ -68,7 +69,7 @@
 
                         <div class="form-group{{ $errors->has('database_name') ? ' has-error' : '' }}">
                             <label class="bold">Database Name</label>
-                            <input name="database_name" type="text" class="form-control" placeholder="Database Name" value="" />
+                            <input name="database_name" type="text" class="form-control" placeholder="Database Name" value="{{ old('database_name') != null ? old('database_name') : (isset($subdomain->database_name) ? $subdomain->database_name : '') }}" />
                             @if ($errors->has('database_name'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('database_name') }}</strong>
@@ -78,7 +79,7 @@
 
                         <div class="form-group{{ $errors->has('database_user') ? ' has-error' : '' }}">
                             <label class="bold">Database User</label>
-                            <input name="database_user" type="text" class="form-control" placeholder="Database User" value="" />
+                            <input name="database_user" type="text" class="form-control" placeholder="Database User" value="{{ old('database_user') != null ? old('database_user') : (isset($subdomain->database_user) ? $subdomain->database_user : '') }}"   />
                             @if ($errors->has('database_user'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('database_user') }}</strong>
