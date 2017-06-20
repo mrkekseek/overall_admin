@@ -54,6 +54,6 @@
 </div>
 
 <div>
-    <button class="btn btn-outline btn-circle red" data-remove="/subdomains/remove/{{ $id }}"><i class="fa fa-trash"></i> Remove Subdomain</button>
+    <button class="btn btn-outline red" data-remove="/subdomains/remove/{{ $id }}"><i class="fa fa-trash"></i> Remove Subdomain</button>
 </div>
 @endsection
