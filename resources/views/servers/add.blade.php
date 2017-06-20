@@ -41,10 +41,10 @@
                                 <label class="bold">Server Type</label>
                                 <select name="server_type" class="form-control">
                                     <option value="">Select server type from a list</option>
-                                        <option value="web" {{ (old('server_type') == "web") ? 'selected="selected"' : '' }}>Web</option>
-                                        <option value="fileserver" {{ (old('server_type') == "fileserver") ? 'selected="selected"' : '' }}>Fileserver</option>
-                                        <option value="database" {{ (old('server_type') == "database") ? 'selected="selected"' : '' }}>Database</option>
-                                        <option value="backup" {{ (old('server_type') == "backup") ? 'selected="selected"' : '' }}>Backup</option>
+                                        <option value="web" {{ (old('server_type') == "web") || isset($server->server_type) && $server->server_type == "web" ? 'selected="selected"' : '' }}>Web</option>
+                                        <option value="fileserver" {{ (old('server_type') == "fileserver") || isset($server->server_type) && $server->server_type == "fileserver" ? 'selected="selected"' : '' }}>Fileserver</option>
+                                        <option value="database" {{ (old('server_type') == "database") || isset($server->server_type) && $server->server_type == "database" ? 'selected="selected"' : '' }}>Database</option>
+                                        <option value="backup" {{ (old('server_type') == "backup") || isset($server->server_type) && $server->server_type == "backup" ? 'selected="selected"' : '' }}>Backup</option>
                                 </select>
                                 @if ($errors->has('server_type'))
                                     <span class="help-block">
@@ -57,11 +57,11 @@
                                 <label class="bold">Performance Level</label>
                                 <select name="perfomance_level" class="form-control">
                                     <option value="">Select performance level from a list</option>
-                                    <option value="1" {{ (old('perfomance_level') == "1") ? 'selected="selected"' : '' }}>1</option>
-                                    <option value="2" {{ (old('perfomance_level') == "2") ? 'selected="selected"' : '' }}>2</option>
-                                    <option value="3" {{ (old('perfomance_level') == "3") ? 'selected="selected"' : '' }}>3</option>
-                                    <option value="4" {{ (old('perfomance_level') == "4") ? 'selected="selected"' : '' }}>4</option>
-                                    <option value="5" {{ (old('perfomance_level') == "5") ? 'selected="selected"' : '' }}>5</option>
+                                    <option value="1" {{ (old('perfomance_level') == "1") || isset($server->perfomance_level) && $server->perfomance_level == "1" ? 'selected="selected"' : ''  }}>1</option>
+                                    <option value="2" {{ (old('perfomance_level') == "2") || isset($server->perfomance_level) && $server->perfomance_level == "2" ? 'selected="selected"' : ''  }}>2</option>
+                                    <option value="3" {{ (old('perfomance_level') == "3") || isset($server->perfomance_level) && $server->perfomance_level == "3" ? 'selected="selected"' : ''  }}>3</option>
+                                    <option value="4" {{ (old('perfomance_level') == "4") || isset($server->perfomance_level) && $server->perfomance_level == "4" ? 'selected="selected"' : ''  }}>4</option>
+                                    <option value="5" {{ (old('perfomance_level') == "5") || isset($server->perfomance_level) && $server->perfomance_level == "5" ? 'selected="selected"' : ''  }}>5</option>
                                 </select>
                                 @if ($errors->has('perfomance_level'))
                                     <span class="help-block">
