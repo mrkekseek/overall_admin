@@ -9,27 +9,12 @@ use App\Federation_account;
 
 class ApiController extends Controller
 {
-    //use DispatchesJobs, ValidatesRequests;
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    /*
-    protected function formatValidationErrors(Validator $validator)
-    {
-        return $validator->errors()->all();
-    }
-     * 
-     */
-    //const APIKEY = 'apiKey-@f4g8-FH2-8809x-dj22aSwrL=cP24Zd234-TuJh87EqChVBGfs=SG564SD-fgAG47-747AhAP=U456=O97=Y=O6A=OC7b5645MNB-V4OO7Z-qw-OARSOc-SD456OFoCE-=64RW67=QOVq=';
-    
     private static $message = [];
     private static $code;
     
     public function __construct()
     {
-        //$this->middleware('auth');
+        
     }
 
     /**
@@ -39,16 +24,13 @@ class ApiController extends Controller
      */
     
     
-    public function get_federation_url($id = FALSE, $data = [], $request_method = FALSE, $api_key = FALSE)
+    public function get_federation_urlPost($id = FALSE, $data = [])
     {
-        $data = array_only($data, ['country', 'activity']);
-        $data['request_method'] = $request_method;
+        $data = array_only($data, ['account_key']);
         $rules = [
-            'country' => 'required|size:2|exists:countries,iso_3166_2',
-            'activity' => 'required|integer|exists:sports,id',
-            'request_method' => 'in:GET',
+            'account_key' => 'required|size:49',
         ];
-        if (! $this->validate_request($data, $rules, $api_key) )
+        if (! $this->validate_request($data, $rules) )
         {
             $response = [
                 'code' => self::$code,
@@ -85,10 +67,9 @@ class ApiController extends Controller
         return $response;
     }
     
-    public function register_club($id = FALSE, $data = [], $request_method = FALSE, $api_key = FALSE)
+    public function register_clubPost($id = FALSE, $data = [])
     {
         $data = array_only($data, ['first_name', 'last_name', 'email', 'phone_no', 'club_name', 'country', 'base_activity']);
-        $data['request_method'] = $request_method;
         $rules = [
             'first_name' => 'required|string',
             'last_name' => 'required|string',
@@ -97,9 +78,8 @@ class ApiController extends Controller
             'club_name' => 'required|string',
             'country' => 'required|size:2|exists:countries,iso_3166_2',
             'base_activity' => 'required|integer|exists:sports,id',
-            'request_method' => 'in:POST',
         ];
-        if ( ! $this->validate_request($data , $rules, $api_key) )
+        if ( ! $this->validate_request($data , $rules) )
         {
             $response = [
                 'code' => self::$code,
@@ -182,7 +162,7 @@ class ApiController extends Controller
         return $response;
     }
     
-    private function validate_request($data, $rules, $api_key = FALSE)
+    private function validate_request($data, $rules)
     {
         $validator = Validator::make($data, $rules);
         if ($validator->fails())
@@ -194,13 +174,10 @@ class ApiController extends Controller
             self::$code = 3;
             return FALSE;
         }
-        else
-        {
-            //return $this->validate_api_key($data, $api_key);
-            //dd('stop')
-        }
+        return TRUE;
     }
     
+    /*
     private function validate_api_key($data, $api_key)
     {
         if ( ! empty($api_key))
@@ -234,4 +211,6 @@ class ApiController extends Controller
         $result['data_encoded'] = $data;
         return $result;
     }
+     * *
+     */
 }
