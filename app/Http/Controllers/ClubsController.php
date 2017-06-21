@@ -61,6 +61,8 @@ class ClubsController extends Controller
     	$club->main_sport_id = $data['main_sport_id'];
         $club->details = $data['details'];
         $club->subdomain_specific_id = $data['assign_subdomain'];
+        $club->account_key = $club->exists ? $club->account_key : generate_account_key();
+       
     	$club->save();
 
         if (empty($id))

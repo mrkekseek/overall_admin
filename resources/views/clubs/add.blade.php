@@ -27,6 +27,10 @@
                 <div class="portlet-body form">
                     <h4>Basic Information</h4>
 
+                    @if(isset($club->account_key))
+                        <h5> Your account key : <strong>{{ $club->account_key }}</strong></h5>
+                    @endif
+
                     <div class="form-body">
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label class="bold">Club name</label>

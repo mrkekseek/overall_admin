@@ -28,6 +28,10 @@
                 <div class="portlet-body form">
                     <h4>Basic Information</h4>
 
+                    @if(isset($federation->account_key))
+                        <h5> Your account key : <strong>{{ $federation->account_key }}</strong></h5>
+                    @endif
+
                     <div class="form-body">
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label class="bold">Federation name</label>
@@ -98,12 +102,14 @@
 
                             <div class="col-lg-10 col-sm-9 col-xs-12 form-group">
                                 <select multiple name="federation_countries" class="form-control">
-                                    @foreach ($federation->countries as $country_option)
-                                        <option value="{{ $country_option->id }}"> {{ $country_option->full_name }} </option>
-                                    @endforeach
+                                @if ( ! empty($federation->countries))
+                                @foreach ($federation->countries as $country_option)
+                                    <option value="{{ $country_option->id }}"> {{ $country_option->full_name }} </option>
+                                @endforeach
+                                @endif
                                 </select>
                             </div>
-
+                           
                             <div class="col-lg-2 col-sm-3 col-xs-12 form-group">
                                 <div data-toggle="tooltip" data-placement="top" title="Remove country" data-trigger="hover">
                                     <button type="button" class="btn btn-default btn-block" id="remove-country"><i class="fa fa-minus-circle"></i></button>

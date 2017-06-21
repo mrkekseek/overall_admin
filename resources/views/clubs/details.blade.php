@@ -3,7 +3,6 @@
 @section('breadcrumbs')
 <div class="breadcrumbs">
     <h1>{{ $club->name }}</h1>
-
     <ol class="breadcrumb">
         <li>
             <a href="/dashboard">Dashboard</a>
@@ -17,6 +16,11 @@
 @endsection
 
 @section('content')
+<div class="row">
+    <div class="col-md-12">
+        <h5> Your account key : <strong>{{ $club->account_key }}</strong></h5>
+    </div>
+</div>
 <div class="row">
     <div class="col-sm-6">
         <div class="portlet light bordered">
