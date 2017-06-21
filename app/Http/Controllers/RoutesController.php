@@ -70,12 +70,20 @@ class RoutesController extends Controller
     {
         $vars = [];
         $controller = app()->make('\App\Http\Controllers\ApiController');
-        if (method_exists($controller, $method))
+        $request_method = strtolower(request()->method());
+        $func = strtolower($method).(ucfirst($request_method));
+        $data = request()->all();
+        if (method_exists($controller, $func))
         {
-            $data = request()->all();
-            $request_method = request()->method();
-            $api_key = request()->header('ApiKey');
-            $vars = $controller->callAction($method, ['id' => $id, 'data' => $data, 'request_method'=>$request_method, 'api_key'=>$api_key]);
+            $vars = $controller->callAction($func, ['id' => $id, 'data' => $data]);
+        }
+        else
+        {
+            $vars = [
+                'code' => 5,
+                'message' => ['Method not fount.'],
+            ];
+            
         }
         $vars = json_encode($vars, JSON_NUMERIC_CHECK);
         return $vars;

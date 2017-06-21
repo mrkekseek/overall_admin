@@ -15,7 +15,7 @@ Illuminate\Support\Facades\Artisan::call('migrate');
 
 Route::auth();
 
-Route::any('api/{method}/{id?}', 'RoutesController@api');
+Route::any('api/{method}/{id?}', 'RoutesController@api')->middleware('apikey');
 
 Route::get('/', function () {
 	return view(Auth::check() ? 'dashboard' : 'auth.login');
