@@ -28,7 +28,7 @@ class ApiController extends Controller
     {
         $data = array_only($data, ['account_key']);
         $rules = [
-            'account_key' => 'required|size:49',
+            'account_key' => 'required|size:29',
         ];
         if (! $this->validate_request($data, $rules) )
         {
@@ -40,26 +40,21 @@ class ApiController extends Controller
         //find subdomain link 
         else
         {
-            $query = Federation_account::query();
-            $query->where('sport_id', $data['activity']);
-            $query->with([
-                'countries'=>function ($query) use ($data){
-                    $query->where('iso_3166_2', $data['country']);
-            },
-                'subdomains']);
-            $federation = $query->first();
-            if (empty($federation))
+            $federation = Federation_account::where('account_key', $data['account_key'])
+                ->with('subdomains')    
+                ->first();
+            if (empty($federation->subdomains))
             {
                 $response = [
                     'code' => 4,
-                    'message' => ["Subdomain not found"],
+                    'message' => ["Subdomain url not found"],
                 ];
             }
             else
             {
                 $response = [
                     'code' => 1,
-                    'message' => ["Subdomain founded"],
+                    'message' => ["Subdomain url founded"],
                     'url' => $federation->subdomains->subdomain_link
                 ];
             }
@@ -67,7 +62,7 @@ class ApiController extends Controller
         return $response;
     }
     
-    public function register_clubPost($id = FALSE, $data = [])
+    public function register_clubPostTest($id = FALSE, $data = [])
     {
         $data = array_only($data, ['first_name', 'last_name', 'email', 'phone_no', 'club_name', 'country', 'base_activity']);
         $rules = [
@@ -119,7 +114,7 @@ class ApiController extends Controller
         return $response;
     }
     
-    public function update_default_activity($id = FALSE, $data = [], $request_method = FALSE, $api_key = FALSE)
+    public function update_default_activityTest($id = FALSE, $data = [], $request_method = FALSE, $api_key = FALSE)
     {
         $data = array_only($data, ['club_url', 'activity']);
         $data['request_method'] = $request_method;
