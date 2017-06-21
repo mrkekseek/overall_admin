@@ -70,14 +70,70 @@ class RoutesController extends Controller
     {
         $vars = [];
         $controller = app()->make('\App\Http\Controllers\ApiController');
-        if (method_exists($controller, $method))
+        $request_method = strtolower(request()->method());
+        $func = strtolower($method).(ucfirst($request_method));
+        $api_key = request()->header('ApiKey');
+        $data = request()->all();
+        
+        if ($this->validate_api_key($data, $api_key) && method_exists($controller, $func))
         {
-            $data = request()->all();
-            $request_method = request()->method();
-            $api_key = request()->header('ApiKey');
-            $vars = $controller->callAction($method, ['id' => $id, 'data' => $data, 'request_method'=>$request_method, 'api_key'=>$api_key]);
+            //$request_method = request()->method();
+            $vars = $controller->callAction($method, ['id' => $id, 'data' => $data, 'api_key'=>$api_key]);
+        }
+        else
+        {
+            $vars = [
+                'code' => 5,
+                'message' => ['Method not fount.'],
+            ];
+            
         }
         $vars = json_encode($vars, JSON_NUMERIC_CHECK);
         return $vars;
+    }
+    
+    private function validate_api_key($data, $api_key)
+    {
+        $local_api_key = env('API_KEY');
+        if (empty($local_api_key))
+        {
+            return [
+                'code' => 2,
+                'message' => ['Api not available.'],
+            ];
+        }
+        
+        if ( ! empty($api_key))
+        {
+            $validate_data = $this->generate_api_key($data);
+            if ($api_key !== $validate_data['hash'])
+            {
+                self::$code = 2;
+                self::$message[] = 'Incorect Api key for '.$validate_data['data_encoded'].'.';
+            }
+            else
+            {
+                return TRUE;
+            }
+        }
+        else
+        {
+            return [
+                'code' => 2,
+                'message' => ['Api key reqired.'],
+            ];
+        }
+        return FALSE;
+    }
+    
+    private function generate_api_key($data)
+    {
+        $method = $data['request_method'];
+        unset($data['request_method']);
+        $data = ($method == 'GET') ? http_build_query($data) : json_encode($data,JSON_UNESCAPED_SLASHES);
+        $result['hash'] = base64_encode(hash_hmac('sha256', $data, self::APIKEY, TRUE));
+        //dd($result['hash']);
+        $result['data_encoded'] = $data;
+        return $result;
     }
 }

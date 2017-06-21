@@ -22,7 +22,7 @@ class ApiController extends Controller
     }
      * 
      */
-    const APIKEY = 'apiKey-@f4g8-FH2-8809x-dj22aSwrL=cP24Zd234-TuJh87EqChVBGfs=SG564SD-fgAG47-747AhAP=U456=O97=Y=O6A=OC7b5645MNB-V4OO7Z-qw-OARSOc-SD456OFoCE-=64RW67=QOVq=';
+    //const APIKEY = 'apiKey-@f4g8-FH2-8809x-dj22aSwrL=cP24Zd234-TuJh87EqChVBGfs=SG564SD-fgAG47-747AhAP=U456=O97=Y=O6A=OC7b5645MNB-V4OO7Z-qw-OARSOc-SD456OFoCE-=64RW67=QOVq=';
     
     private static $message = [];
     private static $code;
@@ -196,7 +196,8 @@ class ApiController extends Controller
         }
         else
         {
-            return $this->validate_api_key($data, $api_key);
+            //return $this->validate_api_key($data, $api_key);
+            //dd('stop')
         }
     }
     
