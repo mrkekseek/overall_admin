@@ -59,6 +59,7 @@ class FederationsController extends Controller
     	$federation->name = $data['name'];
     	$federation->owner_id = $data['owner_id'];
     	$federation->sport_id = $data['sport_id'];
+        $federation->account_key = $federation->exists ? $federation->account_key : rand(10000,99999).'-'.rand(10000,99999).'-'.rand(10000,99999).'-'.rand(10000,99999).'-'.rand(10000,99999);
         $federation->save();
         $data_countries_id = explode(',', $data['countries_id']);
         $federation->countries()->sync($data_countries_id);
@@ -82,7 +83,7 @@ class FederationsController extends Controller
         }
         else
         {
-             Activity::log([
+            Activity::log([
                 'contentId'   => Auth::id(),
                 'contentType' => 'Federation',
                 'action'      => 'Create',

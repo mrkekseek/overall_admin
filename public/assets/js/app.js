@@ -108,7 +108,7 @@ function federationsOwnersGet(id = false)
 {
 	var federation_id = '/' + (window.location.pathname.split('/')[3] || 0);
 
-	$.get('/api/federations/federationsOwnersGet' + federation_id, {}, function(data) {
+	$.get('/ajax/federations/federationsOwnersGet' + federation_id, {}, function(data) {
 		var owners = '<option></option>';
 		for (var k in data)
 		{

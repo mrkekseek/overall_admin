@@ -105,7 +105,7 @@
 		                        <select name="country" class="form-control">
 		                        	<option value="">Select country from a list</option>
 	                            @foreach($countries as $country)
-                                    <option value="{{ $country->id }}" {{ (old('country') == $country->id || old('country') == null) ? 'selected="selected"' : '' }}>{{ $country->full_name }}</option>
+                                    <option value="{{ $country->id }}" {{ (old('country') == $country->id || old('country') == null && isset($user->country) && $user->country == $country->full_name) ? 'selected="selected"' : '' }}>{{ $country->full_name }}</option>
                                 @endforeach
 		                        </select>
 		                        @if ($errors->has('country'))
@@ -131,9 +131,9 @@
 		                        <label class="bold">Status</label>
 		                        <select name="user_status" class="form-control">
 		                        	<option value="">Select status of the user</option>
-		                        	@foreach($user_statuses as $status)
-		                        		<option value="{{ $status->id }}" {{ (old('user_status') == $status->id || old('user_status') == null) ? 'selected="selected"' : '' }}>{{ $status->status_name }}</option>
-		                        	@endforeach
+	                        	@foreach($user_statuses as $status)
+	                        		<option value="{{ $status->id }}" {{ (old('user_status') == $status->id || old('user_status') == null && isset($user->user_status) && $user->user_status == $status->status_name) ? 'selected="selected"' : '' }}>{{ $status->status_name }}</option>
+	                        	@endforeach
 		                        </select>
 		                        @if ($errors->has('user_status'))
 	                                <span class="help-block">
