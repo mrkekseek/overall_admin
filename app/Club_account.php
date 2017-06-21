@@ -12,4 +12,9 @@ class Club_account extends Model
     {
         return $this->belongsTo('App\Subdomain_specific', 'subdomain_specific_id');
     }
+
+    public function generate_account_key()
+    {
+    	return rand(10000,99999).'-'.rand(10000,99999).'-'.rand(10000,99999).'-'.rand(10000,99999).'-'.rand(10000,99999);
+    }
 }

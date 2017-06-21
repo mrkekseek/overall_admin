@@ -59,7 +59,7 @@ class FederationsController extends Controller
     	$federation->name = $data['name'];
     	$federation->owner_id = $data['owner_id'];
     	$federation->sport_id = $data['sport_id'];
-        $federation->account_key = $federation->exists ? $federation->account_key : rand(10000,99999).'-'.rand(10000,99999).'-'.rand(10000,99999).'-'.rand(10000,99999).'-'.rand(10000,99999);
+        $federation->account_key = $federation->exists ? $federation->account_key : $federation->generate_account_key();
         $federation->save();
         $data_countries_id = explode(',', $data['countries_id']);
         $federation->countries()->sync($data_countries_id);
