@@ -9,6 +9,8 @@ use App\Federation_account;
 
 class ApiController extends Controller
 {
+    const VERSION = '0.7.2.2';
+
     private static $message = [];
     private static $code;
     
@@ -37,7 +39,6 @@ class ApiController extends Controller
                 'message' => self::$message,
             ];
         }
-        //find subdomain link 
         else
         {
             $federation = Federation_account::where('account_key', $data['account_key'])
@@ -62,7 +63,7 @@ class ApiController extends Controller
         return $response;
     }
     
-    public function register_clubPostTest($id = FALSE, $data = [])
+    public function register_clubPost($id = FALSE, $data = [])
     {
         $data = array_only($data, ['first_name', 'last_name', 'email', 'phone_no', 'club_name', 'country', 'base_activity']);
         $rules = [
@@ -102,6 +103,7 @@ class ApiController extends Controller
             else
             {
                 $club->country = $country->iso_3166_2;
+                $club->account_key = $club->generate_account_key();
                 $club->main_sport_id = $data['base_activity'];
                 self::$message[] = $club->save() ? 'Club '.$data['club_name'].' created.' : '';
                 $response = [
@@ -114,16 +116,14 @@ class ApiController extends Controller
         return $response;
     }
     
-    public function update_default_activityTest($id = FALSE, $data = [], $request_method = FALSE, $api_key = FALSE)
+    public function mark_registrationPost ($id = FALSE, $data = [])
     {
-        $data = array_only($data, ['club_url', 'activity']);
-        $data['request_method'] = $request_method;
+        $data = array_only($data, ['account_key', 'activity']);
         $rules = [
-            'club_url' => 'required|url',
+            'account_key' => 'required|size:29',
             'activity' => 'required|integer|exists:sports,id',
-            'request_method' => 'in:POST',
         ];
-        if ( ! $this->validate_request($data , $rules, $api_key) )
+        if ( ! $this->validate_request($data , $rules) )
         {
             $response = [
                 'code' => self::$code,
@@ -132,9 +132,56 @@ class ApiController extends Controller
         }
         else
         {
-            $club = \App\Club_account::whereHas('subdomains', function($query) use ($data){
-                $query->where('subdomain_link', $data['club_url']);
-            })->with('subdomains')->first();
+            $club = \App\Club_account::where('account_key', $data['account_key'])->first();
+            if ( ! empty($club))
+            {
+                if ($club->main_sport_id != $data['activity'])
+                {
+                    $response = [
+                        'code' => 4,
+                        'message' => 'Current club activity not '.$data['activity'].'.',
+                    ];
+                }
+                else
+                {
+                    $club->status = 2;
+                    if ($club->save())
+                    {
+                        $response = [
+                            'code' => 1,
+                            'message' => 'Club registration marked as finished',
+                        ];
+                    }
+                }
+            }
+            else 
+            {
+                $response = [
+                    'code' => 4,
+                    'message' => 'Club with key '.$data['account_key'].' not fount.',
+                ];
+            }
+        }
+        return $response;
+    }
+    
+    public function update_default_activityPost($id = FALSE, $data = [])
+    {
+        $data = array_only($data, ['account_key', 'activity']);
+        $rules = [
+            'account_key' => 'required|size:29',
+            'activity' => 'required|integer|exists:sports,id',
+        ];
+        if ( ! $this->validate_request($data , $rules) )
+        {
+            $response = [
+                'code' => self::$code,
+                'message' => self::$message,
+            ];
+        }
+        else
+        {
+            $club = \App\Club_account::where('account_key', $data['account_key'])->first();
             if ( ! empty($club))
             {
                 $club->main_sport_id = $data['activity'];
@@ -149,8 +196,66 @@ class ApiController extends Controller
             else 
             {
                 $response = [
+                    'code' => 4,
+                    'message' => 'Club with key '.$data['account_key'].' not found.',
+                ];
+            }
+        }
+        return $response;
+    }
+    
+    public function statusGet($id = FALSE, $data = [])
+    {
+        return [
+            'code' => 1,
+            'message' => 'Version '.self::VERSION
+        ];
+    }
+    
+    public function validate_account_keyPost($id = FALSE, $data = [])
+    {
+        $data = array_only($data, ['account_key']);
+        $rules = [
+            'account_key' => 'required|size:29',
+        ];
+        if ( ! $this->validate_request($data , $rules) )
+        {
+            $response = [
+                'code' => self::$code,
+                'message' => self::$message,
+            ];
+        }
+        else
+        {
+            $club = \App\Club_account::where('account_key', $data['account_key'])->with('owners', 'subdomains')->first();
+            if ( ! empty($club))
+            {
+                $owner = [
+                    'first_name' => $club->owners->first_name,
+                    'last_name' => $club->owners->last_name,
+                    'middle_name' => $club->owners->middle_name,
+                    'email_address' => $club->owners->email_address,
+                    'phone_number' => $club->owners->phone_number,
+                ];
+                $account = [
+                    'name' => $club->name,
+                    'subdomain' => empty($club->subdomains) ? FALSE : $club->subdomains->subdomain_link,
+                ];
+                $account_details = [
+                    'owner' => $owner,
+                    'account' => $account,
+                ];
+                $response = [
+                    'code' => 1,
+                    'account_details' => $account_details,   
+                    'message' => 'Club founded.',
+                ];
+            }
+            else 
+            {
+                $response = [
                         'code' => 4,
-                        'message' => 'Club with url '.$data['club_url'].' not fount.',
+                        'message' => 'Club with key '.$data['account_key'].' not found.',
                     ];
             }
         }
@@ -171,41 +276,4 @@ class ApiController extends Controller
         }
         return TRUE;
     }
-    
-    /*
-    private function validate_api_key($data, $api_key)
-    {
-        if ( ! empty($api_key))
-        {
-            $validate_data = $this->generate_api_key($data);
-            if ($api_key !== $validate_data['hash'])
-            {
-                self::$code = 2;
-                self::$message[] = 'Incorect Api key for '.$validate_data['data_encoded'].'.';
-            }
-            else
-            {
-                return TRUE;
-            }
-        }
-        else
-        {
-            self::$code = 2;
-            self::$message[] = 'Api key reqired.';
-        }
-        return FALSE;
-    }
-    
-    private function generate_api_key($data)
-    {
-        $method = $data['request_method'];
-        unset($data['request_method']);
-        $data = ($method == 'GET') ? http_build_query($data) : json_encode($data,JSON_UNESCAPED_SLASHES);
-        $result['hash'] = base64_encode(hash_hmac('sha256', $data, self::APIKEY, TRUE));
-        //dd($result['hash']);
-        $result['data_encoded'] = $data;
-        return $result;
-    }
-     * *
-     */
 }
