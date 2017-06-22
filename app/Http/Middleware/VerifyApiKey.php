@@ -44,7 +44,6 @@ class VerifyApiKey
             if ($api_key !== $validate_data['hash'])
             {
                 self::$message = 'Incorect Api key for '.$validate_data['data_encoded'].'.';
-                //dd(self::$message);
                 return FALSE;
             }
             else
