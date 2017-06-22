@@ -61,7 +61,7 @@ class ClubsController extends Controller
     	$club->main_sport_id = $data['main_sport_id'];
         $club->details = $data['details'];
         $club->subdomain_specific_id = $data['assign_subdomain'];
-        $club->account_key = $club->exists ? $club->account_key : generate_account_key();
+        $club->account_key = $club->exists ? $club->account_key : $club->generate_account_key();
        
     	$club->save();
 
@@ -107,8 +107,8 @@ class ClubsController extends Controller
 
     public function details($id = FALSE)
     {
-        $club = Club_account::find($id);
-        return compact('club');
+        $club = Club_account::with('sport', 'subdomains', 'owners', 'address')->find($id);
+        return compact('club', 'sport', 'subdomains', 'owners', 'address');
     }
 
     public function remove($id = FALSE)
