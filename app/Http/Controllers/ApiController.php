@@ -86,7 +86,14 @@ class ApiController extends Controller
         {
             $country = \App\Countries::where('iso_3166_2', $data['country'])->first();
             $owner = \App\Club_owner::firstOrNew(['email_address'=>$data['email']]);
-            $owner->save();
+            if ( ! $owner->exists)
+            {
+                $owner->first_name = $data['first_name'];
+                $owner->last_name = $data['last_name'];
+                $owner->phone_number = $data['phone_no'];
+                $owner->country = $country->iso_3166_2;
+                $owner->save();
+            }
             $club = \App\Club_account::firstOrNew([
                 'name' => $data['club_name'],
                 'owner_id' => $owner->id,
