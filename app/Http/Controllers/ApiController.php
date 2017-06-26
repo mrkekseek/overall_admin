@@ -235,6 +235,7 @@ class ApiController extends Controller
         else
         {
             $club = \App\Club_account::where('account_key', $data['account_key'])->with('owners', 'subdomains')->first();
+            $federation = \App\Federation_account::where('account_key', $data['account_key'])->with('owners', 'subdomains')->first();
             if ( ! empty($club))
             {
                 $owner = [
@@ -248,6 +249,7 @@ class ApiController extends Controller
                     'name' => $club->name,
                     'subdomain' => empty($club->subdomains) ? FALSE : $club->subdomains->subdomain_link,
                 ];
+                $message = "Club founded.";
                 $account_details = [
                     'owner' => $owner,
                     'account' => $account,
@@ -255,14 +257,38 @@ class ApiController extends Controller
                 $response = [
                     'code' => 1,
                     'account_details' => $account_details,   
-                    'message' => 'Club founded.',
+                    'message' => $message,
+                ];
+            }
+            elseif( ! empty($federation))
+            {
+                $owner = [
+                    'first_name' => $federation->owners->first_name,
+                    'last_name' => $federation->owners->last_name,
+                    'middle_name' => $federation->owners->middle_name,
+                    'email_address' => $federation->owners->email_address,
+                    'phone_number' => $federation->owners->phone_number,
+                ];
+                $account = [
+                    'name' => $federation->name,
+                    'subdomain' => empty($federation->subdomains) ? FALSE : $federation->subdomains->subdomain_link,
+                ];
+                $message = "Federation founded.";
+                $account_details = [
+                    'owner' => $owner,
+                    'account' => $account,
+                ];
+                $response = [
+                    'code' => 1,
+                    'account_details' => $account_details,   
+                    'message' => $message,
                 ];
             }
             else 
             {
                 $response = [
                         'code' => 4,
-                        'message' => 'Club with key '.$data['account_key'].' not found.',
+                        'message' => 'Club or federation with key '.$data['account_key'].' not found.',
                     ];
             }
         }

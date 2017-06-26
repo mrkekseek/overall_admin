@@ -17,6 +17,11 @@ class Federation_account extends Model
     {
         return $this->belongsTo('App\Subdomain_specific', 'subdomain_specific_id');
     }
+    
+    public function owners()
+    {
+        return $this->belongsTo('App\Federation_representative', 'owner_id');
+    }
 
     public function generate_account_key()
     {
