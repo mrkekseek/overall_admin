@@ -138,6 +138,7 @@ class ClubsController extends Controller
         $owner->email_address = $data['email_address'];
         $owner->phone_number = $data['phone_number'];
         $owner->gender = $data['gender'];
+        $owner->date_of_birth = date('Y-m-d', strtotime($data['date_of_birth'])); 
         $owner->save();
         return $owner->id;
     }
