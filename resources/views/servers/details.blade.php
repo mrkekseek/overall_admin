@@ -61,11 +61,13 @@
                 {{ method_field('POST') }}
                 <input type="hidden" name="filled" value="{{ empty($server->is_filled) ? '1' : '0'}}" />
 
-                @if($server->is_filled == 0)
+               
                 <div>
+                    @if($server->is_filled == 0)
                     <button type="button" class="btn btn-outline blue" id="sendFilled" data-id="{{ $id }}">Mark is not filled</button>
+                    @endif
                 </div>
-                @endif
+               
             </form>
         </div>
     </div>

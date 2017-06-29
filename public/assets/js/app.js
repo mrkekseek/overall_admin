@@ -195,7 +195,7 @@ $('#sendFilled').click(function(event){
             }
         });
 
-        $(this).hide();
+        $(this).hide('1000');
     });
 	
     function message(type = 'success')
