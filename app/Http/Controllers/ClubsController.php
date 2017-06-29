@@ -137,8 +137,8 @@ class ClubsController extends Controller
         $owner->country = $data['country'];
         $owner->email_address = $data['email_address'];
         $owner->phone_number = $data['phone_number'];
+        $owner->gender = $data['gender'];
         $owner->save();
-
         return $owner->id;
     }
 

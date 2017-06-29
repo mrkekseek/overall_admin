@@ -83,8 +83,9 @@ function formAjax()
 
 function clubsOwnersGet(id = false)
 {
-	$.get('/api/clubs/clubsOwnersGet', {}, function(data) {
+	$.get('/ajax/clubs/clubsOwnersGet', {}, function(data) {
 		var owners = '<option></option>';
+		console.log(owners);
 		for (var k in data)
 		{
 			owners += '<option value="' + data[k].id + '">' + data[k].first_name + ' ' + data[k].last_name + '</option>';
