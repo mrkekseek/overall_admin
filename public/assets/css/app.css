@@ -20,3 +20,7 @@
 	-o-transition: all 1s;
 	transition: all 1s;
 }
+
+.input-group input.form-control-color {
+	background-color: transparent;
+}

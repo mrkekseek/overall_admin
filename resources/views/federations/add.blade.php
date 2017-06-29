@@ -340,6 +340,11 @@
                     </div>
 
                     <div class="col-sm-6 col-xs-12 form-group">
+                        <label class="bold">Phone Number</label>
+                        <input type="text" class="form-control" name="phone_number" />
+                    </div>
+
+                    <div class="col-sm-6 col-xs-12 form-group">
                         <label class="bold">Gender</label>
                         <select name="gender" class="form-control">
                             <option value="">Select gender from a list</option>
@@ -349,9 +354,17 @@
                     </div>
 
                     <div class="col-sm-6 col-xs-12 form-group">
-                        <label class="bold">Phone Number</label>
-                        <input type="text" class="form-control" name="phone_number" />
+                        <label class="bold">Date of Birth</label>
+                        <div class="input-group date date-picker" data-date-format="dd-mm-yyyy">
+                            <input type="text" class="form-control form-control-color" readonly name="date_of_birth">
+                            <span class="input-group-btn">
+                                <button class="btn default" type="button">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
                     </div>
+
                 </div>
             </div>
 

@@ -163,6 +163,7 @@ class FederationsController extends Controller
         $owner->phone_number = $data['phone_number'];
         $owner->federation_id = $data['federation_id']; 
         $owner->gender = $data['gender']; 
+        $owner->date_of_birth = date('Y-m-d', strtotime($data['date_of_birth'])); 
         $owner->save();
 
         return $owner->id;
