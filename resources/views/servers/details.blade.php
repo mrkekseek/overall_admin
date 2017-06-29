@@ -60,10 +60,12 @@
                 {{ csrf_field() }}
                 {{ method_field('POST') }}
                 <input type="hidden" name="filled" value="{{ empty($server->is_filled) ? '1' : '0'}}" />
-                
+
+                @if($server->is_filled == 0)
                 <div>
-                    <button type="button" class="btn btn-outline blue" id="sendFilled" data-id="{{ $id }}"></button>
+                    <button type="button" class="btn btn-outline blue" id="sendFilled" data-id="{{ $id }}">Mark is not filled</button>
                 </div>
+                @endif
             </form>
         </div>
     </div>
