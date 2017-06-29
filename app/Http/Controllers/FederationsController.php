@@ -162,6 +162,7 @@ class FederationsController extends Controller
         $owner->email_address = $data['email_address'];
         $owner->phone_number = $data['phone_number'];
         $owner->federation_id = $data['federation_id']; 
+        $owner->gender = $data['gender']; 
         $owner->save();
 
         return $owner->id;

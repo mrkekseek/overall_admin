@@ -340,6 +340,15 @@
                     </div>
 
                     <div class="col-sm-6 col-xs-12 form-group">
+                        <label class="bold">Gender</label>
+                        <select name="gender" class="form-control">
+                            <option value="">Select gender from a list</option>
+                            <option value="m">Male</option>
+                            <option value="f">Female</option>
+                        </select>
+                    </div>
+
+                    <div class="col-sm-6 col-xs-12 form-group">
                         <label class="bold">Phone Number</label>
                         <input type="text" class="form-control" name="phone_number" />
                     </div>
