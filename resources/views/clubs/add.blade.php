@@ -287,4 +287,11 @@
         </form>
     </div>
 </div>
+
+@if(! empty($club->name))
+<div>
+    <button class="btn red" data-remove="/clubs/remove/{{ $id }}"><i class="fa fa-trash"></i> Remove Account</button>
+</div>
+@endif
+
 @endsection

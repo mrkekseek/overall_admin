@@ -83,8 +83,6 @@
     </div>
 </div>
 
-<div>
-    <button class="btn btn-outline btn-circle red" data-remove="/federations/remove/{{ $id }}"><i class="fa fa-trash"></i> Remove Account</button>
-</div>
+
 
 @endsection

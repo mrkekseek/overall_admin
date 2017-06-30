@@ -76,13 +76,39 @@
                             <textarea name="description" class="form-control" rows="3">{{ old('description') != null ? old('description') : (isset($server->description) ? $server->description : '') }}</textarea>
                         </div>
 
-                        <div class="text-right">
+                        <div class="text-right form-group">
                             <button type="submit" class="btn green">{{ ! empty($id) ? 'Save' : 'Add' }} Server</button>
                         </div>
+                        
+                        <div class="portlet-body form">
+                            <div class="form-group">
+                                <form role="form" method="post">
+                                    {{ csrf_field() }}
+                                    {{ method_field('POST') }}
+                                    <input type="hidden" name="filled" value="{{ empty($server->is_filled) ? '1' : '0'}}" />
+
+                                   
+                                    <div class="text-right">
+                                        @if($server->is_filled == 0)
+                                        <button type="button" class="btn blue" id="sendFilled" data-id="{{ $id }}">Mark is not filled</button>
+                                        @endif
+                                    </div>
+                    
+                                </form>
+                            </div>
+                        </div>
+
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+@if(empty($subdomains->web_server_id))
+<div>
+    <button class="btn  red" data-remove="/servers/remove/{{ $id }}"><i class="fa fa-trash"></i> Remove Server</button>
+</div>
+@endif
+
 @endsection
