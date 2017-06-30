@@ -110,8 +110,8 @@ class FederationsController extends Controller
 
     public function details($id = FALSE)
     {
-        $federation = Federation_account::with('owners', 'sports', 'countries')->find($id);
-        return compact('federation', 'owners', 'sports', 'countries');
+        $federation = Federation_account::with('owners', 'sports', 'countries', 'subdomains')->find($id);
+        return compact('federation', 'owners', 'sports', 'countries', 'subdomains');
     }
 
     public function remove($id = FALSE)
