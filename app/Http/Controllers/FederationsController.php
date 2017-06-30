@@ -22,7 +22,7 @@ class FederationsController extends Controller
         $owners = $this->federationsOwnersGet();
         $sports = Sport::all();
         $federation = Federation_account::with('countries')->find($id);
-        $countries = Countries::orderBy('full_name', 'asc')->get();
+        $countries = Countries::orderBy('name', 'asc')->get();
         $subdomains = Subdomain_specific::all();
         if ( ! empty($federation))
         {
@@ -180,7 +180,7 @@ class FederationsController extends Controller
         $address->city = $data['city'];
         $address->region = $data['region'];
         $address->zipcode = $data['zipcode'];
-        $address->country = $country['full_name'];
+        $address->country = $country['name'];
         $address->details = $data['address_details'];
         $address->save();
 

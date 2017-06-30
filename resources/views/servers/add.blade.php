@@ -89,7 +89,7 @@
 
                                    
                                     <div class="text-right">
-                                        @if($server->is_filled == 0)
+                                        @if( isset($server->is_filled)  && $server->is_filled == 0)
                                         <button type="button" class="btn blue" id="sendFilled" data-id="{{ $id }}">Mark as filled</button>
                                         @endif
                                     </div>
@@ -105,7 +105,7 @@
     </div>
 </div>
 
-@if(empty($subdomains->web_server_id))
+@if( ! empty($server->ip_address))
 <div>
     <button class="btn  red" data-remove="/servers/remove/{{ $id }}"><i class="fa fa-trash"></i> Remove Server</button>
 </div>

@@ -153,7 +153,7 @@ class ClubsController extends Controller
         $address->city = $data['city'];
         $address->region = $data['region'];
         $address->zipcode = $data['zipcode'];
-        $address->country = $country['full_name'];
+        $address->country = $country['name'];
         $address->details = $data['address_details'];
         $address->save();
 
