@@ -6,7 +6,7 @@
    
     <ol class="breadcrumb">
         <li>
-            <a href="/dashboard">Dashboard</a>
+            <a href="/">Dashboard</a>
         </li>
         <li>
             <a href="/federations/lists">Federations List</a>
