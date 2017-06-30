@@ -106,4 +106,11 @@
         </div>
     </div>
 </div>
+
+@if(! empty($subdomain->subdomain_link))
+<div>
+    <button class="btn red" data-remove="/subdomains/remove/{{ $id }}"><i class="fa fa-trash"></i> Remove Subdomain</button>
+</div>
+@endif
+
 @endsection

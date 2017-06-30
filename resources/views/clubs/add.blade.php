@@ -94,7 +94,7 @@
                                 <select name="assign_subdomain" class="form-control">
                                     <option value="">Select subdomain from a list</option>
                                     @foreach ($subdomains as $subdomain)
-                                        <option value="{{ $subdomain->id }}" {{ (old('assign_subdomain') == $subdomain->id || old('assign_subdomain') == null) ? 'selected="selected"' : '' }}>{{ $subdomain->subdomain_link }}</option>
+                                        <option value="{{ $subdomain->id }}" {{ (old('assign_subdomain') == $subdomain->id || old('assign_subdomain') == null && isset($club->subdomain_specific_id) && $club->subdomain_specific_id == $subdomain->id) ? 'selected="selected"' : '' }}>{{ $subdomain->subdomain_link }}</option>
                                     @endforeach
                                 </select>
                             </div>

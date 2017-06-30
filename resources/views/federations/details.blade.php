@@ -62,9 +62,9 @@
             <div class="portlet-body form">
                 <h3>Federation Subdomain</h3><br>
                 
-                @if( ! empty($club->subdomains->subdomain_link))
+                @if( ! empty($federation->subdomains->subdomain_link))
                 <h4><strong> Subdomain</strong></h4>
-                <p>{{ $club->subdomains->subdomain_link }}</p>
+                <p>{{ $federation->subdomains->subdomain_link }}</p>
                 @endif
 
             </div>
@@ -80,17 +80,17 @@
             <div class="row">
                 <div class="col-md-6">
 
-                    @if( ! empty($club->address->address1))
+                    @if( ! empty($federation->address->address1))
                     <h4><strong>Address 1</strong></h4>
-                    <p>{{ $club->address->address1 }} </p>
+                    <p>{{ $federation->address->address1 }} </p>
                     @endif
 
                 </div>
                 <div class="col-md-6">
 
-                    @if( ! empty($club->address->address2))
+                    @if( ! empty($federation->address->address2))
                     <h4><strong>Address 2</strong></h4>
-                    <p>{{ $club->address->address2 }} </p>
+                    <p>{{ $federation->address->address2 }} </p>
                     @endif
 
                 </div>
@@ -99,17 +99,17 @@
             <div class="row">
                 <div class="col-md-6">
 
-                    @if( ! empty($club->address->city))
+                    @if( ! empty($federation->address->city))
                     <h4><strong>City</strong></h4>
-                    <p>{{ $club->address->city }} </p>
+                    <p>{{ $federation->address->city }} </p>
                     @endif
 
                 </div>
                 <div class="col-md-6">
 
-                    @if( ! empty($club->address->region))
+                    @if( ! empty($federation->address->region))
                     <h4><strong>Region</strong></h4>
-                    <p>{{ $club->address->region }} </p>
+                    <p>{{ $federation->address->region }} </p>
                     @endif
 
                 </div>
@@ -118,17 +118,17 @@
             <div class="row">
                 <div class="col-md-6">
 
-                    @if( ! empty($club->address->zipcode))
+                    @if( ! empty($federation->address->zipcode))
                     <h4><strong>Zip Code</strong></h4>
-                    <p>{{ $club->address->zipcode }} </p>
+                    <p>{{ $federation->address->zipcode }} </p>
                     @endif
 
                 </div>
                 <div class="col-md-6">
 
-                    @if( ! empty($club->address->country ))
+                    @if( ! empty($federation->address->country ))
                     <h4><strong>Country</strong></h4>
-                    <p>{{ $club->address->country }} </p>
+                    <p>{{ $federation->address->country }} </p>
                     @endif
 
                 </div>
@@ -137,9 +137,9 @@
             <div class="row">
                 <div class="col-md-12">
 
-                    @if( ! empty($club->address->details ))
+                    @if( ! empty($federation->address->details ))
                     <h4><strong>Details</strong></h4>
-                    <p>{{ $club->address->details }} </p>
+                    <p>{{ $federation->address->details }} </p>
                     @endif
 
                 </div>

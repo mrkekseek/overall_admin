@@ -23,6 +23,11 @@ class Federation_account extends Model
         return $this->belongsTo('App\Federation_representative', 'owner_id');
     }
 
+    public function address()
+    {
+        return $this->belongsTo('App\Address', 'address_id');
+    }
+
     public function sports()
     {
         return $this->belongsTo('App\Sport', 'sport_id');

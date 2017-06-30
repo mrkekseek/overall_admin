@@ -59,6 +59,7 @@ class FederationsController extends Controller
     	$federation->name = $data['name'];
     	$federation->owner_id = $data['owner_id'];
     	$federation->sport_id = $data['sport_id'];
+        $federation->subdomain_specific_id = $data['federation_subdomain'];
         $federation->account_key = ! $federation->exists || empty($federation->account_key) ? $federation->generate_account_key() : $federation->account_key;
         $federation->save();
         $data_countries_id = explode(',', $data['countries_id']);
@@ -110,8 +111,8 @@ class FederationsController extends Controller
 
     public function details($id = FALSE)
     {
-        $federation = Federation_account::with('owners', 'sports', 'countries', 'subdomains')->find($id);
-        return compact('federation', 'owners', 'sports', 'countries', 'subdomains');
+        $federation = Federation_account::with('owners', 'sports', 'countries', 'subdomains', 'address')->find($id);
+        return compact('federation', 'owners', 'sports', 'countries', 'subdomains', 'address');
     }
 
     public function remove($id = FALSE)
@@ -182,7 +183,7 @@ class FederationsController extends Controller
         $address->country = $country['full_name'];
         $address->details = $data['address_details'];
         $address->save();
-        
+
         return $address->id;
     }
 }

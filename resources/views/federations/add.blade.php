@@ -131,7 +131,7 @@
                                 <select name="federation_subdomain" class="form-control">
                                     <option value="">Select subdomain from a list</option>
                                     @foreach ($subdomains as $subdomain)
-                                        <option value="{{ $subdomain->id }}" {{ (old('federation_subdomain') == $subdomain->id || old('federation_subdomain') == null) ? 'selected="selected"' : '' }}>{{ $subdomain->subdomain_link }}</option>
+                                        <option value="{{ $subdomain->id }}" {{ (old('federation_subdomain') == $subdomain->id || old('federation_subdomain') == null && isset($federation->subdomain_specific_id) && $federation->subdomain_specific_id == $subdomain->id) ? 'selected="selected"' : '' }}>{{ $subdomain->subdomain_link }}</option>
                                     @endforeach
                                 </select>
                             </div>
