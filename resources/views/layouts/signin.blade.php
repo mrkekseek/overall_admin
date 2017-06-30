@@ -34,13 +34,6 @@
     </head>
     
     <body class=" login">
-        <!-- BEGIN LOGO -->
-        <div class="logo">
-            <a href="/">
-                <img src="/assets/template/pages/img/logo-big.png" alt="" />
-            </a>
-        </div>
-        <!-- END LOGO -->
 
         @yield('content')
 

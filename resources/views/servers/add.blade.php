@@ -90,7 +90,7 @@
                                    
                                     <div class="text-right">
                                         @if($server->is_filled == 0)
-                                        <button type="button" class="btn blue" id="sendFilled" data-id="{{ $id }}">Mark is not filled</button>
+                                        <button type="button" class="btn blue" id="sendFilled" data-id="{{ $id }}">Mark as filled</button>
                                         @endif
                                     </div>
                     
