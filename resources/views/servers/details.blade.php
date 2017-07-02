@@ -6,7 +6,7 @@
 
     <ol class="breadcrumb">
         <li>
-            <a href="/dashboard">Dashboard</a>
+            <a href="/">Dashboard</a>
         </li>
         <li>
             <a href="/servers/lists">Servers List</a>
@@ -56,24 +56,9 @@
                 @endif
             </div>
 
-            <form role="form" method="post">
-                {{ csrf_field() }}
-                {{ method_field('POST') }}
-                <input type="hidden" name="filled" value="{{ empty($server->is_filled) ? '1' : '0'}}" />
-
-                @if($server->is_filled == 0)
-                <div>
-                    <button type="button" class="btn btn-outline blue" id="sendFilled" data-id="{{ $id }}">Mark is not filled</button>
-                </div>
-                @endif
-            </form>
+            
         </div>
     </div>
 </div>
 
-@if(empty($subdomains->web_server_id))
-<div>
-    <button class="btn btn-outline red" data-remove="/servers/remove/{{ $id }}"><i class="fa fa-trash"></i> Remove Server</button>
-</div>
-@endif
 @endsection

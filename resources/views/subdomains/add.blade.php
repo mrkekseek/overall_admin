@@ -6,7 +6,7 @@
 
     <ol class="breadcrumb">
         <li>
-            <a href="/dashboard">Dashboard</a>
+            <a href="/">Dashboard</a>
         </li>
         <li>
             <a href="/subdomains/lists">Subdomains List</a>
@@ -106,4 +106,11 @@
         </div>
     </div>
 </div>
+
+@if(! empty($subdomain->subdomain_link))
+<div>
+    <button class="btn red" data-remove="/subdomains/remove/{{ $id }}"><i class="fa fa-trash"></i> Remove Subdomain</button>
+</div>
+@endif
+
 @endsection

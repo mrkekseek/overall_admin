@@ -23,6 +23,16 @@ class Federation_account extends Model
         return $this->belongsTo('App\Federation_representative', 'owner_id');
     }
 
+    public function address()
+    {
+        return $this->belongsTo('App\Address', 'address_id');
+    }
+
+    public function sports()
+    {
+        return $this->belongsTo('App\Sport', 'sport_id');
+    }
+
     public function generate_account_key()
     {
     	return rand(10000,99999).'-'.rand(10000,99999).'-'.rand(10000,99999).'-'.rand(10000,99999).'-'.rand(10000,99999);

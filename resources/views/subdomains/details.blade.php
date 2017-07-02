@@ -6,7 +6,7 @@
 
     <ol class="breadcrumb">
         <li>
-            <a href="/dashboard">Dashboard</a>
+            <a href="/">Dashboard</a>
         </li>
         <li>
             <a href="/subdomains/lists">Subdomains List</a>
@@ -53,7 +53,5 @@
     </div>
 </div>
 
-<div>
-    <button class="btn btn-outline red" data-remove="/subdomains/remove/{{ $id }}"><i class="fa fa-trash"></i> Remove Subdomain</button>
-</div>
+
 @endsection

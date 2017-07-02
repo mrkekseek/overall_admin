@@ -6,7 +6,7 @@
 
     <ol class="breadcrumb">
         <li>
-            <a href="/dashboard">Dashboard</a>
+            <a href="/">Dashboard</a>
         </li>
         <li class="active">Federations List</li>
     </ol>
@@ -25,6 +25,7 @@
 		                <th>Country</th>
 		                <th>Sport</th>
 		                <th class="text-center">Manage</th>
+		                <th class="text-center">View</th>
 		            </tr>
 		        </thead>
 
@@ -39,6 +40,9 @@
 		                    <td class="text-center">
 		                        <a href="/federations/add/{{ $federation['id'] }}" class="btn btn-icon"><i class="fa fa-edit"></i></a>
 		                    </td>
+		                    <td class="text-center">
+                                <a href="/federations/details/{{ $federation['id'] }}" class="btn btn-icon"><i class="fa fa-eye"></i></a>
+                            </td>
 		                </tr>
 		            @endforeach
 		        </tbody>

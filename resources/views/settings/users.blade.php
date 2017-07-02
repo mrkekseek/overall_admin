@@ -6,7 +6,7 @@
 
     <ol class="breadcrumb">
         <li>
-            <a href="/dashboard">Dashboard</a>
+            <a href="/">Dashboard</a>
         </li>
         <li class="active">Users</li>
     </ol>

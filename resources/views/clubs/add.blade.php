@@ -6,7 +6,7 @@
 
     <ol class="breadcrumb">
         <li>
-            <a href="/dashboard">Dashboard</a>
+            <a href="/">Dashboard</a>
         </li>
         <li>
             <a href="/clubs/lists">Clubs List</a>
@@ -94,7 +94,7 @@
                                 <select name="assign_subdomain" class="form-control">
                                     <option value="">Select subdomain from a list</option>
                                     @foreach ($subdomains as $subdomain)
-                                        <option value="{{ $subdomain->id }}" {{ (old('assign_subdomain') == $subdomain->id || old('assign_subdomain') == null) ? 'selected="selected"' : '' }}>{{ $subdomain->subdomain_link }}</option>
+                                        <option value="{{ $subdomain->id }}" {{ (old('assign_subdomain') == $subdomain->id || old('assign_subdomain') == null && isset($club->subdomain_specific_id) && $club->subdomain_specific_id == $subdomain->id) ? 'selected="selected"' : '' }}>{{ $subdomain->subdomain_link }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -211,54 +211,13 @@
             </div>
 
             <div class="modal-body">
-                <div class="alert-box">
-                </div>
+                <div class="alert-box"></div>
 
                 <div class="row">
                     <div class="col-sm-6 col-xs-12 form-group">
                         <label class="bold">First Name</label>
                         <input type="text" class="form-control" name="first_name" required="required" />
                         <span class="help-block">First Name is required</span>
-                    </div>
-
-                    <div class="col-sm-6 col-xs-12 form-group">
-                        <label class="bold">Last Name</label>
-                        <input type="text" class="form-control" name="last_name" required="required" />
-                        <span class="help-block">Last Name is required</span>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-6 col-xs-12 form-group">
-                        <label class="bold">Middle Name</label>
-                        <input type="text" class="form-control" name="middle_name" />
-                    </div>
-
-                    <div class="col-sm-6 col-xs-12 form-group">
-                        <label class="bold">Country</label>
-                        <select name="country" class="form-control">
-                            <option value="">Select country from a list</option>
-                            @foreach($countries as $country)
-                                <option value="{{ $country->id }}" {{ (old('country') == $country->id || old('country') == null && isset($club->address->country) && $club->address->country == $country->id) ? 'selected="selected"' : '' }}>{{ $country->full_name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-6 col-xs-12 form-group">
-                        <label class="bold">Email Address</label>
-                        <input type="email" class="form-control" name="email_address" required="required" />
-                        <span class="help-block">Email Address is required</span>
-                    </div>
-
-                    <div class="col-sm-6 col-xs-12 form-group">
-                        <label class="bold">Gender</label>
-                        <select name="gender" class="form-control">
-                            <option value="">Select gender from a list</option>
-                            <option value="m">Male</option>
-                            <option value="f">Female</option>
-                        </select>
                     </div>
 
                     <div class="col-sm-6 col-xs-12 form-group">
@@ -272,10 +231,52 @@
                             </span>
                         </div>
                     </div>
+                </div>
 
+                <div class="row">
                     <div class="col-sm-6 col-xs-12 form-group">
+                        <label class="bold">Middle Name</label>
+                        <input type="text" class="form-control" name="middle_name" />
+                    </div>
+    
+                     <div class="col-sm-6 col-xs-12 form-group">
                         <label class="bold">Phone Number</label>
                         <input type="text" class="form-control" name="phone_number" />
+                    </div>
+                </div>
+
+                <div class="row">
+                     <div class="col-sm-6 col-xs-12 form-group">
+                        <label class="bold">Last Name</label>
+                        <input type="text" class="form-control" name="last_name" required="required" />
+                        <span class="help-block">Last Name is required</span>
+                    </div>
+                    
+                    <div class="col-sm-6 col-xs-12 form-group">
+                        <label class="bold">Email Address</label>
+                        <input type="email" class="form-control" name="email_address" required="required" />
+                        <span class="help-block">Email Address is required</span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6 col-xs-12 form-group">
+                        <label class="bold">Gender</label>
+                        <select name="gender" class="form-control">
+                            <option value="">Select gender from a list</option>
+                            <option value="m">Male</option>
+                            <option value="f">Female</option>
+                        </select>
+                    </div>
+
+                    <div class="col-sm-6 col-xs-12 form-group">
+                        <label class="bold">Country</label>
+                        <select name="country" class="form-control">
+                            <option value="">Select country from a list</option>
+                            @foreach($countries as $country)
+                                <option value="{{ $country->id }}" {{ (old('country') == $country->id || old('country') == null && isset($club->address->country) && $club->address->country == $country->name) ? 'selected="selected"' : '' }}>{{ $country->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
             </div>
@@ -287,4 +288,11 @@
         </form>
     </div>
 </div>
+
+@if(! empty($club->name))
+<div>
+    <button class="btn red" data-remove="/clubs/remove/{{ $id }}"><i class="fa fa-trash"></i> Remove Account</button>
+</div>
+@endif
+
 @endsection

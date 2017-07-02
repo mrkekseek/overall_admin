@@ -22,7 +22,7 @@ class FederationsController extends Controller
         $owners = $this->federationsOwnersGet();
         $sports = Sport::all();
         $federation = Federation_account::with('countries')->find($id);
-        $countries = Countries::orderBy('full_name', 'asc')->get();
+        $countries = Countries::orderBy('name', 'asc')->get();
         $subdomains = Subdomain_specific::all();
         if ( ! empty($federation))
         {
@@ -59,6 +59,7 @@ class FederationsController extends Controller
     	$federation->name = $data['name'];
     	$federation->owner_id = $data['owner_id'];
     	$federation->sport_id = $data['sport_id'];
+        $federation->subdomain_specific_id = $data['federation_subdomain'];
         $federation->account_key = ! $federation->exists || empty($federation->account_key) ? $federation->generate_account_key() : $federation->account_key;
         $federation->save();
         $data_countries_id = explode(',', $data['countries_id']);
@@ -110,8 +111,8 @@ class FederationsController extends Controller
 
     public function details($id = FALSE)
     {
-        $federation = Federation_account::find($id);
-        return compact('federation');
+        $federation = Federation_account::with('owners', 'sports', 'countries', 'subdomains', 'address')->find($id);
+        return compact('federation', 'owners', 'sports', 'countries', 'subdomains', 'address');
     }
 
     public function remove($id = FALSE)
@@ -179,10 +180,10 @@ class FederationsController extends Controller
         $address->city = $data['city'];
         $address->region = $data['region'];
         $address->zipcode = $data['zipcode'];
-        $address->country = $country['full_name'];
+        $address->country = $country['name'];
         $address->details = $data['address_details'];
         $address->save();
-        
+
         return $address->id;
     }
 }
