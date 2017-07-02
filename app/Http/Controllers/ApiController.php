@@ -9,7 +9,7 @@ use App\Federation_account;
 
 class ApiController extends Controller
 {
-    const VERSION = '0.7.2.2';
+    const VERSION = '0.7.2.5';
 
     private static $message = [];
     private static $code;
@@ -65,12 +65,15 @@ class ApiController extends Controller
     
     public function register_clubPost($id = FALSE, $data = [])
     {
-        $data = array_only($data, ['first_name', 'last_name', 'email', 'phone_no', 'club_name', 'country', 'base_activity']);
+        $data = array_only($data, ['first_name', 'last_name', 'email', 'phone_no', 'club_name', 'country', 'base_activity', 'middle_name', 'date_of_birth', 'gender' ]);
         $rules = [
             'first_name' => 'required|string',
             'last_name' => 'required|string',
+            'middle_name' => 'string',
             'email' => 'required|email',
             'phone_no' => 'required|string|min:8|regex:/\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/',
+            'date_of_birth'=>'required|date',
+            'gender'=>'required|in:m,f',
             'club_name' => 'required|string',
             'country' => 'required|size:2|exists:countries,iso_3166_2',
             'base_activity' => 'required|integer|exists:sports,id',
@@ -90,6 +93,9 @@ class ApiController extends Controller
             {
                 $owner->first_name = $data['first_name'];
                 $owner->last_name = $data['last_name'];
+                $owner->middle_name = $data['middle_name'];
+                $owner->date_of_birth = date('Y-m-d', strtotime($data['date_of_birth']));
+                $owner->gender = $data['gender'];
                 $owner->phone_number = $data['phone_no'];
                 $owner->country = $country->iso_3166_2;
                 $owner->save();
