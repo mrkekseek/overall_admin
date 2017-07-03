@@ -105,7 +105,7 @@
 		                        <select name="country" class="form-control">
 		                        	<option value="">Select country from a list</option>
 	                            @foreach($countries as $country)
-                                    <option value="{{ $country->id }}" {{ (old('country') == $country->id || old('country') == null && isset($user->country) && $user->country == $country->full_name) ? 'selected="selected"' : '' }}>{{ $country->full_name }}</option>
+                                    <option value="{{ $country->id }}" {{ (old('country') == $country->id || old('country') == null && isset($user->country) && $user->country == $country->name) ? 'selected="selected"' : '' }}>{{ $country->name }}</option>
                                 @endforeach
 		                        </select>
 		                        @if ($errors->has('country'))

@@ -5,7 +5,7 @@
     <h1>{{ $club->name }}</h1>
     <ol class="breadcrumb">
         <li>
-            <a href="/dashboard">Dashboard</a>
+            <a href="/">Dashboard</a>
         </li>
         <li>
             <a href="/clubs/lists">Clubs List</a>

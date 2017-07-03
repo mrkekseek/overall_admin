@@ -19,7 +19,7 @@ class SettingsController extends Controller
     {
         $roles = Role::all();
         $user = User::find($id);
-        $countries = Countries::all();
+        $countries = Countries::orderBy('name', 'asc')->get();
         $user_statuses = User_statuses::all();
         return compact('user', 'roles', 'countries', 'user_statuses');
     }
@@ -51,7 +51,7 @@ class SettingsController extends Controller
         $user->email = $data['email'];
         $user->address = $data['address'];
         $user->city = $data['city'];
-        $user->country = $country['full_name'];
+        $user->country = $country['name'];
         $user->phone_number = $data['phone_number'];
         $user->user_status = $user_status['status_name'];
         if ( ! empty($data['password']))
