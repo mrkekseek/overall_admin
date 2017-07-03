@@ -93,7 +93,7 @@ class FederationsController extends Controller
                 'updated'     => TRUE,
             ]);
         }
-
+        
         return redirect('federations/lists')->with('message', 'Federation was succesfully saved');
     }
 

@@ -361,7 +361,7 @@
                         <select name="country" class="form-control">
                             <option value="">Select country from a list</option>
                             @foreach($countries as $country)
-                                <option value="{{ $country->id }}">{{ $country->full_name }}</option>
+                                <option value="{{ $country->id }}">{{ $country->name }}</option>
                             @endforeach
                         </select>
                     </div>

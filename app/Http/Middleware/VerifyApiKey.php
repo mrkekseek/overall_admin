@@ -64,7 +64,7 @@ class VerifyApiKey
         $data = ($request_method == 'get') ? http_build_query($data) : json_encode($data,JSON_UNESCAPED_SLASHES);
         $result['hash'] = base64_encode(hash_hmac('sha256', $data, env('API_KEY'), TRUE));
         $result['data_encoded'] = $data;
-        //echo $result['hash']."<br>"; dd('stop');
+
         return $result;
     }
 }

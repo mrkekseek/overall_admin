@@ -24,6 +24,7 @@ class ClubsController extends Controller
         $club = Club_account::find($id);
         $countries = Countries::orderBy('name', 'asc')->get();
         $subdomains = Subdomain_specific::all();
+        
         if ( ! empty($club))
         {
             $club->address = Address::find($club->address_id);

@@ -21,6 +21,7 @@ class SettingsController extends Controller
         $user = User::find($id);
         $countries = Countries::orderBy('name', 'asc')->get();
         $user_statuses = User_statuses::all();
+
         return compact('user', 'roles', 'countries', 'user_statuses');
     }
 
