@@ -62,7 +62,9 @@
 
                             <div class="col-lg-2 col-sm-3 col-xs-12 form-group">
                                 <div data-toggle="tooltip" data-placement="top" title="Add contact person" data-trigger="hover">
-                                    <button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#add-owner" ><i class="fa fa-plus-circle"></i></button>
+                                    <button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#add-owner" >
+                                        <i class="fa fa-plus-circle"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -96,7 +98,9 @@
 
                             <div class="col-lg-2 col-sm-3 col-xs-12 form-group">
                                 <div data-toggle="tooltip" data-placement="top" title="Add country" data-trigger="hover">
-                                    <button type="button" class="btn btn-default btn-block" id="add-country"><i class="fa fa-plus-circle"></i></button>
+                                    <button type="button" class="btn btn-default btn-block" id="add-country">
+                                        <i class="fa fa-plus-circle"></i>
+                                    </button>
                                 </div>
                             </div>
 
@@ -112,7 +116,9 @@
                            
                             <div class="col-lg-2 col-sm-3 col-xs-12 form-group">
                                 <div data-toggle="tooltip" data-placement="top" title="Remove country" data-trigger="hover">
-                                    <button type="button" class="btn btn-default btn-block" id="remove-country"><i class="fa fa-minus-circle"></i></button>
+                                    <button type="button" class="btn btn-default btn-block" id="remove-country">
+                                        <i class="fa fa-minus-circle"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
