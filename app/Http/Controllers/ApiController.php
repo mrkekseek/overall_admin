@@ -9,7 +9,7 @@ use App\Federation_account;
 
 class ApiController extends Controller
 {
-    const VERSION = '0.7.2.5';
+    const VERSION = '0.7.3.0';
 
     private static $message = [];
     private static $code;
@@ -297,6 +297,74 @@ class ApiController extends Controller
                         'message' => 'Club or federation with key '.$data['account_key'].' not found.',
                     ];
             }
+        }
+        return $response;
+    }
+    
+    public function get_available_countriesPost($id = FALSE, $data = [])
+    {
+        $data = array_only($data, ['selection']);
+        $rules = [
+            'selection' => 'required|in:active,all',
+        ];
+        if ( ! $this->validate_request($data , $rules) )
+        {
+            $response = [
+                'code' => self::$code,
+                'message' => self::$message,
+            ];
+        }
+        else
+        {
+            $countries = [];
+            switch ($data['selection'])
+            {
+                case 'all':
+                    $countries = \App\Countries::select('name','iso_3166_2')->get();
+                    break;
+                case 'active':
+                    $countries = \App\Countries::select('name','iso_3166_2')->get();
+                    break;
+            }
+            $response = [
+                    'code' => 1,
+                    'countries' => $countries,   
+                    'message' => '',
+            ];
+        }
+        return $response;
+    }
+    
+    public function get_available_activitiesPost($id = FALSE, $data = [])
+    {
+        $data = array_only($data, ['selection']);
+        $rules = [
+            'selection' => 'required|in:active,all',
+        ];
+        if ( ! $this->validate_request($data , $rules) )
+        {
+            $response = [
+                'code' => self::$code,
+                'message' => self::$message,
+            ];
+        }
+        else
+        {
+            $sports = [];
+            switch ($data['selection'])
+            {
+                case 'all':
+                    $sports = \App\Sport::select('id','name')->orderBy('id', 'ASC')->get();
+                    break;
+                case 'active':
+                    $sports = \App\Sport::select('id','name')->orderBy('id', 'ASC')->get();
+                    break;
+            }
+            $response = [
+                    'code' => 1,
+                    'activities' => $sports,   
+                    'message' => '',
+            ];
         }
         return $response;
     }
