@@ -69,14 +69,21 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group{{ $errors->has('sport_id') ? ' has-error' : '' }}">
                             <label class="bold">Sport</label>
                             <select name="sport_id" class="form-control">
-                                <option value="0" {{ (old('sport_id') == '0' || old('sport_id') == null && isset($federation->sport_id) && $federation->sport_id == '0') ? 'selected="selected"' : '' }}>Choose federation sport</option>
+                                <option value="">Choose federation sport</option>
                                 @foreach ($sports as $sport)
                                     <option value="{{ $sport->id }}" {{ (old('sport_id') == $sport->id || old('sport_id') == null && isset($federation->sport_id) && $federation->sport_id == $sport->id) ? 'selected="selected"' : '' }}>{{ $sport->name }}</option>
                                 @endforeach
                             </select>
+
+                            @if ($errors->has('sport_id'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('sport_id') }}</strong>
+                                </span>
+                            @endif
+
                         </div>
 
                         <label class="bold">Federation Countries</label>

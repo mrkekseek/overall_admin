@@ -46,7 +46,7 @@
                         <div class="row">
                             <div class="col-lg-10 col-sm-9 col-xs-12 form-group{{ $errors->has('owner_id') ? ' has-error' : '' }}">
                                 <select name="owner_id" class="form-control" data-placeholder="Select an Owner">
-                                    <option></option>
+                                    <option value=""></option>
                                     @foreach ($owners as $owner)
                                         <option value="{{ $owner->id }}"  {{ (old('owner_id') == $owner->id || old('owner_id') == null && isset($club->owner_id) && $club->owner_id == $owner->id) ? 'selected="selected"' : '' }}>{{ $owner->first_name }} {{ $owner->last_name }}</option>
                                     @endforeach
@@ -83,7 +83,8 @@
                     </div>
                 </div>
             </div>
-
+            
+            @if( count($subdomains) )
             <div class="row">
                 <div class="col-xs-12">
                     <div class="portlet light bordered">
@@ -102,6 +103,8 @@
                     </div>
                 </div>
             </div>
+            @endif
+
         </div>
 
         <div class="col-md-6 col-xs-12">

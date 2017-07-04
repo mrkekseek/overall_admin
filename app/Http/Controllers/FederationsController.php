@@ -42,7 +42,8 @@ class FederationsController extends Controller
             'region' => 'required|max:45',
             'zipcode' => 'required|max:45',
             'country' => 'required|max:45',
-            'owner_id' => 'required|max:45'
+            'owner_id' => 'required|max:45',
+            'sport_id' => 'required'
         ], [
             'new_contact_person.required_if' => 'You should enter name of contact person'
         ]);
@@ -93,7 +94,7 @@ class FederationsController extends Controller
                 'updated'     => TRUE,
             ]);
         }
-        
+
         return redirect('federations/lists')->with('message', 'Federation was succesfully saved');
     }
 

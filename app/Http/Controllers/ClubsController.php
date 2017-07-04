@@ -23,8 +23,7 @@ class ClubsController extends Controller
         $sports = Sport::all();
         $club = Club_account::find($id);
         $countries = Countries::orderBy('name', 'asc')->get();
-        $subdomains = Subdomain_specific::all();
-        
+        $subdomains = Subdomain_specific::where('is_assigned', 0)->get();
         if ( ! empty($club))
         {
             $club->address = Address::find($club->address_id);
@@ -63,9 +62,13 @@ class ClubsController extends Controller
         $club->details = $data['details'];
         $club->subdomain_specific_id = $data['assign_subdomain'];
         $club->account_key = ! $club->exists || empty($club->account_key) ? $club->generate_account_key() : $club->account_key;
+        if( ! empty($club->subdomain_specific_id))
+        {
+            $club->subdomains->update(['is_assigned' => 1]);
+        }
        
-    	$club->save();
-
+        $club->save();
+        
         if (empty($id))
         {
             Activity::log([
@@ -88,6 +91,8 @@ class ClubsController extends Controller
                 'updated'     => TRUE,
             ]);
         }
+
+
 
         return redirect('clubs/lists')->with('message', 'Club was succesfully saved');
     }
