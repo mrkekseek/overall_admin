@@ -190,10 +190,10 @@ function federationsOwnersSaved(data)
 (function() {
 
 	buttonSendText();
-	var dataFilled = {'filled': $('input[name="filled"]').val(), '_token':  $('input[name="_token"]').val()};
-	$('#sendFilled').click(function(event){
-        var id = $('#sendFilled').data('id');
 
+	$('#sendFilled').click(function(event) {
+        var id = $('#sendFilled').data('id');
+        var dataFilled = {'filled': $('input[name="filled"]').val(), '_token':  $('input[name="_token"]').val()};
         $.ajax({
             type:'POST',
             url:'/ajax/servers/filled/' + id,
@@ -203,7 +203,7 @@ function federationsOwnersSaved(data)
             	data = JSON.parse(data);
             	if (data.is_filled == 1)
             	{
-            		message(text = 'is filled', type = 'success');
+            		message('is filled', type = 'success');
             	}
             }
         });
@@ -213,7 +213,7 @@ function federationsOwnersSaved(data)
 
     $('#sendFilledRole').click(function(event) {
         var id = $('#sendFilledRole').data('id');
-
+        var dataFilled = {'filled': $('input[name="filled"]').val(), '_token':  $('input[name="_token"]').val()};
         $.ajax({
             type:'POST',
             url:'/ajax/servers/filled/' + id,
