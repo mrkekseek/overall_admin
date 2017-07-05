@@ -7,6 +7,11 @@ use App\Http\Requests;
 use Validator;
 use App\Server;
 use App\Subdomain_specific;
+use Illuminate\Support\Facades\Auth;
+use Zizaco\Entrust\EntrustPermission;
+use App\Permission;
+use App\Role;
+use App\User;
 
 class ServersController extends Controller
 {
@@ -63,6 +68,7 @@ class ServersController extends Controller
         $server = Server::find($id);
         $server->is_filled =  ! empty($data['filled']) ?  1 : 0;
         $server->save(); 
+
         return ['is_filled' => $server->is_filled];
     }
 }

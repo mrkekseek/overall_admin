@@ -87,11 +87,15 @@
                                     {{ method_field('POST') }}
                                     <input type="hidden" name="filled" value="{{ empty($server->is_filled) ? '1' : '0'}}" />
 
-                                   
                                     <div class="text-right">
-                                        @if( isset($server->is_filled)  && $server->is_filled == 0)
-                                        <button type="button" class="btn blue" id="sendFilled" data-id="{{ $id }}">Mark as filled</button>
+                                        @if( isset($server->is_filled)  && $server->is_filled == 0 && ! Auth::user()->hasRole('owner'))
+                                        <button type="button" class="btn blue" id="sendFilled" data-id="{{ $id }}">Mark is filled</button>
                                         @endif
+
+                                        @if( Auth::user()->hasRole('owner'))
+                                        <button type="button" class="btn blue" id="sendFilledRole" data-id="{{ $id }}"></button>
+                                        @endif
+
                                     </div>
                     
                                 </form>

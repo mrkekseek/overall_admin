@@ -189,9 +189,11 @@ function federationsOwnersSaved(data)
 
 (function() {
 
-$('#sendFilled').click(function(event){
+	buttonSendText();
+	var dataFilled = {'filled': $('input[name="filled"]').val(), '_token':  $('input[name="_token"]').val()};
+	$('#sendFilled').click(function(event){
         var id = $('#sendFilled').data('id');
-        var dataFilled = {'filled': $('input[name="filled"]').val(), '_token':  $('input[name="_token"]').val()};
+
         $.ajax({
             type:'POST',
             url:'/ajax/servers/filled/' + id,
@@ -201,18 +203,56 @@ $('#sendFilled').click(function(event){
             	data = JSON.parse(data);
             	if (data.is_filled == 1)
             	{
-            		message(type = 'success');
+            		message(text = 'is filled', type = 'success');
             	}
             }
         });
 
         $(this).hide('1000');
     });
+
+    $('#sendFilledRole').click(function(event) {
+        var id = $('#sendFilledRole').data('id');
+
+        $.ajax({
+            type:'POST',
+            url:'/ajax/servers/filled/' + id,
+            data: dataFilled,
+            success: function(data)
+            { 
+            	data = JSON.parse(data);
+            	if (data.is_filled == 1)
+            	{
+            		$('input[name="filled"]').val(0);
+            		message('is filled', type = 'success');
+            		buttonSendText();
+            	}
+            	else
+            	{
+            		$('input[name="filled"]').val(1);
+            		message('is not filled', type = 'success');
+            		buttonSendText();
+            	}
+            }
+        });
+    });
 	
-    function message(type = 'success')
+    function message(text, type = 'success')
     {
-        var content = '<div class="alert alert-success alert-dismissable fade in"><button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button> <span> Server has marked as filled</span></div>';
+        var content = '<div class="alert alert-success alert-dismissable fade in"><button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button> <span> Server ' + '' + text + '</span></div>';
         $('[data-target="message"]').html(content);
+    };
+
+    function buttonSendText()
+    {
+    	if ($('input[name="filled"]').val() == 1)
+    	{
+    		$('#sendFilled, #sendFilledRole').text('Mark is filled');
+    	}
+    	else
+    	{
+    		$('#sendFilled, #sendFilledRole').text('Mark is not filled');
+    	}
     };
  
 })()
