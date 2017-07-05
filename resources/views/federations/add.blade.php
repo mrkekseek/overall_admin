@@ -133,6 +133,7 @@
                 </div>
             </div>
 
+            @if( count($subdomains) )
             <div class="row">
                 <div class="col-xs-12">
                     <div class="portlet light bordered">
@@ -152,7 +153,8 @@
                     </div>
                 </div>
             </div>
-
+            @endif
+            
             <!--<div class="portlet light bordered">
                 <div class="portlet-body form">
                     <h4>Import members</h4>

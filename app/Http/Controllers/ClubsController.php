@@ -23,10 +23,14 @@ class ClubsController extends Controller
         $sports = Sport::all();
         $club = Club_account::find($id);
         $countries = Countries::orderBy('name', 'asc')->get();
-        $subdomains = Subdomain_specific::where('is_assigned', 0)->get();
         if ( ! empty($club))
         {
             $club->address = Address::find($club->address_id);
+            $subdomains = Subdomain_specific::where('is_assigned', 0)->orWhere('id', $club->subdomain_specific_id)->get();
+        }
+        else
+        {
+            $subdomains = Subdomain_specific::where('is_assigned', 0)->get();
         }
 
         return compact('countries', 'club', 'sports', 'owners', 'subdomains');

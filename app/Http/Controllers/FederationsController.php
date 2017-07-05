@@ -23,11 +23,16 @@ class FederationsController extends Controller
         $sports = Sport::all();
         $federation = Federation_account::with('countries')->find($id);
         $countries = Countries::orderBy('name', 'asc')->get();
-        $subdomains = Subdomain_specific::all();
         if ( ! empty($federation))
         {
             $federation->address = Address::find($federation->address_id);
+            $subdomains = Subdomain_specific::where('is_assigned', 0)->orWhere('id', $federation->subdomain_specific_id)->get();
         }
+        else
+        {
+            $federation = Subdomain_specific::where('is_assigned', 0)->get();
+        }
+
         return compact('federation', 'owners', 'sports', 'countries', 'subdomains', 'countries_federation');
     }
 
@@ -62,6 +67,10 @@ class FederationsController extends Controller
     	$federation->sport_id = $data['sport_id'];
         $federation->subdomain_specific_id = $data['federation_subdomain'];
         $federation->account_key = ! $federation->exists || empty($federation->account_key) ? $federation->generate_account_key() : $federation->account_key;
+        if( ! empty($federation->subdomain_specific_id))
+        {
+             $federation->subdomains->update(['is_assigned' => 1]);
+        }
         $federation->save();
         $data_countries_id = explode(',', $data['countries_id']);
         $federation->countries()->sync($data_countries_id);
