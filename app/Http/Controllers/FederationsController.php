@@ -30,7 +30,7 @@ class FederationsController extends Controller
         }
         else
         {
-            $federation = Subdomain_specific::where('is_assigned', 0)->get();
+            $subdomains = Subdomain_specific::where('is_assigned', 0)->get();
         }
 
         return compact('federation', 'owners', 'sports', 'countries', 'subdomains', 'countries_federation');
