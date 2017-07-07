@@ -41,6 +41,7 @@ class ServersController extends Controller
     	$server->description = $data['description'];
     	$server->save();
 
+
         return redirect('servers/lists')->with('message', 'Server was succesfully saved');
     }
 

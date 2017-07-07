@@ -26,7 +26,7 @@ class FederationsController extends Controller
         if ( ! empty($federation))
         {
             $federation->address = Address::find($federation->address_id);
-            $subdomains = Subdomain_specific::where('is_assigned', 0)->orWhere('id', $federation->subdomain_specific_id)->get();
+            $subdomains = Subdomain_specific::where('id', $federation->subdomain_specific_id)->get();
         }
         else
         {
@@ -65,7 +65,10 @@ class FederationsController extends Controller
     	$federation->name = $data['name'];
     	$federation->owner_id = $data['owner_id'];
     	$federation->sport_id = $data['sport_id'];
-        $federation->subdomain_specific_id = $data['federation_subdomain'];
+        if( ! empty($data['federation_subdomain']))
+        {
+            $federation->subdomain_specific_id = $data['federation_subdomain'];
+        }
         $federation->account_key = ! $federation->exists || empty($federation->account_key) ? $federation->generate_account_key() : $federation->account_key;
         if( ! empty($federation->subdomain_specific_id))
         {
