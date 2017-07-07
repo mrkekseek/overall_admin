@@ -35,7 +35,6 @@ class ClubsController extends Controller
         else
         {
             $subdomains = Subdomain_specific::where('is_assigned', 0)->get();
-            //dd( $subdomains);
         }
 
         return compact('countries', 'club', 'sports', 'owners', 'subdomains');
