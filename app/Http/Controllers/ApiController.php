@@ -320,10 +320,10 @@ class ApiController extends Controller
             switch ($data['selection'])
             {
                 case 'all':
-                    $countries = \App\Countries::select('name','iso_3166_2')->get();
+                    $countries = \App\Countries::select('name','iso_3166_2')->orderBy('name','ASC')->get();
                     break;
                 case 'active':
-                    $countries = \App\Countries::select('name','iso_3166_2')->get();
+                    $countries = \App\Countries::select('name','iso_3166_2')->orderBy('name','ASC')->get();
                     break;
             }
             $response = [
