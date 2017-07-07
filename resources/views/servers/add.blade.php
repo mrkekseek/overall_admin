@@ -92,7 +92,7 @@
                                         <button type="button" class="btn blue" id="sendFilled" data-id="{{ $id }}">Mark is filled</button>
                                         @endif
 
-                                        @if( Auth::user()->hasRole('owner'))
+                                        @if( Auth::user()->hasRole('owner') && ! empty($server))
                                         <button type="button" class="btn blue" id="sendFilledRole" data-id="{{ $id }}"></button>
                                         @endif
 

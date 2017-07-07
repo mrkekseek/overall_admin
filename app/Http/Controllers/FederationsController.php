@@ -69,7 +69,7 @@ class FederationsController extends Controller
         $federation->account_key = ! $federation->exists || empty($federation->account_key) ? $federation->generate_account_key() : $federation->account_key;
         if( ! empty($federation->subdomain_specific_id))
         {
-             $federation->subdomains->update(['is_assigned' => 1]);
+            $federation->subdomains->update(['is_assigned' => 1]);
         }
         $federation->save();
         $data_countries_id = explode(',', $data['countries_id']);
