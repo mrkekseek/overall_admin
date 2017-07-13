@@ -278,7 +278,7 @@
                         </div>
                         <!-- END HEADER MENU -->
                     </div>
-                    <!--/container-->
+                    <!--/CONTAINER-->
                 </nav>
             </header>
             <!-- END HEADER -->

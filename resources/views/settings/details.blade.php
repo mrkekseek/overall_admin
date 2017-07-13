@@ -93,13 +93,13 @@
 			                </thead>
 
 			                <tbody>
-							     @foreach($logs as $log)
-							     <tr>
+							    @foreach($logs as $log)
+							    <tr>
 							     	<td>{{ $log->action }}</td>
 							     	<td>{{ $log->description }}</td>
 							     	<td>{{ $log->details }}</td>
 							     	<td>{{ $log->created_at }}</td>
-							     </tr>
+							    </tr>
 								@endforeach  
 			                </tbody>
 			            </table>

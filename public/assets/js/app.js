@@ -144,9 +144,7 @@ function federationsOwnersSaved(data)
 			if (dataSelect.indexOf(optionValue) !== -1) return;
 
 			$('[name="federation_countries"]').append('<option value="' + optionValue + '">' + optionText + '</option>');
-
 			dataSelect.push(optionValue);
-
 			$('[name="countries_id"]').val(dataSelect.join(','));
 		}
 	});
@@ -193,7 +191,11 @@ function federationsOwnersSaved(data)
 
 	$('#sendFilled').click(function(event) {
         var id = $('#sendFilled').data('id');
-        var dataFilled = {'filled': $('input[name="filled"]').val(), '_token':  $('input[name="_token"]').val()};
+        var dataFilled = {
+        	'filled': $('input[name="filled"]').val(), 
+        	'_token': $('input[name="_token"]').val()
+        };
+
         $.ajax({
             type:'POST',
             url:'/ajax/servers/filled/' + id,
@@ -213,7 +215,11 @@ function federationsOwnersSaved(data)
 
     $('#sendFilledRole').click(function(event) {
         var id = $('#sendFilledRole').data('id');
-        var dataFilled = {'filled': $('input[name="filled"]').val(), '_token':  $('input[name="_token"]').val()};
+        var dataFilled = {
+        	'filled': $('input[name="filled"]').val(),
+        	'_token': $('input[name="_token"]').val()
+        };
+
         $.ajax({
             type:'POST',
             url:'/ajax/servers/filled/' + id,
@@ -245,7 +251,7 @@ function federationsOwnersSaved(data)
 
     function buttonSendText()
     {
-    	if ($('input[name="filled"]').val() == 1)
+    	if ( $('input[name="filled"]').val() == 1)
     	{
     		$('#sendFilled, #sendFilledRole').text('Mark is filled');
     	}
