@@ -24,3 +24,8 @@
 .input-group input.form-control-color {
 	background-color: transparent;
 }
+
+.table-scrollable {
+	overflow-y: auto;
+	height: 400px;
+}
