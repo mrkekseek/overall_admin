@@ -184,6 +184,7 @@ class ClubsController extends Controller
         $club = Club_account::with('owners', 'subdomains')->find($club_id);
         if ( ! empty($club) && ! empty($club->subdomains) && ! empty($club->owners))
         {
+            $country = Countries::find($club->owners->country);
             $owner = [
                 'first_name' => $club->owners->first_name,
                 'middle_name' => $club->owners->middle_name,
@@ -192,7 +193,7 @@ class ClubsController extends Controller
                 'phone_number' => $club->owners->phone_number,
                 'dob' => $club->owners->date_of_birth,
                 'gender' => strtoupper($club->owners->gender),
-                'country' => $club->owners->country,
+                'country' => $country->iso_3166_2,
             ]; 
             $subdomain = $club->subdomains->subdomain_link;
             return ApiClub::create_owner($owner, $subdomain);
