@@ -253,6 +253,7 @@ function federationsOwnersSaved(data)
             url: '/ajax/clubs/create_remote_owner',
             data: data,
             success: function(data) {
+                var data = JSON.parse(data);
                 if (data.success == true){
                     message(data.message,  type = 'success');
                 }
@@ -272,6 +273,7 @@ function federationsOwnersSaved(data)
             url: '/ajax/clubs/create_remote_club',
             data: data,
             success: function(data) {
+                var data = JSON.parse(data);
                 if (data.success == true){
                     message(data.message,  type = 'success');
                 }
