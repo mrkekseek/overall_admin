@@ -17,7 +17,7 @@
 @endsection
 
 @section('content')
-<form role="form" action="/clubs/add{{ ! empty($id) ? '/'.$id : '' }}" method="post">
+<form role="form" id="club_form" action="/clubs/add{{ ! empty($id) ? '/'.$id : '' }}" method="post">
     {{ csrf_field() }}
     {{ method_field('POST') }}
 
@@ -90,7 +90,6 @@
                     <div class="portlet light bordered">
                         <div class="portlet-body form">
                             <h4>Assign Club to Subdomain</h4>
-
                             <div class="form-group">
                                 <select name="assign_subdomain" class="form-control">
                                     <option value="">Select subdomain from a list</option>
@@ -98,6 +97,12 @@
                                         <option value="{{ $subdomain->id }}" {{ (old('assign_subdomain') == $subdomain->id || old('assign_subdomain') == null && isset($club->subdomain_specific_id) && $club->subdomain_specific_id == $subdomain->id) ? 'selected="selected"' : '' }}>{{ $subdomain->subdomain_link }}</option>
                                     @endforeach
                                 </select>
+                            </div>
+                            <div class="text-center">
+                                @if ( ! empty($id))
+                                    <button type="button" id ="send_owner" data-clubId="{{$id}}" class="btn green">Create remote owner</button>
+                                    <button type="button" id ="send_club" data-clubId="{{$id}}" class="btn green">Create remote club</button>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -197,6 +202,7 @@
         </div>
     </div>
 
+    
     <div class="text-center">
         <button type="submit" class="btn green">{{ ! empty($id) ? 'Save' : 'Add' }} club</button>
     </div>

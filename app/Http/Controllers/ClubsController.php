@@ -14,6 +14,7 @@ use App\Countries;
 use Regulus\ActivityLog\Models\Activity;
 use Illuminate\Support\Facades\Auth;
 use App\Subdomain_specific;
+use App\Http\Libraries\ApiClub;
 
 class ClubsController extends Controller
 {
@@ -175,5 +176,56 @@ class ClubsController extends Controller
         $address->save();
 
         return $address->id;
+    }
+    
+    public function create_remote_owner($id, $data)
+    {
+        $club_id = $data['club_id'];
+        $club = Club_account::with('owners', 'subdomains')->find($club_id);
+        if ( ! empty($club) && ! empty($club->subdomains) && ! empty($club->owners))
+        {
+            $owner = [
+                'first_name' => $club->owners->first_name,
+                'middle_name' => $club->owners->middle_name,
+                'last_name' => $club->owners->last_name,
+                'email_address' => $club->owners->email_address,
+                'phone_number' => $club->owners->phone_number,
+                'dob' => $club->owners->date_of_birth,
+                'gender' => strtoupper($club->owners->gender),
+                'country' => $club->owners->country,
+            ]; 
+            $subdomain = $club->subdomains->subdomain_link;
+            return ApiClub::create_owner($owner, $subdomain);
+        }
+    }
+    
+    public function create_remote_club($id, $data)
+    {
+        $club_id = $data['club_id'];
+        $club = Club_account::with('address')->find($club_id);
+        if ( ! empty($club) && ! empty($club->address) && ! empty($club->subdomains))
+        {
+            $country = Countries::where('full_name', $club->address->country)->first();
+            $remote_club = [
+                'account_key' => $club->account_key, 
+                'club_details' => [
+                    'club_name' => $club->name,
+                    'basic_club_details' => $club->details,
+                    'default_activity' => $club->main_sport_id,
+                ], 
+                'club_address' => [
+                    'address1' => $club->address->address1, 
+                    'address2' => $club->address->address2, 
+                    'city' => $club->address->city, 
+                    'region' => $club->address->region, 
+                    'zip_code' => $club->address->zip_code, 
+                    'country' => $country->iso_3166_2,
+                    'details' => $club->address->details, 
+                ]
+            ];
+            //dd($remote_club);
+            $subdomain = $club->subdomains->subdomain_link;
+            return ApiClub::create_club($remote_club, $subdomain);
+        }
     }
 }
