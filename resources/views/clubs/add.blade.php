@@ -283,7 +283,7 @@
                         <select name="country" class="form-control">
                             <option value="">Select country from a list</option>
                             @foreach($countries as $country)
-                                <option value="{{ $country->id }}" {{ (old('country') == $country->id || old('country') == null && isset($club->address->country) && $club->address->country == $country->name) ? 'selected="selected"' : '' }}>{{ $country->name }}</option>
+                                <option value="{{ $country->iso_3166_2 }}" {{ (old('country') == $country->id || old('country') == null && isset($club->address->country) && $club->address->country == $country->name) ? 'selected="selected"' : '' }}>{{ $country->name }}</option>
                             @endforeach
                         </select>
                     </div>
