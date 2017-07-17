@@ -13,6 +13,7 @@ class ApiClub
     public static function create_owner($owner, $subdomain)
     {
         self::$subdomain_key = 'apiKey-@f4g8-FH2-8809x-dj22aSwrL=cP24Zd234-TuJh87EqChVBGfs=SG564SD-fgAG47-747AhAP=U456=O97=Y=O6A=OC7b5645MNB-V4OO7Z-qw-OARSOc-SD456OFoCE-=64RW67=QOVq=';
+        $subdomain = self::handle_url($subdomain);
         $response = self::send_curl($owner, $subdomain.'apic/register_owner', 'POST');
         $message = '';
         if ( ! isset($response->code))
@@ -50,6 +51,7 @@ class ApiClub
     public static function create_club($club, $subdomain)
     {
         self::$subdomain_key = 'apiKey-@f4g8-FH2-8809x-dj22aSwrL=cP24Zd234-TuJh87EqChVBGfs=SG564SD-fgAG47-747AhAP=U456=O97=Y=O6A=OC7b5645MNB-V4OO7Z-qw-OARSOc-SD456OFoCE-=64RW67=QOVq=';
+        $subdomain = self::handle_url($subdomain);
         $response = self::send_curl($club, $subdomain.'apic/assign_subdomain_settings', 'POST');
         $message = '';
         if (is_array($response->message))
@@ -109,5 +111,14 @@ class ApiClub
         $curl_results = curl_exec($curl);
         $result = json_decode($curl_results);
         return $result;
+    }
+    
+    private static function handle_url($subdomain)
+    {
+        if ($subdomain[strlen($subdomain)-1] !== '/')
+        {
+            $subdomain .= '/';
+        }
+        return $subdomain;
     }
 }

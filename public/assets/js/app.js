@@ -243,14 +243,14 @@ function federationsOwnersSaved(data)
         });
     });
     
-    $('#send_owner').click(function (){
+    $('#assing_subdomain').click(function (){
         var data = {
             club_id : $(this).attr('data-clubId'),
             _token: $('#club_form input[name=_token]').val(),
         };
         $.ajax({
             type: "POST",
-            url: '/ajax/clubs/create_remote_owner',
+            url: '/ajax/clubs/assing_subdomain',
             data: data,
             success: function(data) {
                 var data = JSON.parse(data);
@@ -263,26 +263,7 @@ function federationsOwnersSaved(data)
             },
         });
     });
-    $('#send_club').click(function (){
-        var data = {
-            club_id : $(this).attr('data-clubId'),
-            _token: $('#club_form input[name=_token]').val(),
-        };
-        $.ajax({
-            type: "POST",
-            url: '/ajax/clubs/create_remote_club',
-            data: data,
-            success: function(data) {
-                var data = JSON.parse(data);
-                if (data.success == true){
-                    message(data.message,  type = 'success');
-                }
-                else{
-                    message(data.message,  type = 'danger');
-                }
-            },
-        });
-    });
+
     
     
     
