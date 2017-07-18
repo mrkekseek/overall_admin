@@ -255,6 +255,7 @@ function federationsOwnersSaved(data)
             success: function(data) {
                 var data = JSON.parse(data);
                 if (data.success == true){
+                    window.location.reload();
                     message(data.message,  type = 'success');
                 }
                 else{
