@@ -24,7 +24,7 @@ class CheckRols
         $user = Auth::user();
         if ($request->path() == 'clubs/add')
         {
-            if ($user->hasRole('admin'))
+            if (Auth::check() && $user->hasRole('admin'))
             {
                 return $next($request);
             } 
