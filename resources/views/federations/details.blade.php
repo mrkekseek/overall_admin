@@ -78,6 +78,7 @@
             </div>
         </div>
 
+        @if( ! empty($federation->subdomains))
         <div class="portlet light bordered">
             <div class="portlet-body form">
                 <h3>Federation Subdomain</h3><br>
@@ -89,6 +90,7 @@
 
             </div>
         </div>
+        @endif
 
     </div>
 

@@ -65,16 +65,6 @@
 
             </div>
         </div>
-        
-        @if( ! empty($club->subdomains))
-        <div class="portlet light bordered">
-            <div class="portlet-body form">
-                <h3>Club Subdomain</h3><br>
-                <h4><strong> Subdomain</strong></h4>
-                <p>{{ $club->subdomains->subdomain_link }}</p>
-            </div>
-        </div>
-        @endif
     </div>
 
     <div class="col-sm-6">
@@ -161,5 +151,41 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-md-12">
+        @if( ! empty($club->subdomains))
+        <div class="portlet light bordered">
+            <div class="portlet-body form">
+                <h3>Club Subdomain</h3><br>
+                <h4><strong> Subdomain</strong></h4>
+                <p>{{ $club->subdomains->subdomain_link }}</p>
 
+                <h3>Club Locations</h3><br>
+
+                <div class="table-scrollable location-club">
+                    <table class="table table-hover table-light">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th class="text-center">New</th>
+                                <th>Club name</th>
+                                <th>Owner</th>
+                                <th>Country</th>
+                                <th>Sport</th>
+                                <th class="text-center">Manage</th>
+                                <th class="text-center">View</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+        
+            </div>
+        </div>
+        @endif
+
+    </div>
+</div>
 @endsection
