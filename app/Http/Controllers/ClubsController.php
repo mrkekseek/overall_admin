@@ -66,12 +66,12 @@ class ClubsController extends Controller
             $club->subdomain_specific_id = $data['assign_subdomain'];
         }
         $club->account_key = ! $club->exists || empty($club->account_key) ? $club->generate_account_key() : $club->account_key;
-        /*
+        
         if( ! empty($club->subdomain_specific_id))
         {
             $club->subdomains->update(['is_assigned' => 1]);
         }
-        */
+        
        
         $club->save();
         

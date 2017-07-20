@@ -60,76 +60,83 @@
     <div class="col-sm-6">
         <div class="portlet light bordered">
             <div class="portlet-body form">
-            <h3>Home club address</h3><br>
-
-            <div class="row">
-                <div class="col-md-6">
-
-                    @if( ! empty($club->address->address1))
-                    <h4><strong>Address 1</strong></h4>
-                    <p>{{ $club->address->address1 }} </p>
-                    @endif
-
-                </div>
-                <div class="col-md-6">
-
-                    @if( ! empty($club->address->address2))
-                    <h4><strong>Address 2</strong></h4>
-                    <p>{{ $club->address->address2 }} </p>
-                    @endif
-
-                </div>
-            </div>
-            
-            <div class="row">
-                <div class="col-md-6">
-
-                    @if( ! empty($club->address->city))
-                    <h4><strong>City</strong></h4>
-                    <p>{{ $club->address->city }} </p>
-                    @endif
-
-                </div>
-                <div class="col-md-6">
-
-                    @if( ! empty($club->address->region))
-                    <h4><strong>Region</strong></h4>
-                    <p>{{ $club->address->region }} </p>
-                    @endif
-
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6">
-
-                    @if( ! empty($club->address->zipcode))
-                    <h4><strong>Zip Code</strong></h4>
-                    <p>{{ $club->address->zipcode }} </p>
-                    @endif
-
-                </div>
-                <div class="col-md-6">
-
-                    @if( ! empty($club->address->country ))
-                    <h4><strong>Country</strong></h4>
-                    <p>{{ $club->address->country }} </p>
-                    @endif
-
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12">
-
-                    @if( ! empty($club->address->details ))
-                    <h4><strong>Details</strong></h4>
-                    <p>{{ $club->address->details }} </p>
-                    @endif
-
-                </div>
-            </div>
+                <h3>Home club address</h3><br>
                 
+                @if( ! empty($club->address_id))
+                <div class="row">
+                    <div class="col-md-6">
+
+                        @if( ! empty($club->address->address1))
+                        <h4><strong>Address 1</strong></h4>
+                        <p>{{ $club->address->address1 }} </p>
+                        @endif
+
+                    </div>
+                    <div class="col-md-6">
+
+                        @if( ! empty($club->address->address2))
+                        <h4><strong>Address 2</strong></h4>
+                        <p>{{ $club->address->address2 }} </p>
+                        @endif
+
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+
+                        @if( ! empty($club->address->city))
+                        <h4><strong>City</strong></h4>
+                        <p>{{ $club->address->city }} </p>
+                        @endif
+
+                    </div>
+                    <div class="col-md-6">
+
+                        @if( ! empty($club->address->region))
+                        <h4><strong>Region</strong></h4>
+                        <p>{{ $club->address->region }} </p>
+                        @endif
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+
+                        @if( ! empty($club->address->zipcode))
+                        <h4><strong>Zip Code</strong></h4>
+                        <p>{{ $club->address->zipcode }} </p>
+                        @endif
+
+                    </div>
+                    <div class="col-md-6">
+
+                        @if( ! empty($club->address->country ))
+                        <h4><strong>Country</strong></h4>
+                        <p>{{ $club->address->country }} </p>
+                        @endif
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        @if( ! empty($club->address->details ))
+                        <h4><strong>Details</strong></h4>
+                        <p>{{ $club->address->details }} </p>
+                        @endif
+
+                    </div>
+                </div>
+                @else 
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>There is no address for this federation</p>
+                    </div>
+                </div>
+                @endif
             </div>
         </div>
     </div>

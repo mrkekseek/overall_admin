@@ -215,7 +215,7 @@
     </div>
 
     <div class="text-center">
-        <button type="submit" class="btn green">{{ ! empty($id) ? 'Save' : 'Add' }} federation</button>
+        <button type="submit" class="btn green">Add federation</button>
     </div>
 </form>
 

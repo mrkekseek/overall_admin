@@ -17,192 +17,156 @@
 @endsection
 
 @section('content')
-<form role="form" action="/federations/add{{ ! empty($id) ? '/'.$id : '' }}" method="post">
-    {{ csrf_field() }}
-    {{ method_field('POST') }}
-    
-    <input type="hidden" name="countries_id">
-    <div class="row">
-        <div class="col-md-6 col-xs-12">
-            <div class="portlet light bordered">
-                <div class="portlet-body form">
-                    <h4>Basic Information</h4>
-
-                        <h5> Your account key : <strong>{{ $federation->account_key }}</strong></h5>
-
-                    <div class="form-body">
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label class="bold">Federation name</label>
-                            <input name="name" type="text" class="form-control" placeholder="Enter federation name" value="{{ old('name') != null ? old('name') : (isset($federation->name) ? $federation->name : '') }}" />
-                            @if ($errors->has('name'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('name') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-
-                        <label class="bold">Federation Contact Person</label>
-                        <div class="row">
-                            <div class="col-lg-10 col-sm-9 col-xs-12 form-group{{ $errors->has('owner_id') ? ' has-error' : '' }}">
-                                <select name="owner_id" class="form-control" data-placeholder="Select a Contact Person">
-                                    <option></option>
-                                    @foreach ($owners as $owner)
-                                        <option value="{{ $owner->id }}"  {{ (old('owner_id') == $owner->id || old('owner_id') == null && isset($federation->owner_id) && $federation->owner_id == $owner->id) ? 'selected="selected"' : '' }}>{{ $owner->first_name }} {{ $owner->last_name }}</option>
-                                    @endforeach
-                                </select>
-
-                                @if ($errors->has('owner_id'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('owner_id') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-
-                            <div class="col-lg-2 col-sm-3 col-xs-12 form-group">
-                                <div data-toggle="tooltip" data-placement="top" title="Add contact person" data-trigger="hover">
-                                    <button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#add-owner" >
-                                        <i class="fa fa-plus-circle"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('sport_id') ? ' has-error' : '' }}">
-                            <label class="bold">Sport</label>
-                            <select name="sport_id" class="form-control">
-                                <option value="">Choose federation sport</option>
-                                @foreach ($sports as $sport)
-                                    <option value="{{ $sport->id }}" {{ (old('sport_id') == $sport->id || old('sport_id') == null && isset($federation->sport_id) && $federation->sport_id == $sport->id) ? 'selected="selected"' : '' }}>{{ $sport->name }}</option>
-                                @endforeach
-                            </select>
-
-                            @if ($errors->has('sport_id'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('sport_id') }}</strong>
-                                </span>
-                            @endif
-
-                        </div>
-
-                        <label class="bold">Federation Countries</label>
-                        <div class="row">
-                            <div class="col-lg-10 col-sm-9 col-xs-12 form-group{{ $errors->has('assign_countries') ? ' has-error' : '' }}">
-                                <select name="assign_countries" class="form-control" data-placeholder="Select a Federation Country">
-                                    <option value="">Select country from a list</option>
-                                    @foreach ($countries as $country)
-                                         <option value="{{ $country->id }}">{{ $country->name }} </option>
-                                    @endforeach
-                                </select>
-
-                                @if ($errors->has('assign_countries'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('assign_countries') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-
-                            <div class="col-lg-2 col-sm-3 col-xs-12 form-group">
-                                <div data-toggle="tooltip" data-placement="top" title="Add country" data-trigger="hover">
-                                    <button type="button" class="btn btn-default btn-block" id="add-country">
-                                        <i class="fa fa-plus-circle"></i>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-10 col-sm-9 col-xs-12 form-group">
-                                <select multiple name="federation_countries" class="form-control">
-                                @if ( ! empty($federation->countries))
-                                @foreach ($federation->countries as $country_option)
-                                    <option value="{{ $country_option->id }}"> {{ $country_option->name }} </option>
-                                @endforeach
-                                @endif
-                                </select>
-                            </div>
-                           
-                            <div class="col-lg-2 col-sm-3 col-xs-12 form-group">
-                                <div data-toggle="tooltip" data-placement="top" title="Remove country" data-trigger="hover">
-                                    <button type="button" class="btn btn-default btn-block" id="remove-country">
-                                        <i class="fa fa-minus-circle"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            @if( count($subdomains) || ! empty($subdomains))
+<div class="row">
+    <div class="col-md-6 col-xs-12">
+        <form role="form" action="/federations/add{{ ! empty($id) ? '/'.$id : '' }}" method="post">
+            {{ csrf_field() }}
+            {{ method_field('POST') }}
+            
+            <input type="hidden" name="countries_id">
             <div class="row">
-                <div class="col-xs-12">
+                <div class="col-md-12 col-xs-12">
                     <div class="portlet light bordered">
                         <div class="portlet-body form">
-                            <h4>Assign Federation to Subdomain</h4>
+                            <h4>Basic Information</h4>
 
-                            <div class="form-group">
-                                <label class="bold"></label>
-                                <select name="federation_subdomain" class="form-control">
-                                    <option value="">Select subdomain from a list</option>
-                                    @foreach ($subdomains as $subdomain)
-                                        <option value="{{ $subdomain->id }}" {{ (old('federation_subdomain') == $subdomain->id || old('federation_subdomain') == null && isset($federation->subdomain_specific_id) && $federation->subdomain_specific_id == $subdomain->id) ? 'selected="selected"' : '' }}>{{ $subdomain->subdomain_link }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @endif
-            
-            <!--<div class="portlet light bordered">
-                <div class="portlet-body form">
-                    <h4>Import members</h4>
+                                <h5> Your account key : <strong>{{ $federation->account_key }}</strong></h5>
 
-                    <div class="form-body">
-                        <form role="form" action="/federations/import" method="post" enctype="multipart/form-data">
-                            {{ csrf_field() }}
-                            {{ method_field('POST') }}
-
-                            <div class="form-group{{ $errors->has('file') || $errors->has('extension') ? ' has-error' : '' }}">
-                                <div class="fileinput fileinput-new" data-provides="fileinput">
-                                    <div class="input-group input-large">
-                                        <div class="form-control uneditable-input input-fixed input-medium" data-trigger="fileinput">
-                                            <i class="fa fa-file fileinput-exists"></i>&nbsp;
-                                            <span class="fileinput-filename"> </span>
-                                        </div>
-
-                                        <span class="input-group-addon btn default btn-file">
-                                            <span class="fileinput-new">Select file</span>
-                                            <span class="fileinput-exists">Change</span>
-                                            <input type="file" name="file" />
+                            <div class="form-body">
+                                <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                                    <label class="bold">Federation name</label>
+                                    <input name="name" type="text" class="form-control" placeholder="Enter federation name" value="{{ old('name') != null ? old('name') : (isset($federation->name) ? $federation->name : '') }}" />
+                                    @if ($errors->has('name'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('name') }}</strong>
                                         </span>
+                                    @endif
+                                </div>
 
-                                        <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                <label class="bold">Federation Contact Person</label>
+                                <div class="row">
+                                    <div class="col-lg-10 col-sm-9 col-xs-12 form-group{{ $errors->has('owner_id') ? ' has-error' : '' }}">
+                                        <select name="owner_id" class="form-control" data-placeholder="Select a Contact Person">
+                                            <option></option>
+                                            @foreach ($owners as $owner)
+                                                <option value="{{ $owner->id }}"  {{ (old('owner_id') == $owner->id || old('owner_id') == null && isset($federation->owner_id) && $federation->owner_id == $owner->id) ? 'selected="selected"' : '' }}>{{ $owner->first_name }} {{ $owner->last_name }}</option>
+                                            @endforeach
+                                        </select>
+
+                                        @if ($errors->has('owner_id'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('owner_id') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+
+                                    <div class="col-lg-2 col-sm-3 col-xs-12 form-group">
+                                        <div data-toggle="tooltip" data-placement="top" title="Add contact person" data-trigger="hover">
+                                            <button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#add-owner" >
+                                                <i class="fa fa-plus-circle"></i>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
 
-                                @if ($errors->has('file'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('file') }}</strong>
-                                    </span>
-                                @endif
+                                <div class="form-group{{ $errors->has('sport_id') ? ' has-error' : '' }}">
+                                    <label class="bold">Sport</label>
+                                    <select name="sport_id" class="form-control">
+                                        <option value="">Choose federation sport</option>
+                                        @foreach ($sports as $sport)
+                                            <option value="{{ $sport->id }}" {{ (old('sport_id') == $sport->id || old('sport_id') == null && isset($federation->sport_id) && $federation->sport_id == $sport->id) ? 'selected="selected"' : '' }}>{{ $sport->name }}</option>
+                                        @endforeach
+                                    </select>
 
-                                @if ($errors->has('extension'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('extension') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+                                    @if ($errors->has('sport_id'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('sport_id') }}</strong>
+                                        </span>
+                                    @endif
 
-                            <div>
-                                <button type="submit" class="btn btn-outline btn-circle blue"><i class="fa fa-upload"></i> Upload</button>
+                                </div>
+
+                                <label class="bold">Federation Countries</label>
+                                <div class="row">
+                                    <div class="col-lg-10 col-sm-9 col-xs-12 form-group{{ $errors->has('assign_countries') ? ' has-error' : '' }}">
+                                        <select name="assign_countries" class="form-control" data-placeholder="Select a Federation Country">
+                                            <option value="">Select country from a list</option>
+                                            @foreach ($countries as $country)
+                                                 <option value="{{ $country->id }}">{{ $country->name }} </option>
+                                            @endforeach
+                                        </select>
+
+                                        @if ($errors->has('assign_countries'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('assign_countries') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+
+                                    <div class="col-lg-2 col-sm-3 col-xs-12 form-group">
+                                        <div data-toggle="tooltip" data-placement="top" title="Add country" data-trigger="hover">
+                                            <button type="button" class="btn btn-default btn-block" id="add-country">
+                                                <i class="fa fa-plus-circle"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-10 col-sm-9 col-xs-12 form-group">
+                                        <select multiple name="federation_countries" class="form-control">
+                                        @if ( ! empty($federation->countries))
+                                        @foreach ($federation->countries as $country_option)
+                                            <option value="{{ $country_option->id }}"> {{ $country_option->name }} </option>
+                                        @endforeach
+                                        @endif
+                                        </select>
+                                    </div>
+                                   
+                                    <div class="col-lg-2 col-sm-3 col-xs-12 form-group">
+                                        <div data-toggle="tooltip" data-placement="top" title="Remove country" data-trigger="hover">
+                                            <button type="button" class="btn btn-default btn-block" id="remove-country">
+                                                <i class="fa fa-minus-circle"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn green">Save federation</button>
+                                </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
-                </div>    
-            </div>-->
-        </div>
 
-        <div class="col-md-6 col-xs-12">
+                    @if( count($subdomains) || ! empty($subdomains))
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="portlet light bordered">
+                                <div class="portlet-body form">
+                                    <h4>Assign Federation to Subdomain</h4>
+
+                                    <div class="form-group">
+                                        <label class="bold"></label>
+                                        <select name="federation_subdomain" class="form-control">
+                                            <option value="">Select subdomain from a list</option>
+                                            @foreach ($subdomains as $subdomain)
+                                                <option value="{{ $subdomain->id }}" {{ (old('federation_subdomain') == $subdomain->id || old('federation_subdomain') == null && isset($federation->subdomain_specific_id) && $federation->subdomain_specific_id == $subdomain->id) ? 'selected="selected"' : '' }}>{{ $subdomain->subdomain_link }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-6 col-xs-12">
+        <form role="form" id="federation_adress_form" action="/federations/saveAddress{{ ! empty($federation->address->id) ? '/'.$federation->address->id : '' }}" method="post">
+         <input type="hidden" name="federation_id" value="{{$id}}"/>
+        {{ csrf_field() }}
+        {{ method_field('POST') }}
             <div class="portlet light bordered">
                 <div class="portlet-body form">
                     <h4>Home federation address</h4>
@@ -286,16 +250,16 @@
                                 <textarea name="address_details" class="form-control" rows="3">{{ old('address_details') != null ? old('address_details') : (isset($federation->address->details) ? $federation->address->details : '') }}</textarea>
                             </div>
                         </div>
+                        <div class="text-right">
+                            <button type="submit" class="btn green">Save address</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
+</div>
 
-    <div class="text-center">
-        <button type="submit" class="btn green">Save federation</button>
-    </div>
-</form>
 
 <div class="modal fade" id="add-owner" tabindex="-1" role="basic" aria-hidden="true">
     <div class="modal-dialog">

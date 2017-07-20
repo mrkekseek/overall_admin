@@ -81,7 +81,7 @@
                             </select>
                         </div>
                         <div class="text-right">
-                            <button type="submit" class="btn green">{{ ! empty($id) ? 'Save' : 'Add' }} club</button>
+                            <button type="submit" class="btn green">Save club</button>
                         </div>
                     </div>
                 </div>
@@ -201,11 +201,9 @@
                                 <textarea name="address_details" class="form-control" rows="3">{{ old('address_details') != null ? old('address_details') : (isset($club->address->details) ? $club->address->details : '') }}</textarea>
                             </div>
                         </div>
-                        @if ( ! empty($id))
                         <div class="text-right">
-                            <button type="submit" class="btn green">{{ ! empty($club->address->id) ? 'Save' : 'Add' }} address</button>
+                            <button type="submit" class="btn green">Save address</button>
                         </div>
-                        @endif
                     </div>
                 </div>
             </div>

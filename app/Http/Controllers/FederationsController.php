@@ -43,13 +43,6 @@ class FederationsController extends Controller
     {
     	$validator = Validator::make($data, [
             'name' => 'required|max:150|unique:federation_accounts,name,'.$id,
-            'new_contact_person' => 'required_if:owner_id,0|max:150',
-            'address1' => 'required|max:45',
-            'address2' => 'max:45',
-            'city' => 'required|max:45',
-            'region' => 'required|max:45',
-            'zipcode' => 'required|max:45',
-            'country' => 'required|max:45',
             'owner_id' => 'required|max:45',
             'sport_id' => 'required'
         ], [
@@ -62,9 +55,7 @@ class FederationsController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-        
     	$federation = Federation_account::firstOrNew(['id' => $id]);
-        $federation->address_id = $this->addressSave($federation->address_id, $data);
     	$federation->name = $data['name'];
     	$federation->owner_id = $data['owner_id'];
     	$federation->sport_id = $data['sport_id'];
@@ -78,6 +69,7 @@ class FederationsController extends Controller
             $federation->subdomains->update(['is_assigned' => 1]);
         }
         $federation->save();
+
         $data_countries_id = explode(',', $data['countries_id']);
         $federation->countries()->sync($data_countries_id);
 
@@ -117,7 +109,7 @@ class FederationsController extends Controller
     {
         $owners = $this->federationsOwnersGet();
         $sports = Sport::all();
-        $federation = Federation_account::with('countries')->find($id);
+        $federation = Federation_account::with('countries','address')->find($id);
         $countries = Countries::orderBy('name', 'asc')->get();
         if (! empty($federation) && $federation->subdomain_specific_id == 0)
         {
@@ -134,6 +126,42 @@ class FederationsController extends Controller
         }
 
         return compact('federation', 'owners', 'sports', 'countries', 'subdomains', 'countries_federation');
+    }
+
+    public function saveAddressPost($id = FALSE, $data)
+    {
+
+        $validator = Validator::make($data, [
+            'address1' => 'required|max:45',
+            'address2' => 'max:45',
+            'city' => 'required|max:45',
+            'region' => 'required|max:45',
+            'zipcode' => 'required|max:45',
+            'country' => 'required|max:45'
+        ]);
+        if ($validator->fails())
+        {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+        $country = Countries::where(['id' => $data['country']])->first();
+        $address = Address::firstOrNew(['id' => $id]);
+        $address->address1 = $data['address1'];
+        $address->address2 = $data['address2'];
+        $address->city = $data['city'];
+        $address->region = $data['region'];
+        $address->zipcode = $data['zipcode'];
+        $address->country = $country['name'];
+        $address->details = $data['address_details'];
+        $address->save();
+        $federation = Federation_account::find($data['federation_id']);
+        if (empty($federation->address_id))
+        {
+            $federation->address_id = $address->id;
+            $federation->save();
+        }
+        return redirect('federations/lists')->with('message', 'Federation address succesfully saved');
     }
 
     public function lists()
