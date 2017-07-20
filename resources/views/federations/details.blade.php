@@ -38,6 +38,26 @@
                 <h4><strong>Federation Contact Person</strong></h4>
                 <p>{{ $federation->owners->first_name }} {{ $federation->owners->last_name }}</p>
                 @endif
+
+                @if( ! empty($federation->owners->middle_name))
+                    <h4><strong>Middle name</strong></h4>
+                    <p>{{ $federation->owners->middle_name }}</p>
+                @endif
+
+                @if( ! empty($federation->owners->date_of_birth))
+                    <h4><strong>Date of birth</strong></h4>
+                    <p>{{ $federation->owners->date_of_birth }}</p>
+                @endif
+
+                @if( ! empty($federation->owners->phone_number))
+                    <h4><strong>Phone number</strong></h4>
+                    <p>{{ $federation->owners->phone_number }}</p>
+                @endif
+
+                @if( ! empty($federation->owners->email_address))
+                    <h4><strong>Email address</strong></h4>
+                    <p>{{ $federation->owners->email_address }}</p>
+                @endif
                 
                 @if( ! empty($federation->sports->name))
                 <h4><strong>Sport</strong></h4>
@@ -76,7 +96,8 @@
         <div class="portlet light bordered">
             <div class="portlet-body form">
             <h3>Home Federation address</h3><br>
-
+            
+            @if( ! empty($federation->address_id))
             <div class="row">
                 <div class="col-md-6">
 
@@ -144,6 +165,14 @@
 
                 </div>
             </div>
+            
+            @else 
+            <div class="row">
+                <div class="col-md-12">
+                    <p>There is no address for this federation</p>
+                </div>
+            </div>
+            @endif
                 
             </div>
         </div>

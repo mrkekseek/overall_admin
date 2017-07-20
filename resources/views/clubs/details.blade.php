@@ -32,7 +32,27 @@
                     <h4><strong>Club owner</strong></h4>
                     <p>{{ $club->owners->first_name }} {{ $club->owners->last_name }}</p>
                 @endif
-                
+
+               
+                 @if( ! empty($club->owners->middle_name))
+                    <h4><strong>Middle name</strong></h4>
+                    <p>{{ $club->owners->middle_name }}</p>
+                @endif
+
+                @if( ! empty($club->owners->date_of_birth))
+                    <h4><strong>Date of birth</strong></h4>
+                    <p>{{ $club->owners->date_of_birth }}</p>
+                @endif
+
+                @if( ! empty($club->owners->phone_number))
+                    <h4><strong>Phone number</strong></h4>
+                    <p>{{ $club->owners->phone_number }}</p>
+                @endif
+
+                @if( ! empty($club->owners->email_address))
+                    <h4><strong>Email address</strong></h4>
+                    <p>{{ $club->owners->email_address }}</p>
+                @endif
                 @if( ! empty($club->details))
                     <h4><strong>Basic club details</strong></h4>
                     <p>{{ $club->details }}</p>
@@ -133,7 +153,7 @@
                 @else 
                 <div class="row">
                     <div class="col-md-12">
-                        <p>There is no address for this federation</p>
+                        <p>There is no address for this club</p>
                     </div>
                 </div>
                 @endif

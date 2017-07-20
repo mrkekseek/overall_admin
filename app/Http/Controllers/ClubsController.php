@@ -23,6 +23,7 @@ class ClubsController extends Controller
         $owners = $this->clubsOwnersGet();
         $sports = Sport::all();
         $countries = Countries::orderBy('name', 'asc')->get();
+
         if (! empty($club) && $club->subdomain_specific_id == '')
         {
             $subdomains = Subdomain_specific::where('id', $club->subdomain_specific_id)->orWhere('is_assigned', 0)->get();
@@ -163,7 +164,7 @@ class ClubsController extends Controller
         $this->validate(request(), [
             'first_name' => 'required',
             'last_name' => 'required',
-            'email_address' => 'required|unique:club_owners,email_address'
+            'email_address' => 'required|email|unique:club_owners,email_address'
         ]);
 
         $owner = new Club_owner;
