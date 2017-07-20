@@ -29,40 +29,32 @@
                 <h3>Basic Information</h3><br>
 
                 @if( ! empty($club->owners->first_name) && ! empty($club->owners->last_name))
-                <h4><strong>Club owner</strong></h4>
-                <p>{{ $club->owners->first_name }} {{ $club->owners->last_name }}</p>
+                    <h4><strong>Club owner</strong></h4>
+                    <p>{{ $club->owners->first_name }} {{ $club->owners->last_name }}</p>
                 @endif
                 
                 @if( ! empty($club->details))
-                <h4><strong>Basic club details</strong></h4>
-                <p>{{ $club->details }}</p>
+                    <h4><strong>Basic club details</strong></h4>
+                    <p>{{ $club->details }}</p>
                 @endif
                 
                 @if( ! empty($club->sport->name))
-                <h4><strong>Sport</strong></h4>
-                <p>{{ $club->sport->name }}</p>
-                @endif
-                
-                @if( ! empty($club->subdomains->subdomain_link))
-                <h4><strong> Club Subdomain</strong></h4>
-                <p>{{ $club->subdomains->subdomain_link }}</p>
+                    <h4><strong>Sport</strong></h4>
+                    <p>{{ $club->sport->name }}</p>
                 @endif
 
             </div>
         </div>
-
+        
+        @if( ! empty($club->subdomains))
         <div class="portlet light bordered">
             <div class="portlet-body form">
                 <h3>Club Subdomain</h3><br>
-                
-                @if( ! empty($club->subdomains->subdomain_link))
                 <h4><strong> Subdomain</strong></h4>
                 <p>{{ $club->subdomains->subdomain_link }}</p>
-                @endif
-
             </div>
         </div>
-
+        @endif
     </div>
 
     <div class="col-sm-6">

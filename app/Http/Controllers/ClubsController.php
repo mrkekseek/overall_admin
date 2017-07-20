@@ -125,6 +125,7 @@ class ClubsController extends Controller
     public function details($id = FALSE)
     {
         $club = Club_account::with('sport', 'subdomains', 'owners', 'address')->find($id);
+        //dd($club->subdomains);
         return compact('club', 'sport', 'subdomains', 'owners', 'address');
     }
 
