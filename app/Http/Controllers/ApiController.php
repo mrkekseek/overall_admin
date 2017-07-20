@@ -26,9 +26,9 @@ class ApiController extends Controller
      */
     
     
-    public function get_federation_urlPost($id = FALSE, $data = [])
+    public function get_federation_url(Request $request)
     {
-        $data = array_only($data, ['account_key']);
+        $data = $request->only('account_key');
         $rules = [
             'account_key' => 'required|size:29',
         ];
@@ -63,15 +63,15 @@ class ApiController extends Controller
         return $response;
     }
     
-    public function register_clubPost($id = FALSE, $data = [])
+    public function register_club(Request $request)
     {
-        $data = array_only($data, ['first_name', 'last_name', 'email', 'phone_no', 'club_name', 'country', 'base_activity', 'middle_name', 'date_of_birth', 'gender' ]);
+        $data = $request->only('first_name', 'last_name', 'email', 'phone_no', 'club_name', 'country', 'base_activity', 'middle_name', 'date_of_birth', 'gender');
         $rules = [
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'middle_name' => 'string',
             'email' => 'required|email',
-            'phone_no' => 'required|string|min:8|regex:/\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/',
+            'phone_no' => 'required|string|min:8',
             'date_of_birth'=>'required|date',
             'gender'=>'required|in:m,f',
             'club_name' => 'required|string',
@@ -129,9 +129,9 @@ class ApiController extends Controller
         return $response;
     }
     
-    public function mark_registrationPost ($id = FALSE, $data = [])
+    public function mark_registration (Request $request)
     {
-        $data = array_only($data, ['account_key', 'activity']);
+        $data = $request->only('account_key', 'activity');
         $rules = [
             'account_key' => 'required|size:29',
             'activity' => 'required|integer|exists:sports,id',
@@ -178,9 +178,9 @@ class ApiController extends Controller
         return $response;
     }
     
-    public function update_default_activityPost($id = FALSE, $data = [])
+    public function update_default_activity(Request $request)
     {
-        $data = array_only($data, ['account_key', 'activity']);
+        $data = $request->only('account_key', 'activity');
         $rules = [
             'account_key' => 'required|size:29',
             'activity' => 'required|integer|exists:sports,id',
@@ -217,7 +217,7 @@ class ApiController extends Controller
         return $response;
     }
     
-    public function statusGet($id = FALSE, $data = [])
+    public function status()
     {
         return [
             'code' => 1,
@@ -225,9 +225,9 @@ class ApiController extends Controller
         ];
     }
     
-    public function validate_account_keyPost($id = FALSE, $data = [])
+    public function validate_account_key(Request $request)
     {
-        $data = array_only($data, ['account_key']);
+        $data = $request->only('account_key');
         $rules = [
             'account_key' => 'required|size:29',
         ];
@@ -301,9 +301,9 @@ class ApiController extends Controller
         return $response;
     }
     
-    public function get_available_countriesPost($id = FALSE, $data = [])
+    public function get_available_countries(Request $request)
     {
-        $data = array_only($data, ['selection']);
+        $data = $request->only('selection');
         $rules = [
             'selection' => 'required|in:active,all',
         ];
@@ -335,9 +335,9 @@ class ApiController extends Controller
         return $response;
     }
     
-    public function get_available_activitiesPost($id = FALSE, $data = [])
+    public function get_available_activities(Request $request)
     {
-        $data = array_only($data, ['selection']);
+        $data = $request->only('selection');
         $rules = [
             'selection' => 'required|in:active,all',
         ];

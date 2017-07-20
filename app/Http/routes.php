@@ -15,7 +15,40 @@ Illuminate\Support\Facades\Artisan::call('migrate');
 
 Route::auth();
 
-Route::any('api/{method}/{id?}', 'RoutesController@api')->middleware('apikey');
+Route::group(['middleware' => 'apikey', 'prefix' => 'api'], function () {
+    Route::get('status', [
+        'as' => 'status',
+        'uses' => 'ApiController@status'
+    ]);
+    Route::post('get_federation_url', [
+        'as' => 'get_federation_url',
+        'uses' => 'ApiController@get_federation_url'
+    ]);
+    Route::post('register_club', [
+        'as' => 'register_club',
+        'uses' => 'ApiController@register_club'
+    ]);
+    Route::post('mark_registration', [
+        'as' => 'mark_registration',
+        'uses' => 'ApiController@mark_registration'
+    ]);
+    Route::post('update_default_activity', [
+        'as' => 'update_default_activity',
+        'uses' => 'ApiController@update_default_activity'
+    ]);
+    Route::post('validate_account_key', [
+        'as' => 'validate_account_key',
+        'uses' => 'ApiController@validate_account_key'
+    ]);
+    Route::post('get_available_countries', [
+        'as' => 'get_available_countries',
+        'uses' => 'ApiController@get_available_countries'
+    ]);
+    Route::post('get_available_activities', [
+        'as' => 'get_available_activities',
+        'uses' => 'ApiController@get_available_activities'
+    ]);
+});
 
 Route::get('/', function () {
 	return view(Auth::check() ? 'dashboard' : 'auth.login');

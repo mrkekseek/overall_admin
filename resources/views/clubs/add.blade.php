@@ -17,12 +17,12 @@
 @endsection
 
 @section('content')
-<form role="form" action="/clubs/add{{ ! empty($id) ? '/'.$id : '' }}" method="post">
-    {{ csrf_field() }}
-    {{ method_field('POST') }}
-
     <div class="row">
         <div class="col-md-6 col-xs-12">
+        <form role="form" id="club_form" action="/clubs/add{{ ! empty($id) ? '/'.$id : '' }}" method="post">
+            {{ csrf_field() }}
+            {{ method_field('POST') }}
+            
             <div class="portlet light bordered">
                 <div class="portlet-body form">
                     <h4>Basic Information</h4>
@@ -80,6 +80,9 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="text-right">
+                            <button type="submit" class="btn green">{{ ! empty($id) ? 'Save' : 'Add' }} club</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -90,7 +93,6 @@
                     <div class="portlet light bordered">
                         <div class="portlet-body form">
                             <h4>Assign Club to Subdomain</h4>
-
                             <div class="form-group">
                                 <select name="assign_subdomain" class="form-control">
                                     <option value="">Select subdomain from a list</option>
@@ -99,15 +101,23 @@
                                     @endforeach
                                 </select>
                             </div>
+                            <div class="text-center">
+                                @if ( empty($club->subdomains->is_assigned))
+                                    <button type="button" id ="assing_subdomain" data-clubId="{{$id}}" class="btn green">Assign</button>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             @endif
-
+            </form>
         </div>
-
+        
         <div class="col-md-6 col-xs-12">
+            <form role="form" id="club_adress_form" action="/clubs/saveAddress{{ ! empty($club->address->id) ? '/'.$club->address->id : '' }}" method="post">
+            {{ csrf_field() }}
+            {{ method_field('POST') }}
             <div class="portlet light bordered">
                 <div class="portlet-body form">
                     <h4>Home club address</h4>
@@ -191,17 +201,18 @@
                                 <textarea name="address_details" class="form-control" rows="3">{{ old('address_details') != null ? old('address_details') : (isset($club->address->details) ? $club->address->details : '') }}</textarea>
                             </div>
                         </div>
+                        @if ( ! empty($id))
+                        <div class="text-right">
+                            <button type="submit" class="btn green">{{ ! empty($club->address->id) ? 'Save' : 'Add' }} address</button>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
+            <input type="hidden" name="club_id" value="{{$id}}"/>
+        </form>
         </div>
     </div>
-
-    <div class="text-center">
-        <button type="submit" class="btn green">{{ ! empty($id) ? 'Save' : 'Add' }} club</button>
-    </div>
-</form>
-
 <div class="modal fade" id="add-owner" tabindex="-1" role="basic" aria-hidden="true">
     <div class="modal-dialog">
         <form action="/ajax/clubs/clubsOwnersSave/" method="post" class="modal-content formAjax" data-callback="clubsOwnersSaved">
@@ -277,7 +288,7 @@
                         <select name="country" class="form-control">
                             <option value="">Select country from a list</option>
                             @foreach($countries as $country)
-                                <option value="{{ $country->id }}" {{ (old('country') == $country->id || old('country') == null && isset($club->address->country) && $club->address->country == $country->name) ? 'selected="selected"' : '' }}>{{ $country->name }}</option>
+                                <option value="{{ $country->iso_3166_2 }}" {{ (old('country') == $country->id || old('country') == null && isset($club->address->country) && $club->address->country == $country->name) ? 'selected="selected"' : '' }}>{{ $country->name }}</option>
                             @endforeach
                         </select>
                     </div>

@@ -16,7 +16,7 @@
 
 	$('[data-toggle="tooltip"]').tooltip();
 
-	init();
+    init();
 
 })();
 
@@ -242,10 +242,36 @@ function federationsOwnersSaved(data)
             }
         });
     });
+    
+    $('#assing_subdomain').click(function (){
+        var data = {
+            club_id : $(this).attr('data-clubId'),
+            _token: $('#club_form input[name=_token]').val(),
+        };
+        $.ajax({
+            type: "POST",
+            url: '/ajax/clubs/assing_subdomain',
+            data: data,
+            success: function(data) {
+                var data = JSON.parse(data);
+                if (data.success == true){
+                    window.location.reload();
+                    message(data.message,  type = 'success');
+                }
+                else{
+                    message(data.message,  type = 'danger');
+                }
+            },
+        });
+    });
+
+    
+    
+    
 	
     function message(text, type = 'success')
     {
-        var content = '<div class="alert alert-success alert-dismissable fade in"><button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button> <span> Server ' + '' + text + '</span></div>';
+        var content = '<div class="alert alert-'+type+' alert-dismissable fade in"><button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button> <span>' + '' + text + '</span></div>';
         $('[data-target="message"]').html(content);
     };
 
