@@ -71,7 +71,7 @@ class ApiController extends Controller
             'last_name' => 'required|string',
             'middle_name' => 'string',
             'email' => 'required|email',
-            'phone_no' => 'required|string|min:8|regex:/\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/',
+            'phone_no' => 'required|string|min:8',
             'date_of_birth'=>'required|date',
             'gender'=>'required|in:m,f',
             'club_name' => 'required|string',
