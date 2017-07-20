@@ -17,11 +17,10 @@ use App\Federation_countries;
 
 class FederationsController extends Controller
 {
-    public function add($id = FALSE)
+    public function add()
     {
         $owners = $this->federationsOwnersGet();
         $sports = Sport::all();
-        $federation = Federation_account::with('countries')->find($id);
         $countries = Countries::orderBy('name', 'asc')->get();
         if (! empty($federation) && $federation->subdomain_specific_id == 0)
         {

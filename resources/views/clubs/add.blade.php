@@ -111,102 +111,12 @@
         </div>
         
         <div class="col-md-6 col-xs-12">
-            <form role="form" id="club_adress_form" action="/clubs/saveAddress{{ ! empty($club->address->id) ? '/'.$club->address->id : '' }}" method="post">
-            {{ csrf_field() }}
-            {{ method_field('POST') }}
             <div class="portlet light bordered">
                 <div class="portlet-body form">
                     <h4>Home club address</h4>
-
-                    <div class="form-body">
-                        <div class="row">
-                            <div class="col-md-6 col-xs-12 form-group{{ $errors->has('address1') ? ' has-error' : '' }}">
-                                <label class="bold">Address 1</label>
-                                <input name="address1" type="text" class="form-control" value="{{ old('address1') != null ? old('address1') : (isset($club->address->address1) ? $club->address->address1 : '') }}" />
-                                @if ($errors->has('address1'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('address1') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-
-                            <div class="col-md-6 col-xs-12 form-group{{ $errors->has('address2') ? ' has-error' : '' }}">
-                                <label class="bold">Address 2</label>
-                                <input name="address2" type="text" class="form-control" value="{{ old('address2') != null ? old('address2') : (isset($club->address->address2) ? $club->address->address2 : '') }}" />
-                                @if ($errors->has('address2'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('address2') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6 col-xs-12 form-group{{ $errors->has('city') ? ' has-error' : '' }}">
-                                <label class="bold">City</label>
-                                <input name="city" type="text" class="form-control" value="{{ old('city') != null ? old('city') : (isset($club->address->city) ? $club->address->city : '') }}" />
-                                @if ($errors->has('city'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('city') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-
-                            <div class="col-md-6 col-xs-12 form-group{{ $errors->has('region') ? ' has-error' : '' }}">
-                                <label class="bold">Region</label>
-                                <input name="region" type="text" class="form-control" value="{{ old('region') != null ? old('region') : (isset($club->address->region) ? $club->address->region : '') }}" />
-                                @if ($errors->has('region'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('region') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6 col-xs-12 form-group{{ $errors->has('zipcode') ? ' has-error' : '' }}">
-                                <label class="bold">Zip Code</label>
-                                <input name="zipcode" type="text" class="form-control" value="{{ old('zipcode') != null ? old('zipcode') : (isset($club->address->zipcode) ? $club->address->zipcode : '') }}" />
-                                @if ($errors->has('zipcode'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('zipcode') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-
-                            <div class="col-md-6 col-xs-12 form-group{{ $errors->has('country') ? ' has-error' : '' }}">
-                                <label class="bold">Country</label>
-                                <select name="country" class="form-control">
-                                    <option value="">Select country from a list</option>
-                                    @foreach($countries as $country)
-                                         <option value="{{ $country->id }}" {{ (old('country') == $country->id || old('country') == null && isset($club->address->country) && $club->address->country == $country->name) ? 'selected="selected"' : '' }}>{{ $country->name }}</option>
-                                    @endforeach
-                                </select>
-
-                                @if ($errors->has('country'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('country') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-xs-12 form-group">
-                                <label class="bold">Details</label>
-                                <textarea name="address_details" class="form-control" rows="3">{{ old('address_details') != null ? old('address_details') : (isset($club->address->details) ? $club->address->details : '') }}</textarea>
-                            </div>
-                        </div>
-                        @if ( ! empty($id))
-                        <div class="text-right">
-                            <button type="submit" class="btn green">{{ ! empty($club->address->id) ? 'Save' : 'Add' }} address</button>
-                        </div>
-                        @endif
-                    </div>
+                    <h5 class="font-blue">To add Your Home club address, please, go to Manage</h5>
                 </div>
             </div>
-            <input type="hidden" name="club_id" value="{{$id}}"/>
-        </form>
         </div>
     </div>
 <div class="modal fade" id="add-owner" tabindex="-1" role="basic" aria-hidden="true">

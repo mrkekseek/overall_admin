@@ -18,11 +18,10 @@ use App\Http\Libraries\ApiClub;
 
 class ClubsController extends Controller
 {
-    public function add($id = FALSE)
+    public function add()
     {
         $owners = $this->clubsOwnersGet();
         $sports = Sport::all();
-        $club = Club_account::find($id);
         $countries = Countries::orderBy('name', 'asc')->get();
         if (! empty($club) && $club->subdomain_specific_id == '')
         {
@@ -30,7 +29,7 @@ class ClubsController extends Controller
         }
         elseif ( ! empty($club))
         {
-            $club->address = Address::find($club->address_id);
+            
             $subdomains = Subdomain_specific::where('id', $club->subdomain_specific_id)->get();
         }
         else
