@@ -40,7 +40,7 @@
                             <td>{{ $club['address']['country'] }}</td>
                             <td>{{ $club['sport']['name'] }}</td>
                             <td class="text-center">
-                                <a href="/clubs/add/{{ $club['id'] }}" class="btn btn-icon"><i class="fa fa-edit"></i></a>
+                                <a href="/clubs/edit/{{ $club['id'] }}" class="btn btn-icon"><i class="fa fa-edit"></i></a>
                             </td>
                             <td class="text-center">
                                 <a href="/clubs/details/{{ $club['id'] }}" class="btn btn-icon"><i class="fa fa-eye"></i></a>

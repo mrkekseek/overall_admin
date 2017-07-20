@@ -104,6 +104,30 @@ class ClubsController extends Controller
         return redirect('clubs/lists')->with('message', 'Club was succesfully saved');
     }
 
+    public function edit($id = FALSE)
+    {   
+        $owners = $this->clubsOwnersGet();
+        $sports = Sport::all();
+        $club = Club_account::find($id);
+        $countries = Countries::orderBy('name', 'asc')->get();
+        if (! empty($club) && $club->subdomain_specific_id == '')
+        {
+            $subdomains = Subdomain_specific::where('id', $club->subdomain_specific_id)->orWhere('is_assigned', 0)->get();
+        }
+        elseif ( ! empty($club))
+        {
+            $club->address = Address::find($club->address_id);
+            $subdomains = Subdomain_specific::where('id', $club->subdomain_specific_id)->get();
+        }
+        else
+        {
+            $subdomains = Subdomain_specific::where('is_assigned', 0)->get();
+        }
+
+        return compact('countries', 'club', 'sports', 'owners', 'subdomains');
+    }
+
+
     public function lists()
     {
         $clubs = Club_account::latest()->get();
@@ -121,7 +145,6 @@ class ClubsController extends Controller
     public function details($id = FALSE)
     {
         $club = Club_account::with('sport', 'subdomains', 'owners', 'address')->find($id);
-        //dd($club->subdomains);
         return compact('club', 'sport', 'subdomains', 'owners', 'address');
     }
 

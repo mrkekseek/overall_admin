@@ -2,7 +2,7 @@
 
 @section('breadcrumbs')
 <div class="breadcrumbs">
-    <h1> Add New Federation</h1>
+    <h1> Edit Federation</h1>
    
     <ol class="breadcrumb">
         <li>
@@ -11,7 +11,7 @@
         <li>
             <a href="/federations/lists">Federations List</a>
         </li>
-        <li class="active"> Add New Federation</li>
+        <li class="active"> Edit Federation</li>
     </ol>
 </div>
 @endsection
@@ -28,9 +28,7 @@
                 <div class="portlet-body form">
                     <h4>Basic Information</h4>
 
-                    @if(isset($federation->account_key))
                         <h5> Your account key : <strong>{{ $federation->account_key }}</strong></h5>
-                    @endif
 
                     <div class="form-body">
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -295,7 +293,7 @@
     </div>
 
     <div class="text-center">
-        <button type="submit" class="btn green">{{ ! empty($id) ? 'Save' : 'Add' }} federation</button>
+        <button type="submit" class="btn green">Save federation</button>
     </div>
 </form>
 

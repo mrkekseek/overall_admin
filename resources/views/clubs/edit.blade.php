@@ -2,7 +2,7 @@
 
 @section('breadcrumbs')
 <div class="breadcrumbs">
-    <h1>Add New Club</h1>
+    <h1> Edit Club</h1>
 
     <ol class="breadcrumb">
         <li>
@@ -11,7 +11,7 @@
         <li>
             <a href="/clubs/lists">Clubs List</a>
         </li>
-        <li class="active">Add New Club</li>
+        <li class="active">Edit Club</li>
     </ol>
 </div>
 @endsection
@@ -26,6 +26,10 @@
             <div class="portlet light bordered">
                 <div class="portlet-body form">
                     <h4>Basic Information</h4>
+
+                    @if(isset($club->account_key))
+                        <h5> Your account key : <strong>{{ $club->account_key }}</strong></h5>
+                    @endif
 
                     <div class="form-body">
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -298,4 +302,11 @@
         </form>
     </div>
 </div>
+
+@if(! empty($club->name))
+<div>
+    <button class="btn red" data-remove="/clubs/remove/{{ $id }}"><i class="fa fa-trash"></i> Remove Account</button>
+</div>
+@endif
+
 @endsection
