@@ -11,8 +11,9 @@
         <li>
             <a href="/federations/lists">Federations List</a>
         </li>
-        <li class="active"> Edit Federation</li>
+        <li class="active">Edit Federation</li>
     </ol>
+
 </div>
 @endsection
 
@@ -30,17 +31,19 @@
                         <div class="portlet-body form">
                             <h4>Basic Information</h4>
 
-                                <h5> Your account key : <strong>{{ $federation->account_key }}</strong></h5>
+                            <h5> Your account key : <strong>{{ $federation->account_key }}</strong></h5>
 
                             <div class="form-body">
                                 <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                     <label class="bold">Federation name</label>
                                     <input name="name" type="text" class="form-control" placeholder="Enter federation name" value="{{ old('name') != null ? old('name') : (isset($federation->name) ? $federation->name : '') }}" />
+
                                     @if ($errors->has('name'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('name') }}</strong>
                                         </span>
                                     @endif
+
                                 </div>
 
                                 <label class="bold">Federation Contact Person</label>
@@ -48,9 +51,9 @@
                                     <div class="col-lg-10 col-sm-9 col-xs-12 form-group{{ $errors->has('owner_id') ? ' has-error' : '' }}">
                                         <select name="owner_id" class="form-control" data-placeholder="Select a Contact Person">
                                             <option></option>
-                                            @foreach ($owners as $owner)
-                                                <option value="{{ $owner->id }}"  {{ (old('owner_id') == $owner->id || old('owner_id') == null && isset($federation->owner_id) && $federation->owner_id == $owner->id) ? 'selected="selected"' : '' }}>{{ $owner->first_name }} {{ $owner->last_name }}</option>
-                                            @endforeach
+                                        @foreach ($owners as $owner)
+                                            <option value="{{ $owner->id }}"  {{ (old('owner_id') == $owner->id || old('owner_id') == null && isset($federation->owner_id) && $federation->owner_id == $owner->id) ? 'selected="selected"' : '' }}>{{ $owner->first_name }} {{ $owner->last_name }}</option>
+                                        @endforeach
                                         </select>
 
                                         @if ($errors->has('owner_id'))
@@ -73,9 +76,11 @@
                                     <label class="bold">Sport</label>
                                     <select name="sport_id" class="form-control">
                                         <option value="">Choose federation sport</option>
-                                        @foreach ($sports as $sport)
-                                            <option value="{{ $sport->id }}" {{ (old('sport_id') == $sport->id || old('sport_id') == null && isset($federation->sport_id) && $federation->sport_id == $sport->id) ? 'selected="selected"' : '' }}>{{ $sport->name }}</option>
-                                        @endforeach
+
+                                    @foreach ($sports as $sport)
+                                        <option value="{{ $sport->id }}" {{ (old('sport_id') == $sport->id || old('sport_id') == null && isset($federation->sport_id) && $federation->sport_id == $sport->id) ? 'selected="selected"' : '' }}>{{ $sport->name }}</option>
+                                    @endforeach
+
                                     </select>
 
                                     @if ($errors->has('sport_id'))
@@ -91,9 +96,9 @@
                                     <div class="col-lg-10 col-sm-9 col-xs-12 form-group{{ $errors->has('assign_countries') ? ' has-error' : '' }}">
                                         <select name="assign_countries" class="form-control" data-placeholder="Select a Federation Country">
                                             <option value="">Select country from a list</option>
-                                            @foreach ($countries as $country)
-                                                 <option value="{{ $country->id }}">{{ $country->name }} </option>
-                                            @endforeach
+                                        @foreach ($countries as $country)
+                                             <option value="{{ $country->id }}">{{ $country->name }} </option>
+                                        @endforeach
                                         </select>
 
                                         @if ($errors->has('assign_countries'))
@@ -114,9 +119,11 @@
                                     <div class="col-lg-10 col-sm-9 col-xs-12 form-group">
                                         <select multiple name="federation_countries" class="form-control">
                                         @if ( ! empty($federation->countries))
-                                        @foreach ($federation->countries as $country_option)
-                                            <option value="{{ $country_option->id }}"> {{ $country_option->name }} </option>
-                                        @endforeach
+
+                                            @foreach ($federation->countries as $country_option)
+                                                <option value="{{ $country_option->id }}"> {{ $country_option->name }} </option>
+                                            @endforeach
+
                                         @endif
                                         </select>
                                     </div>
@@ -136,7 +143,7 @@
                         </div>
                     </div>
 
-                    @if( count($subdomains) || empty($subdomains))
+                    @if ( count($subdomains) || empty($subdomains))
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="portlet light bordered">
@@ -147,9 +154,11 @@
                                         <label class="bold"></label>
                                         <select name="federation_subdomain" class="form-control">
                                             <option value="">Select subdomain from a list</option>
-                                            @foreach ($subdomains as $subdomain)
-                                                <option value="{{ $subdomain->id }}" {{ (old('federation_subdomain') == $subdomain->id || old('federation_subdomain') == null && isset($federation->subdomain_specific_id) && $federation->subdomain_specific_id == $subdomain->id) ? 'selected="selected"' : '' }}>{{ $subdomain->subdomain_link }}</option>
-                                            @endforeach
+
+                                        @foreach ($subdomains as $subdomain)
+                                            <option value="{{ $subdomain->id }}" {{ (old('federation_subdomain') == $subdomain->id || old('federation_subdomain') == null && isset($federation->subdomain_specific_id) && $federation->subdomain_specific_id == $subdomain->id) ? 'selected="selected"' : '' }}>{{ $subdomain->subdomain_link }}</option>
+                                        @endforeach
+
                                         </select>
                                     </div>
                                 </div>
@@ -157,6 +166,7 @@
                         </div>
                     </div>
                     @endif
+
                 </div>
             </div>
         </form>
@@ -176,21 +186,25 @@
                             <div class="col-md-6 col-xs-12 form-group{{ $errors->has('address1') ? ' has-error' : '' }}">
                                 <label class="bold">Address 1</label>
                                 <input name="address1" type="text" class="form-control" value="{{ old('address1') != null ? old('address1') : (isset($federation->address->address1) ? $federation->address->address1 : '') }}" />
+
                                 @if ($errors->has('address1'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('address1') }}</strong>
                                     </span>
                                 @endif
+
                             </div>
 
                             <div class="col-md-6 col-xs-12 form-group{{ $errors->has('address2') ? ' has-error' : '' }}">
                                 <label class="bold">Address 2</label>
                                 <input name="address2" type="text" class="form-control" value="{{ old('address2') != null ? old('address2') : (isset($federation->address->address2) ? $federation->address->address2 : '') }}" />
+
                                 @if ($errors->has('address2'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('address2') }}</strong>
                                     </span>
                                 @endif
+
                             </div>
                         </div>
 
@@ -198,21 +212,25 @@
                             <div class="col-md-6 col-xs-12 form-group{{ $errors->has('city') ? ' has-error' : '' }}">
                                 <label class="bold">City</label>
                                 <input name="city" type="text" class="form-control" value="{{ old('city') != null ? old('city') : (isset($federation->address->city) ? $federation->address->city : '') }}" />
+
                                 @if ($errors->has('city'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('city') }}</strong>
                                     </span>
                                 @endif
+
                             </div>
 
                             <div class="col-md-6 col-xs-12 form-group{{ $errors->has('region') ? ' has-error' : '' }}">
                                 <label class="bold">Region</label>
                                 <input name="region" type="text" class="form-control" value="{{ old('region') != null ? old('region') : (isset($federation->address->region) ? $federation->address->region : '') }}" />
+
                                 @if ($errors->has('region'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('region') }}</strong>
                                     </span>
                                 @endif
+
                             </div>
                         </div>
 
@@ -220,20 +238,24 @@
                             <div class="col-md-6 col-xs-12 form-group{{ $errors->has('zipcode') ? ' has-error' : '' }}">
                                 <label class="bold">Zip Code</label>
                                 <input name="zipcode" type="text" class="form-control" value="{{ old('zipcode') != null ? old('zipcode') : (isset($federation->address->zipcode) ? $federation->address->zipcode : '') }}" />
+
                                 @if ($errors->has('zipcode'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('zipcode') }}</strong>
                                     </span>
                                 @endif
+
                             </div>
 
                             <div class="col-md-6 col-xs-12 form-group{{ $errors->has('country') ? ' has-error' : '' }}">
                                 <label class="bold">Country</label>
                                 <select name="country" class="form-control">
                                     <option value="">Select country from a list</option>
-                                    @foreach ($countries as $country)
-                                        <option value="{{ $country->id }}" {{ (old('country') == $country->id || old('country') == null && isset($federation->address->country) && $federation->address->country == $country->name) ? 'selected="selected"' : '' }}>{{ $country->name }}</option>
-                                    @endforeach
+
+                                @foreach ($countries as $country)
+                                    <option value="{{ $country->id }}" {{ (old('country') == $country->id || old('country') == null && isset($federation->address->country) && $federation->address->country == $country->name) ? 'selected="selected"' : '' }}>{{ $country->name }}</option>
+                                @endforeach
+
                                 </select>
 
                                 @if ($errors->has('country'))
@@ -241,6 +263,7 @@
                                         <strong>{{ $errors->first('country') }}</strong>
                                     </span>
                                 @endif
+
                             </div>
                         </div>
 
@@ -337,9 +360,11 @@
                         <label class="bold">Country</label>
                         <select name="country" class="form-control">
                             <option value="">Select country from a list</option>
-                            @foreach($countries as $country)
-                                <option value="{{ $country->id }}">{{ $country->name }}</option>
-                            @endforeach
+
+                        @foreach ($countries as $country)
+                            <option value="{{ $country->id }}">{{ $country->name }}</option>
+                        @endforeach
+
                         </select>
                     </div>
                 </div>
@@ -352,4 +377,9 @@
         </form>
     </div>
 </div>
+
+<div>
+    <button class="btn red" data-remove="/federations/remove/{{ $id }}"><i class="fa fa-trash"></i> Remove Account</button>
+</div>
+
 @endsection

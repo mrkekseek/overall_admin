@@ -3,7 +3,7 @@
 @section('breadcrumbs')
 <div class="breadcrumbs">
     <h1> Add New Federation</h1>
-   
+
     <ol class="breadcrumb">
         <li>
             <a href="/">Dashboard</a>
@@ -13,6 +13,7 @@
         </li>
         <li class="active"> Add New Federation</li>
     </ol>
+
 </div>
 @endsection
 
@@ -28,7 +29,7 @@
                 <div class="portlet-body form">
                     <h4>Basic Information</h4>
 
-                    @if(isset($federation->account_key))
+                    @if (isset($federation->account_key))
                         <h5> Your account key : <strong>{{ $federation->account_key }}</strong></h5>
                     @endif
 
@@ -36,11 +37,13 @@
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label class="bold">Federation name</label>
                             <input name="name" type="text" class="form-control" placeholder="Enter federation name" value="{{ old('name') != null ? old('name') : (isset($federation->name) ? $federation->name : '') }}" />
+
                             @if ($errors->has('name'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('name') }}</strong>
                                 </span>
                             @endif
+
                         </div>
 
                         <label class="bold">Federation Contact Person</label>
@@ -48,9 +51,11 @@
                             <div class="col-lg-10 col-sm-9 col-xs-12 form-group{{ $errors->has('owner_id') ? ' has-error' : '' }}">
                                 <select name="owner_id" class="form-control" data-placeholder="Select a Contact Person">
                                     <option></option>
-                                    @foreach ($owners as $owner)
-                                        <option value="{{ $owner->id }}"  {{ (old('owner_id') == $owner->id || old('owner_id') == null && isset($federation->owner_id) && $federation->owner_id == $owner->id) ? 'selected="selected"' : '' }}>{{ $owner->first_name }} {{ $owner->last_name }}</option>
-                                    @endforeach
+
+                                @foreach ($owners as $owner)
+                                    <option value="{{ $owner->id }}"  {{ (old('owner_id') == $owner->id || old('owner_id') == null && isset($federation->owner_id) && $federation->owner_id == $owner->id) ? 'selected="selected"' : '' }}>{{ $owner->first_name }} {{ $owner->last_name }}</option>
+                                @endforeach
+
                                 </select>
 
                                 @if ($errors->has('owner_id'))
@@ -73,9 +78,11 @@
                             <label class="bold">Sport</label>
                             <select name="sport_id" class="form-control">
                                 <option value="">Choose federation sport</option>
-                                @foreach ($sports as $sport)
-                                    <option value="{{ $sport->id }}" {{ (old('sport_id') == $sport->id || old('sport_id') == null && isset($federation->sport_id) && $federation->sport_id == $sport->id) ? 'selected="selected"' : '' }}>{{ $sport->name }}</option>
-                                @endforeach
+
+                            @foreach ($sports as $sport)
+                                <option value="{{ $sport->id }}" {{ (old('sport_id') == $sport->id || old('sport_id') == null && isset($federation->sport_id) && $federation->sport_id == $sport->id) ? 'selected="selected"' : '' }}>{{ $sport->name }}</option>
+                             @endforeach
+
                             </select>
 
                             @if ($errors->has('sport_id'))
@@ -91,9 +98,11 @@
                             <div class="col-lg-10 col-sm-9 col-xs-12 form-group{{ $errors->has('assign_countries') ? ' has-error' : '' }}">
                                 <select name="assign_countries" class="form-control" data-placeholder="Select a Federation Country">
                                     <option value="">Select country from a list</option>
-                                    @foreach ($countries as $country)
-                                         <option value="{{ $country->id }}">{{ $country->name }} </option>
-                                    @endforeach
+
+                                @foreach ($countries as $country)
+                                    <option value="{{ $country->id }}">{{ $country->name }} </option>
+                                 @endforeach
+
                                 </select>
 
                                 @if ($errors->has('assign_countries'))
@@ -101,6 +110,7 @@
                                         <strong>{{ $errors->first('assign_countries') }}</strong>
                                     </span>
                                 @endif
+
                             </div>
 
                             <div class="col-lg-2 col-sm-3 col-xs-12 form-group">
@@ -113,11 +123,13 @@
 
                             <div class="col-lg-10 col-sm-9 col-xs-12 form-group">
                                 <select multiple name="federation_countries" class="form-control">
+
                                 @if ( ! empty($federation->countries))
-                                @foreach ($federation->countries as $country_option)
-                                    <option value="{{ $country_option->id }}"> {{ $country_option->name }} </option>
-                                @endforeach
+                                    @foreach ($federation->countries as $country_option)
+                                        <option value="{{ $country_option->id }}"> {{ $country_option->name }} </option>
+                                    @endforeach
                                 @endif
+
                                 </select>
                             </div>
                            
@@ -144,11 +156,14 @@
                                 <label class="bold"></label>
                                 <select name="federation_subdomain" class="form-control">
                                     <option value="">Select subdomain from a list</option>
-                                    @foreach ($subdomains as $subdomain)
-                                        <option value="{{ $subdomain->id }}" {{ (old('federation_subdomain') == $subdomain->id || old('federation_subdomain') == null && isset($federation->subdomain_specific_id) && $federation->subdomain_specific_id == $subdomain->id) ? 'selected="selected"' : '' }}>{{ $subdomain->subdomain_link }}</option>
-                                    @endforeach
+
+                                @foreach ($subdomains as $subdomain)
+                                    <option value="{{ $subdomain->id }}" {{ (old('federation_subdomain') == $subdomain->id || old('federation_subdomain') == null && isset($federation->subdomain_specific_id) && $federation->subdomain_specific_id == $subdomain->id) ? 'selected="selected"' : '' }}>{{ $subdomain->subdomain_link }}</option>
+                                @endforeach
+
                                 </select>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -234,7 +249,6 @@
 
             <div class="modal-body">
                 <div class="alert-box"></div>
-
                 <div class="row">
                     <div class="col-sm-6 col-xs-12 form-group">
                         <label class="bold">First Name</label>
@@ -253,6 +267,7 @@
                             </span>
                         </div>
                     </div>
+
                 </div>
 
                 <div class="row">
@@ -295,9 +310,11 @@
                         <label class="bold">Country</label>
                         <select name="country" class="form-control">
                             <option value="">Select country from a list</option>
-                            @foreach($countries as $country)
-                                <option value="{{ $country->id }}">{{ $country->name }}</option>
-                            @endforeach
+
+                        @foreach ($countries as $country)
+                            <option value="{{ $country->id }}">{{ $country->name }}</option>
+                        @endforeach
+
                         </select>
                     </div>
                 </div>

@@ -107,7 +107,6 @@ class FederationsController extends Controller
         }
         else
         {
-            
             $subdomains = Subdomain_specific::where('id', $federation->subdomain_specific_id)->get();
         }
 
@@ -152,7 +151,7 @@ class FederationsController extends Controller
 
     public function lists()
     {
-        $federations = Federation_account::latest()->get();
+        $federations = Federation_account::latest()->where('status','!=', '0')->get();
         foreach ($federations as $federation)
         {
             $federation['address'] = Address::find($federation->address_id);
@@ -170,7 +169,9 @@ class FederationsController extends Controller
 
     public function remove($id = FALSE)
     {
-        Federation_account::destroy($id);
+        $federation = Federation_account::find($id);
+        $federation->status = 0;
+        $federation->save();
         return redirect('federations/lists')->with('message', 'Federation was successfully removed');
     }
 

@@ -34,7 +34,7 @@
                 @endif
 
                
-                 @if( ! empty($club->owners->middle_name))
+                @if( ! empty($club->owners->middle_name))
                     <h4><strong>Middle name</strong></h4>
                     <p>{{ $club->owners->middle_name }}</p>
                 @endif
@@ -172,7 +172,7 @@
                 </div>
                 @else 
                 <div class="table-scrollable location-club">
-                    <table class="table table-hover table-light table-advance">
+                    <table class="table table-hover table-light">
                         <thead>
                             <tr>
                                 <th class="text-uppercase">Name</th>
