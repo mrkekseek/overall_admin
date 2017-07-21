@@ -22,19 +22,7 @@ class FederationsController extends Controller
         $owners = $this->federationsOwnersGet();
         $sports = Sport::all();
         $countries = Countries::orderBy('name', 'asc')->get();
-        if (! empty($federation) && $federation->subdomain_specific_id == 0)
-        {
-            $subdomains = Subdomain_specific::where('id', $federation->subdomain_specific_id)->orWhere('is_assigned', 0)->get();
-        }
-        elseif ( ! empty($federation))
-        {
-            $federation->address = Address::find($federation->address_id);
-            $subdomains = Subdomain_specific::where('id', $federation->subdomain_specific_id)->get();
-        }
-        else
-        {
-            $subdomains = Subdomain_specific::where('is_assigned', 0)->get();
-        }
+        $subdomains = Subdomain_specific::where('is_assigned', 0)->get();
 
         return compact('federation', 'owners', 'sports', 'countries', 'subdomains', 'countries_federation');
     }
@@ -111,18 +99,16 @@ class FederationsController extends Controller
         $sports = Sport::all();
         $federation = Federation_account::with('countries','address')->find($id);
         $countries = Countries::orderBy('name', 'asc')->get();
-        if (! empty($federation) && $federation->subdomain_specific_id == 0)
+        $federation->address = Address::find($federation->address_id);
+
+        if ($federation->subdomain_specific_id == 0)
         {
             $subdomains = Subdomain_specific::where('id', $federation->subdomain_specific_id)->orWhere('is_assigned', 0)->get();
         }
-        elseif ( ! empty($federation))
-        {
-            $federation->address = Address::find($federation->address_id);
-            $subdomains = Subdomain_specific::where('id', $federation->subdomain_specific_id)->get();
-        }
         else
         {
-            $subdomains = Subdomain_specific::where('is_assigned', 0)->get();
+            
+            $subdomains = Subdomain_specific::where('id', $federation->subdomain_specific_id)->get();
         }
 
         return compact('federation', 'owners', 'sports', 'countries', 'subdomains', 'countries_federation');
