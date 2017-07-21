@@ -161,27 +161,44 @@
                 <p>{{ $club->subdomains->subdomain_link }}</p>
 
                 <h3>Club Locations</h3><br>
-
+                
+                @if( ! empty($message))
+                    <div class="row">
+                        <div class="col-md-6">
+                        <div class="alert alert-danger alert-dismissable">
+                            <span>The selected account key is invalid</span>
+                        </div> 
+                    </div>
+                </div>
+                @else 
                 <div class="table-scrollable location-club">
                     <table class="table table-hover table-light">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th class="text-center">New</th>
-                                <th>Club name</th>
-                                <th>Owner</th>
-                                <th>Country</th>
-                                <th>Sport</th>
-                                <th class="text-center">Manage</th>
-                                <th class="text-center">View</th>
+                                <th class="text-uppercase">Name</th>
+                                <th class="text-uppercase">Address</th>
+                                <th class="text-uppercase">Place</th>
+                                <th class="text-uppercase">Sport</th>
                             </tr>
                         </thead>
 
-                        <tbody>
-                        </tbody>
+                        @foreach ($locations as $location)
+                        <tr>
+                            <td class="mt-action text-uppercase">{{ $location->name }}</td>
+                            <td>{{ $location->full_address }}</td>
+                            <td>@foreach ($location->resources as $resources)
+                                    <span>{{ $resources->resource_name }}</span><br>
+                                @endforeach
+                            </td>
+                            <td>@foreach ($location->resources as $resources)
+                                    <span>{{ $resources->resource_type }}</span><br>
+                                @endforeach
+                            </td>
+                        </tr>
+                        @endforeach
                     </table>
                 </div>
-        
+                @endif
             </div>
         </div>
         @endif
