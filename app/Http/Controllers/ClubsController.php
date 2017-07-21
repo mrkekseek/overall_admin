@@ -114,7 +114,7 @@ class ClubsController extends Controller
 
     public function lists()
     {
-        $clubs = Club_account::latest()->get();
+        $clubs = Club_account::latest()->where('status','!=', '0')->get();
         $minDate = strtotime('-7 days');
         foreach ($clubs as $club)
         {
@@ -152,7 +152,9 @@ class ClubsController extends Controller
 
     public function remove($id = FALSE)
     {
-        Club_account::destroy($id);
+        $club = Club_account::find($id);
+        $club->status = 0;
+        $club->save();
         return redirect('clubs/lists')->with('message', 'Club was successfully removed');
     }
 
