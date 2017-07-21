@@ -81,7 +81,7 @@
 			<div class="portlet-body form">
 				<h4>User activity</h4>
 				<div class="form-body">
-					<div class="table-scrollable">
+					<div class="table-scrollable table-users">
 			            <table class="table table-hover table-light">
 			                <thead>
 			                    <tr>

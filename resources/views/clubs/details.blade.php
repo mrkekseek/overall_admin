@@ -172,7 +172,7 @@
                 </div>
                 @else 
                 <div class="table-scrollable location-club">
-                    <table class="table table-hover table-light">
+                    <table class="table table-hover table-light table-advance">
                         <thead>
                             <tr>
                                 <th class="text-uppercase">Name</th>

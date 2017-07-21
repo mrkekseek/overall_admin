@@ -25,7 +25,8 @@
 	background-color: transparent;
 }
 
-.table-scrollable {
+.table-users {
 	overflow-y: auto;
 	height: 400px;
 }
+
