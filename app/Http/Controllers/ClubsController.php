@@ -136,6 +136,7 @@ class ClubsController extends Controller
                 'account_key'=> $club->account_key
             ];
             $remote_data = ApiClub::get_all_locations_and_resources($dataForApi, $subdomain);
+            dd($remote_data);
             if ($remote_data['success'])
             {
                 $locations = $remote_data['locations'];

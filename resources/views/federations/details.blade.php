@@ -9,7 +9,7 @@
             <a href="/">Dashboard</a>
         </li>
         <li>
-            <a href="/clubs/lists">Federations List</a>
+            <a href="/federations/lists">Federations List</a>
         </li>
         <li class="active">{{ $federation->name }}</li>
     </ol>
