@@ -136,7 +136,7 @@
                         </div>
                     </div>
 
-                    @if( count($subdomains) || ! empty($subdomains))
+                    @if( count($subdomains) || empty($subdomains))
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="portlet light bordered">
