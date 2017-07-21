@@ -32,21 +32,25 @@
 		                    <div class="col-sm-6 col-xs-12 form-group{{ $errors->has('name') ? ' has-error' : '' }}">
 		                        <label class="bold">Name</label>
 		                        <input type="text" class="form-control" name="name" value="{{ old('name') != null ? old('name') : (isset($user->name) ? $user->name : '') }}" />
+
 		                        @if ($errors->has('name'))
 	                                <span class="help-block">
 	                                    <strong>{{ $errors->first('name') }}</strong>
 	                                </span>
 	                            @endif
+
 		                    </div>
 
 		                    <div class="col-sm-6 col-xs-12 form-group{{ $errors->has('email') ? ' has-error' : '' }}">
 			                    <label class="bold">Email Address</label>
 		                        <input type="email" class="form-control" name="email" value="{{ old('email') != null ? old('email') : (isset($user->email) ? $user->email : '') }}" />
+
 		                        @if ($errors->has('email'))
 	                                <span class="help-block">
 	                                    <strong>{{ $errors->first('email') }}</strong>
 	                                </span>
 	                            @endif
+
 		               		 </div>
 		                </div>
 
@@ -54,21 +58,26 @@
 		                	<div class="col-sm-6 col-xs-12 form-group{{ $errors->has('password') ? ' has-error' : '' }}">
 		                        <label class="bold">Password</label>
 		                        <input type="password" class="form-control" name="password" value="" />
+
 		                        @if ($errors->has('password'))
 	                                <span class="help-block">
 	                                    <strong>{{ $errors->first('password') }}</strong>
 	                                </span>
 	                            @endif
+
 		                    </div>
 
 		                	<div class="col-sm-6 col-xs-12 form-group{{ $errors->has('role') ? ' has-error' : '' }}">
 		                		<label class="bold">Role</label>
 		                        <select name="role" class="form-control">
 		                        	<option value="">Select a role from a list</option>
-		                            @foreach ($roles as $role)
-		                            	<option value="{{ $role->id }}" {{ (old('role') == $role->id || old('role') == null && isset($user->roles) && $user->roles->first()['id'] == $role->id) ? 'selected="selected"' : '' }}>{{ $role->display_name }}</option>
-		                            @endforeach
+
+		                        @foreach ($roles as $role)
+		                            <option value="{{ $role->id }}" {{ (old('role') == $role->id || old('role') == null && isset($user->roles) && $user->roles->first()['id'] == $role->id) ? 'selected="selected"' : '' }}>{{ $role->display_name }}</option>
+		                        @endforeach
+
 		                        </select>
+
 		                        @if ($errors->has('role'))
 	                                <span class="help-block">
 	                                    <strong>{{ $errors->first('role') }}</strong>
@@ -81,21 +90,25 @@
 		                	<div class="col-sm-6 col-xs-12 form-group{{ $errors->has('address') ? ' has-error' : '' }}">
 		                        <label class="bold">Address</label>
 		                        <input type="text" class="form-control" name="address" value="{{ old('address') != null ? old('address') : (isset($user->address) ? $user->address : '') }}" />
+
 		                        @if ($errors->has('address'))
 	                                <span class="help-block">
 	                                    <strong>{{ $errors->first('address') }}</strong>
 	                                </span>
 	                            @endif
+
 		                    </div>
 
 		                	<div class="col-sm-6 col-xs-12 form-group{{ $errors->has('city') ? ' has-error' : '' }}">
 		                        <label class="bold">City</label>
 		                        <input type="text" class="form-control" name="city" value="{{ old('city') != null ? old('city') : (isset($user->city) ? $user->city : '') }}" />
+
 		                        @if ($errors->has('city'))
 	                                <span class="help-block">
 	                                    <strong>{{ $errors->first('city') }}</strong>
 	                                </span>
 	                            @endif
+	                            
 		                    </div>
 		                </div>
 

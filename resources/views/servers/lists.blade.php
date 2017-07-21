@@ -34,7 +34,7 @@
                             <td>{{ $server['ip_address'] }}</td>
                             <td>{{ $server['description'] }}</td>
                             <td class="text-center">
-                                <a href="/servers/add/{{ $server['id'] }}" class="btn btn-icon"><i class="fa fa-edit"></i></a>
+                                <a href="/servers/edit/{{ $server['id'] }}" class="btn btn-icon"><i class="fa fa-edit"></i></a>
                             </td>
                             <td class="text-center">
                                 <a href="/servers/details/{{ $server['id'] }}" class="btn btn btn-icon"><i class="fa fa-eye"></i></a>

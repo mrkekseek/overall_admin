@@ -17,7 +17,6 @@ class ServersController extends Controller
 {
     public function add($id = FALSE)
     {
-        $server = Server::find($id);
         return compact('server');
     }
 
@@ -43,6 +42,12 @@ class ServersController extends Controller
 
 
         return redirect('servers/lists')->with('message', 'Server was succesfully saved');
+    }
+
+    public function edit($id = FALSE)
+    {
+        $server = Server::find($id);
+        return compact('server');
     }
 
     public function lists()

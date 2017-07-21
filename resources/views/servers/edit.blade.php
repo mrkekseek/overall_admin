@@ -2,7 +2,7 @@
 
 @section('breadcrumbs')
 <div class="breadcrumbs">
-   <h1> Add New Server</h1>
+   <h1> Edit Server</h1>
 
     <ol class="breadcrumb">
         <li>
@@ -21,7 +21,7 @@
     <div class="col-md-6 ">
         <div class="portlet light bordered">
             <div class="portlet-body form">
-                <form role="form" action="/servers/add" method="post">
+                <form role="form" action="/servers/add{{ ! empty($id) ? '/'.$id : '' }}" method="post">
                     {{ csrf_field() }}
                     {{ method_field('POST') }}
 
@@ -83,7 +83,7 @@
                         </div>
 
                         <div class="text-right form-group">
-                            <button type="submit" class="btn green"> Add Server</button>
+                            <button type="submit" class="btn green">Save Server</button>
                         </div>
                         
                         <div class="portlet-body form">
@@ -96,11 +96,11 @@
                                     <div class="text-right">
 
                                         @if( isset($server->is_filled)  && $server->is_filled == 0 && ! Auth::user()->hasRole('owner'))
-                                            <button type="button" class="btn blue" id="sendFilled" data-id="{{ $id }}">Mark is filled</button>
+                                        <button type="button" class="btn blue" id="sendFilled" data-id="{{ $id }}">Mark is filled</button>
                                         @endif
 
                                         @if( Auth::user()->hasRole('owner') && ! empty($server))
-                                            <button type="button" class="btn blue" id="sendFilledRole" data-id="{{ $id }}"></button>
+                                        <button type="button" class="btn blue" id="sendFilledRole" data-id="{{ $id }}"></button>
                                         @endif
 
                                     </div>
@@ -114,6 +114,10 @@
             </div>
         </div>
     </div>
+</div>
+
+<div>
+    <button class="btn  red" data-remove="/servers/remove/{{ $id }}"><i class="fa fa-trash"></i> Remove Server</button>
 </div>
 
 @endsection

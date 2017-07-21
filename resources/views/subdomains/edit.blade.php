@@ -2,7 +2,7 @@
 
 @section('breadcrumbs')
 <div class="breadcrumbs">
-   <h1>Add New Subdomain</h1>
+   <h1>{{ ! empty($id) ? 'Edit' : 'Add New' }} Subdomain</h1>
 
     <ol class="breadcrumb">
         <li>
@@ -21,7 +21,7 @@
     <div class="col-md-6">
         <div class="portlet light bordered">
             <div class="portlet-body form">
-                <form role="form" action="/subdomains/add" method="post">
+                <form role="form" action="/subdomains/add{{ ! empty($id) ? '/'.$id : '' }}" method="post">
                     {{ csrf_field() }}
                     {{ method_field('POST') }}
 
@@ -106,5 +106,11 @@
         </div>
     </div>
 </div>
+
+@if(! empty($subdomain->subdomain_link))
+<div>
+    <button class="btn red" data-remove="/subdomains/remove/{{ $id }}"><i class="fa fa-trash"></i> Remove Subdomain</button>
+</div>
+@endif
 
 @endsection
