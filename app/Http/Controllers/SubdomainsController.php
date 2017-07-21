@@ -10,9 +10,8 @@ use App\Server;
 
 class SubdomainsController extends Controller
 {
-    public function add($id = FALSE)
+    public function add()
     {
-        $subdomain = Subdomain_specific::find($id);
         $servers = Server::all();
         $web_servers = Server::where(['server_type'=>'web', 'is_filled'=>0])->get();
         $database_servers = Server::where('server_type', 'database')->get();
@@ -46,6 +45,15 @@ class SubdomainsController extends Controller
     	$subdomain->save();
 
         return redirect('subdomains/lists')->with('message', 'Subdomain was succesfully saved');
+    }
+
+    public function edit($id = FALSE)
+    {
+        $subdomain = Subdomain_specific::find($id);
+        $servers = Server::all();
+        $web_servers = Server::where(['server_type'=>'web', 'is_filled'=>0])->get();
+        $database_servers = Server::where('server_type', 'database')->get();
+        return compact('subdomain', 'servers', 'web_servers', 'database_servers');
     }
 
     public function lists()
