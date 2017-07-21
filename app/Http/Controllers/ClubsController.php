@@ -145,6 +145,14 @@ class ClubsController extends Controller
     public function details($id = FALSE)
     {
         $club = Club_account::with('sport', 'subdomains', 'owners', 'address')->find($id);
+        if ( ! empty($club->subdomain_specific_id))
+        {
+            $subdomain = $club->subdomains->subdomain_link;
+            $dataForApi = [
+                'account_key'=> $club->account_key
+            ];
+            $remote_data = ApiClub::get_all_locations_and_resources($dataForApi, $subdomain);
+        }
         return compact('club', 'sport', 'subdomains', 'owners', 'address');
     }
 
