@@ -89,6 +89,16 @@ class SettingsController extends Controller
         return redirect('settings/users')->with('message', 'User was succesfully saved');
     }
 
+    public function edit($id = FALSE)
+    {
+        $roles = Role::all();
+        $user = User::find($id);
+        $countries = Countries::orderBy('name', 'asc')->get();
+        $user_statuses = User_statuses::all();
+
+        return compact('user', 'roles', 'countries', 'user_statuses');
+    }
+
     public function users()
     {
         $users = User::all();

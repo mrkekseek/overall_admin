@@ -11,7 +11,7 @@
         <li>
             <a href="/subdomains/lists">Subdomains List</a>
         </li>
-        <li class="active">Add New Subdomain</li>
+        <li class="active">Edit Subdomain</li>
     </ol>
 </div>
 @endsection

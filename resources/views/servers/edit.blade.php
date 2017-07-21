@@ -11,7 +11,7 @@
         <li>
             <a href="/servers/lists">Servers List</a>
         </li>
-        <li class="active">Add New Server</li>
+        <li class="active">Edit Server</li>
     </ol>
 </div>
 @endsection

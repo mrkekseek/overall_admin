@@ -38,7 +38,7 @@
                             <td>{{ $user['roles']->first()['display_name'] or '' }}</td>
                             <td>{{ $user['country'] }}</td>
                             <td class="text-center">
-                                <a href="/settings/add/{{ $user['id'] }}" class="btn btn-icon"><i class="fa fa-edit"></i></a>
+                                <a href="/settings/edit/{{ $user['id'] }}" class="btn btn-icon"><i class="fa fa-edit"></i></a>
                             </td>
                             <td class="text-center">
                                 <a href="/settings/details/{{ $user['id'] }}" class="btn btn-icon"><i class="fa fa-eye"></i></a>
