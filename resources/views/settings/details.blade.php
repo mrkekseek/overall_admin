@@ -18,7 +18,7 @@
 
 @section('content')
 <div class="row">
-	<div class="col-md-6 col-xs-12">
+	<div class="col-md-5 col-xs-12">
 		<div class="portlet light bordered">
 			<div class="portlet-body form">
 				<h4>User details</h4>
@@ -76,7 +76,7 @@
 		</div>
 	</div>
 
-	<div class="col-md-6 col-xs-12">
+	<div class="col-md-7 col-xs-12">
 		<div class="portlet light bordered">
 			<div class="portlet-body form">
 				<h4>User activity</h4>
@@ -87,20 +87,24 @@
 			                    <tr>
 			                        <th>Action</th>
 			                        <th>Description</th>
-			                        <th class="text-center">Details</th>
-			                        <th class="text-center">Date of log</th>
+			                        <th>Details</th>
+			                        <th>Ip</th>
+			                        <th>Date of log</th>
 			                    </tr>
 			                </thead>
 
 			                <tbody>
+
 							    @foreach($logs as $log)
 							    <tr>
 							     	<td>{{ $log->action }}</td>
 							     	<td>{{ $log->description }}</td>
 							     	<td>{{ $log->details }}</td>
-							     	<td>{{ $log->created_at }}</td>
+							     	<td>{{ $log->ip_address }}</td>
+							     	<td>{{ $log->created_at->format('d/m/Y h:m') }}</td>
 							    </tr>
-								@endforeach  
+								@endforeach 
+
 			                </tbody>
 			            </table>
 			        </div>
