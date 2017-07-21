@@ -105,7 +105,7 @@ class FederationsController extends Controller
         return redirect('federations/lists')->with('message', 'Federation was succesfully saved');
     }
 
-     public function edit($id = FALSE)
+    public function edit($id = FALSE)
     {
         $owners = $this->federationsOwnersGet();
         $sports = Sport::all();
