@@ -51,9 +51,11 @@
                                     <div class="col-lg-10 col-sm-9 col-xs-12 form-group{{ $errors->has('owner_id') ? ' has-error' : '' }}">
                                         <select name="owner_id" class="form-control" data-placeholder="Select a Contact Person">
                                             <option></option>
+
                                         @foreach ($owners as $owner)
                                             <option value="{{ $owner->id }}"  {{ (old('owner_id') == $owner->id || old('owner_id') == null && isset($federation->owner_id) && $federation->owner_id == $owner->id) ? 'selected="selected"' : '' }}>{{ $owner->first_name }} {{ $owner->last_name }}</option>
                                         @endforeach
+
                                         </select>
 
                                         @if ($errors->has('owner_id'))
@@ -61,6 +63,7 @@
                                                 <strong>{{ $errors->first('owner_id') }}</strong>
                                             </span>
                                         @endif
+
                                     </div>
 
                                     <div class="col-lg-2 col-sm-3 col-xs-12 form-group">
@@ -96,9 +99,11 @@
                                     <div class="col-lg-10 col-sm-9 col-xs-12 form-group{{ $errors->has('assign_countries') ? ' has-error' : '' }}">
                                         <select name="assign_countries" class="form-control" data-placeholder="Select a Federation Country">
                                             <option value="">Select country from a list</option>
+
                                         @foreach ($countries as $country)
                                              <option value="{{ $country->id }}">{{ $country->name }} </option>
                                         @endforeach
+
                                         </select>
 
                                         @if ($errors->has('assign_countries'))
@@ -118,6 +123,7 @@
 
                                     <div class="col-lg-10 col-sm-9 col-xs-12 form-group">
                                         <select multiple name="federation_countries" class="form-control">
+
                                         @if ( ! empty($federation->countries))
 
                                             @foreach ($federation->countries as $country_option)
@@ -125,6 +131,7 @@
                                             @endforeach
 
                                         @endif
+                                        
                                         </select>
                                     </div>
                                    

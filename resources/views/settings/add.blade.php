@@ -51,10 +51,7 @@
 	                                </span>
 	                            @endif
 
-		               		 </div>
-		                </div>
-
-		                <div class="row">
+		               		</div>
 		                	<div class="col-sm-6 col-xs-12 form-group{{ $errors->has('password') ? ' has-error' : '' }}">
 		                        <label class="bold">Password</label>
 		                        <input type="password" class="form-control" name="password" value="" />
@@ -67,6 +64,7 @@
 
 		                    </div>
 
+							@if(Auth::user()->hasRole('owner'))
 		                	<div class="col-sm-6 col-xs-12 form-group{{ $errors->has('role') ? ' has-error' : '' }}">
 		                		<label class="bold">Role</label>
 		                        <select name="role" class="form-control">
@@ -84,9 +82,8 @@
 	                                </span>
 	                            @endif
 		                    </div>
-		                </div>
+		                    @endif
 
-		                <div class="row">
 		                	<div class="col-sm-6 col-xs-12 form-group{{ $errors->has('address') ? ' has-error' : '' }}">
 		                        <label class="bold">Address</label>
 		                        <input type="text" class="form-control" name="address" value="{{ old('address') != null ? old('address') : (isset($user->address) ? $user->address : '') }}" />
@@ -110,49 +107,55 @@
 	                            @endif
 	                            
 		                    </div>
-		                </div>
 
-		                <div class="row">
 		                	<div class="col-sm-6 col-xs-12 form-group{{ $errors->has('country') ? ' has-error' : '' }}">
 		                        <label class="bold">Country</label>
 		                        <select name="country" class="form-control">
 		                        	<option value="">Select country from a list</option>
+
 	                            @foreach($countries as $country)
                                     <option value="{{ $country->id }}" {{ (old('country') == $country->id || old('country') == null && isset($user->country) && $user->country == $country->name) ? 'selected="selected"' : '' }}>{{ $country->name }}</option>
                                 @endforeach
+
 		                        </select>
+
 		                        @if ($errors->has('country'))
 	                                <span class="help-block">
 	                                    <strong>{{ $errors->first('country') }}</strong>
 	                                </span>
 	                            @endif
+
 		                    </div>
 
 		                    <div class="col-sm-6 col-xs-12 form-group{{ $errors->has('phone_number') ? ' has-error' : '' }}">
 		                        <label class="bold">Phone</label>
 		                        <input type="text" class="form-control" name="phone_number" value="{{ old('phone_number') != null ? old('phone_number') : (isset($user->phone_number) ? $user->phone_number : '') }}" />
+
 		                        @if ($errors->has('phone_number'))
 	                                <span class="help-block">
 	                                    <strong>{{ $errors->first('phone_number') }}</strong>
 	                                </span>
 	                            @endif
-		                    </div>
-		                </div>
 
-		                <div class="row">
+		                    </div>
+
 		                	<div class="col-sm-6 col-xs-12 form-group{{ $errors->has('user_status') ? ' has-error' : '' }}">
 		                        <label class="bold">Status</label>
 		                        <select name="user_status" class="form-control">
 		                        	<option value="">Select status of the user</option>
+
 	                        	@foreach($user_statuses as $status)
 	                        		<option value="{{ $status->id }}" {{ (old('user_status') == $status->id || old('user_status') == null && isset($user->user_status) && $user->user_status == $status->status_name) ? 'selected="selected"' : '' }}>{{ $status->status_name }}</option>
 	                        	@endforeach
+
 		                        </select>
+
 		                        @if ($errors->has('user_status'))
 	                                <span class="help-block">
 	                                    <strong>{{ $errors->first('user_status') }}</strong>
 	                                </span>
 	                            @endif
+
 		                    </div>
 		                </div>
 		            </div>
@@ -164,5 +167,7 @@
 	<div class="text-center">
 	    <button type="submit" class="btn green"> Add User</button>
 	</div>
+	
 </form>
+
 @endsection

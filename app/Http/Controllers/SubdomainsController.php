@@ -12,7 +12,8 @@ class SubdomainsController extends Controller
 {
     public function add()
     {
-        $servers = Server::all();
+        //$servers = Server::all();
+        //dd($servers);
         $web_servers = Server::where(['server_type'=>'web', 'is_filled'=>0])->get();
         $database_servers = Server::where('server_type', 'database')->get();
         return compact('subdomain', 'servers', 'web_servers', 'database_servers');

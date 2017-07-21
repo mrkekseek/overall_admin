@@ -153,6 +153,7 @@
 </div>
 <div class="row">
     <div class="col-md-12">
+
         @if( ! empty($club->subdomains))
         <div class="portlet light bordered">
             <div class="portlet-body form">
@@ -172,7 +173,7 @@
                 </div>
                 @else 
                 <div class="table-scrollable location-club">
-                    <table class="table table-hover table-light">
+                    <table class="table table-hover table-strited table-light">
                         <thead>
                             <tr>
                                 <th class="text-uppercase">Name</th>
@@ -196,9 +197,11 @@
                             </td>
                         </tr>
                         @endforeach
+
                     </table>
                 </div>
                 @endif
+
             </div>
         </div>
         @endif

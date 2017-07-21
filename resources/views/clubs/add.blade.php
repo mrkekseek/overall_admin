@@ -31,11 +31,13 @@
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label class="bold">Club name</label>
                             <input name="name" type="text" class="form-control" placeholder="Enter club name" value="{{ old('name') != null ? old('name') : (isset($club->name) ? $club->name : '') }}" />
+
                             @if ($errors->has('name'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('name') }}</strong>
                                 </span>
                             @endif
+
                         </div>
 
                         <label class="bold">Club owner</label>
@@ -43,9 +45,11 @@
                             <div class="col-lg-10 col-sm-9 col-xs-12 form-group{{ $errors->has('owner_id') ? ' has-error' : '' }}">
                                 <select name="owner_id" class="form-control" data-placeholder="Select an Owner">
                                     <option value=""></option>
-                                    @foreach ($owners as $owner)
-                                        <option value="{{ $owner->id }}"  {{ (old('owner_id') == $owner->id || old('owner_id') == null && isset($club->owner_id) && $club->owner_id == $owner->id) ? 'selected="selected"' : '' }}>{{ $owner->first_name }} {{ $owner->last_name }}</option>
-                                    @endforeach
+
+                                @foreach ($owners as $owner)
+                                    <option value="{{ $owner->id }}"  {{ (old('owner_id') == $owner->id || old('owner_id') == null && isset($club->owner_id) && $club->owner_id == $owner->id) ? 'selected="selected"' : '' }}>{{ $owner->first_name }} {{ $owner->last_name }}</option>
+                                @endforeach
+
                                 </select>
 
                                 @if ($errors->has('owner_id'))
@@ -53,11 +57,14 @@
                                         <strong>{{ $errors->first('owner_id') }}</strong>
                                     </span>
                                 @endif
+
                             </div>
 
                             <div class="col-lg-2 col-sm-3 col-xs-12 form-group">
                                 <div data-toggle="tooltip" data-placement="top" title="Add owner">
-                                    <button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#add-owner"><i class="fa fa-plus-circle"></i></button>
+                                    <button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#add-owner">
+                                        <i class="fa fa-plus-circle"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -71,13 +78,15 @@
                             <label class="bold">Sport</label>
                             <select name="main_sport_id" class="form-control">
                                 <option value="0" {{ (old('main_sport_id') == '0' || old('main_sport_id') == null && isset($club->main_sport_id) && $club->main_sport_id == '0') ? 'selected="selected"' : '' }}>Choose clubs sport</option>
-                                @foreach ($sports as $sport)
-                                    <option value="{{ $sport->id }}" {{ (old('main_sport_id') == $sport->id || old('main_sport_id') == null && isset($club->main_sport_id) && $club->main_sport_id == $sport->id) ? 'selected="selected"' : '' }}>{{ $sport->name }}</option>
-                                @endforeach
+
+                            @foreach ($sports as $sport)
+                                <option value="{{ $sport->id }}" {{ (old('main_sport_id') == $sport->id || old('main_sport_id') == null && isset($club->main_sport_id) && $club->main_sport_id == $sport->id) ? 'selected="selected"' : '' }}>{{ $sport->name }}</option>
+                            @endforeach
+
                             </select>
                         </div>
                         <div class="text-right">
-                            <button type="submit" class="btn green">{{ ! empty($id) ? 'Save' : 'Add' }} club</button>
+                            <button type="submit" class="btn green"> Add club</button>
                         </div>
                     </div>
                 </div>
@@ -92,15 +101,19 @@
                             <div class="form-group">
                                 <select name="assign_subdomain" class="form-control">
                                     <option value="">Select subdomain from a list</option>
-                                    @foreach ($subdomains as $subdomain)
-                                        <option value="{{ $subdomain->id }}" {{ (old('assign_subdomain') == $subdomain->id || old('assign_subdomain') == null && isset($club->subdomain_specific_id) && $club->subdomain_specific_id == $subdomain->id) ? 'selected="selected"' : '' }}>{{ $subdomain->subdomain_link }}</option>
-                                    @endforeach
+
+                                @foreach ($subdomains as $subdomain)
+                                    <option value="{{ $subdomain->id }}" {{ (old('assign_subdomain') == $subdomain->id || old('assign_subdomain') == null && isset($club->subdomain_specific_id) && $club->subdomain_specific_id == $subdomain->id) ? 'selected="selected"' : '' }}>{{ $subdomain->subdomain_link }}</option>
+                                @endforeach
+
                                 </select>
                             </div>
                             <div class="text-center">
+
                                 @if ( empty($club->subdomains->is_assigned))
                                     <button type="button" id ="assing_subdomain" data-clubId="{{$id}}" class="btn green">Assign</button>
                                 @endif
+
                             </div>
                         </div>
                     </div>
@@ -193,9 +206,11 @@
                         <label class="bold">Country</label>
                         <select name="country" class="form-control">
                             <option value="">Select country from a list</option>
-                            @foreach($countries as $country)
-                                <option value="{{ $country->iso_3166_2 }}" {{ (old('country') == $country->id || old('country') == null && isset($club->address->country) && $club->address->country == $country->name) ? 'selected="selected"' : '' }}>{{ $country->name }}</option>
-                            @endforeach
+
+                        @foreach($countries as $country)
+                            <option value="{{ $country->iso_3166_2 }}" {{ (old('country') == $country->id || old('country') == null && isset($club->address->country) && $club->address->country == $country->name) ? 'selected="selected"' : '' }}>{{ $country->name }}</option>
+                        @endforeach
+                        
                         </select>
                     </div>
                 </div>

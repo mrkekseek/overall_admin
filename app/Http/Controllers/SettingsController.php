@@ -15,14 +15,13 @@ use App\Activity_log;
 
 class SettingsController extends Controller
 {
-    public function add($id = FALSE)
+    public function add()
     {
         $roles = Role::all();
-        $user = User::find($id);
         $countries = Countries::orderBy('name', 'asc')->get();
         $user_statuses = User_statuses::all();
 
-        return compact('user', 'roles', 'countries', 'user_statuses');
+        return compact('roles', 'countries', 'user_statuses');
     }
 
     public function addPost($id = FALSE, $data = [])
@@ -30,7 +29,7 @@ class SettingsController extends Controller
         $data['id'] = $id;
         $validator = Validator::make($data, [
             'name' => 'required',
-            'role' => 'required',
+            //'role' => 'required',
             'email' => 'required|email|unique:users,email,'.$id,
             'password' => 'required_without:id',
             'country' => 'required|max:45',
@@ -43,6 +42,7 @@ class SettingsController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
+
         $country = Countries::find($data['country']);
         $user_status = User_statuses::find($data['user_status']);
 
@@ -60,10 +60,12 @@ class SettingsController extends Controller
             $user->password = bcrypt($data['password']);
         }
         $user->save();
+        if (Auth::user()->hasRole('owner'))
+        {
+            $user->roles()->sync([$data['role']]);
+        }
 
-        $user->roles()->sync([$data['role']]);
-
-         if (empty($id))
+        if (empty($id))
         {
             Activity::log([
                 'contentId'   => Auth::id(),
@@ -76,7 +78,7 @@ class SettingsController extends Controller
         }
         else
         {
-             Activity::log([
+            Activity::log([
                 'contentId'   => Auth::id(),
                 'contentType' => 'User',
                 'action'      => 'Create',

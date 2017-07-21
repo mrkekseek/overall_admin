@@ -15,7 +15,7 @@ use App\User;
 
 class ServersController extends Controller
 {
-    public function add($id = FALSE)
+    public function add()
     {
         return compact('server');
     }
@@ -39,7 +39,6 @@ class ServersController extends Controller
     	$server->perfomance_level = $data['perfomance_level'];
     	$server->description = $data['description'];
     	$server->save();
-
 
         return redirect('servers/lists')->with('message', 'Server was succesfully saved');
     }

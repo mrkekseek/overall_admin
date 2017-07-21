@@ -60,7 +60,6 @@ class ClubsController extends Controller
             $club->subdomains->update(['is_assigned' => 1]);
         }
         
-       
         $club->save();
         
         if (empty($id))
@@ -85,8 +84,6 @@ class ClubsController extends Controller
                 'updated'     => TRUE,
             ]);
         }
-
-
 
         return redirect('clubs/lists')->with('message', 'Club was succesfully saved');
     }
@@ -165,14 +162,13 @@ class ClubsController extends Controller
             
             if ($remote_data['success'] && count($remote_data['locations']))
             {
-                $message = $remote_data['message'];
+                dd($remote_data);
                 return redirect('clubs/lists')->with('message', 'Sorry, but this domen is working');
             }
             else
             {   
                 $club->status = 0;
                 $club->save();
-                $message = $remote_data['message'];
                 return redirect('clubs/lists')->with('message', 'Club was successfully removed');
             }
         }

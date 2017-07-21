@@ -25,51 +25,63 @@
 
 				<div class="form-body">
 					<div class="row">
+						
+						@if( ! empty($user->name))
 						<div class="col-sm-6 col-xs-12 form-group">
 							<label class="bold">Name</label>
 							<p>{{ $user->name }}</p>
 						</div>
+						@endif
 
+						@if( ! empty($user->email))
 						<div class="col-sm-6 col-xs-12 form-group">
 							<label class="bold">Email Address</label>
 							<p>{{ $user->email }}</p>
-						 </div>
-					</div>
+						</div>
+						@endif
 
-					<div class="row">
+						@if( ! empty($user['roles']->first()['display_name']))
 						<div class="col-sm-6 col-xs-12 form-group">
 							<label class="bold">Role</label>
 							<p>{{ $user['roles']->first()['display_name'] or '' }}</p>
 						</div>
+						@endif
 
+						@if( ! empty($user->address))
 						<div class="col-sm-6 col-xs-12 form-group">
 							<label class="bold">Address</label>
 							<p>{{ $user->address }}</p>
 						</div>
-					</div>
+						@endif
 
-					<div class="row">
+						@if( ! empty($user->city))
 						<div class="col-sm-6 col-xs-12 form-group">
 							<label class="bold">City</label>
 							<p>{{ $user->city }}</p>
 						</div>
+						@endif
 
+						@if( ! empty($user->country))
 						<div class="col-sm-6 col-xs-12 form-group">
 							<label class="bold">Country</label>
 							<p>{{ $user->country}}</p>
 						</div>
-					</div>
-
-					<div class="row">
+						@endif
+					
+						@if( ! empty($user->phone_number))
 						<div class="col-sm-6 col-xs-12 form-group{{ $errors->has('country') ? ' has-error' : '' }}">
 							<label class="bold">Phone</label>
 							<p>{{ $user->phone_number }}</p>
 						</div>
+						@endif
 
+						@if( ! empty($user->user_status))
 						<div class="col-sm-6 col-xs-12 form-group{{ $errors->has('country') ? ' has-error' : '' }}">
 							<label class="bold">Status</label>
 							<p>{{ $user->user_status }}</p>
 						</div>
+						@endif
+						
 					</div>
 				</div>
 			</div>
