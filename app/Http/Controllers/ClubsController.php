@@ -153,9 +153,35 @@ class ClubsController extends Controller
     public function remove($id = FALSE)
     {
         $club = Club_account::find($id);
-        $club->status = 0;
-        $club->save();
-        return redirect('clubs/lists')->with('message', 'Club was successfully removed');
+        $subdomains = $club->subdomain_specific_id;
+        
+        if( ! empty($subdomains))
+        {
+            $subdomain = $club->subdomains->subdomain_link;
+            $dataForApi = [
+                'account_key'=> $club->account_key
+            ];
+            $remote_data = ApiClub::get_all_locations_and_resources($dataForApi, $subdomain);
+            
+            if ($remote_data['success'] && count($remote_data['locations']))
+            {
+                $message = $remote_data['message'];
+                return redirect('clubs/lists')->with('message', 'Sorry, but this domen is working');
+            }
+            else
+            {   
+                $club->status = 0;
+                $club->save();
+                $message = $remote_data['message'];
+                return redirect('clubs/lists')->with('message', 'Club was successfully removed');
+            }
+        }
+        else
+        {
+            $club->status = 0;
+            $club->save();
+            return redirect('clubs/lists')->with('message', 'Club was successfully removed');
+        }
     }
 
     public function clubsOwnersGet()

@@ -84,6 +84,10 @@ class ApiClub
         $subdomain = self::handle_url($subdomain);
         $response = self::send_curl($data, $subdomain.'apic/get_all_locations_and_resources', 'POST');
         $message = '';
+        if ( empty($response)) return [
+            'success' => FALSE,
+            'message' => 'Bad response'
+            ];
         if (is_array($response->message))
         {
             foreach ($response->message as $item)
