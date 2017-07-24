@@ -328,8 +328,10 @@
     </div>
 </div>
 
+@if(Auth::user()->hasRole('owner') || Auth::user()->hasRole('admin'))
 <div>
     <button class="btn red" data-remove="/clubs/remove/{{ $id }}"><i class="fa fa-trash"></i> Remove Account</button>
 </div>
+@endif
 
 @endsection
