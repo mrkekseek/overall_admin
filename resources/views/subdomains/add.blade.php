@@ -43,7 +43,7 @@
                             <select name="web_server" class="form-control">
                                 <option value="">Select web server from a list</option>
 
-                            @foreach($web_servers as $web_server)
+                            @foreach ($web_servers as $web_server)
                                 <option value="{{ $web_server->id }}" {{ (old('web_server') == $web_server->id || old('web_server') == null && isset($subdomain->web_server_id) && $subdomain->web_server_id == $web_server->id) ? 'selected="selected"' : '' }}> {{ $web_server->ip_address }}</option>
                             @endforeach
 
@@ -61,7 +61,7 @@
                             <select name="database_server" class="form-control">
                                 <option value="">Select database server from a list</option>
 
-                            @foreach($database_servers as $database_server)
+                            @foreach ($database_servers as $database_server)
                                 <option value="{{ $database_server->id }}" {{ (old('database_server') == $database_server->id || old('database_server') == null && isset($subdomain->database_server_id) && $subdomain->database_server_id == $database_server->id) ? 'selected="selected"' : '' }}>{{ $database_server->ip_address }}</option>
                             @endforeach
 

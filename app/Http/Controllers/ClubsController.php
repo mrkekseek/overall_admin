@@ -22,7 +22,8 @@ class ClubsController extends Controller
     {
         $owners = $this->clubsOwnersGet();
         $sports = Sport::all();
-        
+        $countries = Countries::orderBy('name', 'asc')->get();
+        $subdomains = Subdomain_specific::where('is_assigned', 0)->get();
 
         return compact('countries', 'club', 'sports', 'owners', 'subdomains');
     }

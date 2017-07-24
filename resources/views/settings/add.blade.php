@@ -64,7 +64,7 @@
 
 		                    </div>
 
-							@if(Auth::user()->hasRole('owner'))
+							@if (Auth::user()->hasRole('owner'))
 		                	<div class="col-sm-6 col-xs-12 form-group{{ $errors->has('role') ? ' has-error' : '' }}">
 		                		<label class="bold">Role</label>
 		                        <select name="role" class="form-control">
@@ -113,7 +113,7 @@
 		                        <select name="country" class="form-control">
 		                        	<option value="">Select country from a list</option>
 
-	                            @foreach($countries as $country)
+	                            @foreach ($countries as $country)
                                     <option value="{{ $country->id }}" {{ (old('country') == $country->id || old('country') == null && isset($user->country) && $user->country == $country->name) ? 'selected="selected"' : '' }}>{{ $country->name }}</option>
                                 @endforeach
 
@@ -144,7 +144,7 @@
 		                        <select name="user_status" class="form-control">
 		                        	<option value="">Select status of the user</option>
 
-	                        	@foreach($user_statuses as $status)
+	                        	@foreach ($user_statuses as $status)
 	                        		<option value="{{ $status->id }}" {{ (old('user_status') == $status->id || old('user_status') == null && isset($user->user_status) && $user->user_status == $status->status_name) ? 'selected="selected"' : '' }}>{{ $status->status_name }}</option>
 	                        	@endforeach
 

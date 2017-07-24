@@ -21,17 +21,19 @@
     <div class="col-sm-12">
         <div class="portlet light bordered">
             <div class="portlet-body form">
-                @if( ! empty($subdomains->web_server_id))
+
+                @if ( ! empty($subdomains->web_server_id))
                 <h4><strong>Associated subdomains</strong></h4>
 
-                @foreach($subdomains as $subdomain)
+                @foreach ($subdomains as $subdomain)
                 <p>
                     {{ $subdomain->subdomain_link }}
                 </p>
                 @endforeach
+
                 @endif
 
-                @if( ! empty($server->server_type))
+                @if ( ! empty($server->server_type))
                 <h4><strong>Server Type</strong></h4>
 
                 <p>
@@ -39,7 +41,7 @@
                 </p>
                 @endif
 
-                @if( ! empty($server->perfomance_level))
+                @if ( ! empty($server->perfomance_level))
                 <h4><strong>Perfomance Level</strong></h4>
 
                 <p>
@@ -47,7 +49,7 @@
                 </p>
                 @endif
 
-                @if( ! empty($server->description))
+                @if ( ! empty($server->description))
                 <h4><strong>Description</strong></h4>
 
                 <p>
