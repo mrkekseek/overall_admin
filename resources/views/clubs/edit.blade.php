@@ -94,29 +94,31 @@
                     </div>
                 </div>
                 
-                @if( count($subdomains) ||  empty($subdomains ))
+                @if( count($subdomains))
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="portlet light bordered">
                             <div class="portlet-body form">
                                 <h4>Assign Club to Subdomain</h4>
-                                <div class="form-group">
-                                    <select name="assign_subdomain" class="form-control">
-                                        <option value="">Select subdomain from a list</option>
+                                @if ( ! empty($club->address_id) )
+                                    <div class="form-group">
+                                        <select name="assign_subdomain" id="assign_subdomain_id" class="form-control">
+                                            <option value="">Select subdomain from a list</option>
 
-                                    @foreach ($subdomains as $subdomain)
-                                        <option value="{{ $subdomain->id }}" {{ (old('assign_subdomain') == $subdomain->id || old('assign_subdomain') == null && isset($club->subdomain_specific_id) && $club->subdomain_specific_id == $subdomain->id) ? 'selected="selected"' : '' }}>{{ $subdomain->subdomain_link }}</option>
-                                    @endforeach
+                                        @foreach ($subdomains as $subdomain)
+                                            <option value="{{ $subdomain->id }}" {{ (old('assign_subdomain') == $subdomain->id || old('assign_subdomain') == null && isset($club->subdomain_specific_id) && $club->subdomain_specific_id == $subdomain->id) ? 'selected="selected"' : '' }}>{{ $subdomain->subdomain_link }}</option>
+                                        @endforeach
 
-                                    </select>
-                                </div>
-                                <div class="text-center">
-
-                                    @if ( empty($club->subdomains->is_assigned))
-                                        <button type="button" id ="assing_subdomain" data-clubId="{{$id}}" class="btn green">Assign</button>
-                                    @endif
-
-                                </div>
+                                        </select>
+                                    </div>
+                                    <div class="text-center">
+                                        @if ( empty($club->subdomains->is_assigned))
+                                            <button type="button" id ="assing_subdomain" data-clubId="{{$id}}" class="btn green">Assign</button>
+                                        @endif
+                                    </div>
+                                @else
+                                    <h5 class="font-blue">To assign club to Subdomain, please, fill club address</h5>
+                                @endif
                             </div>
                         </div>
                     </div>

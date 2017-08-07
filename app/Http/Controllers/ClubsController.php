@@ -55,10 +55,12 @@ class ClubsController extends Controller
         }
         $club->account_key = ! $club->exists || empty($club->account_key) ? $club->generate_account_key() : $club->account_key;
         
+        /*
         if( ! empty($club->subdomain_specific_id))
         {
             $club->subdomains->update(['is_assigned' => 1]);
         }
+        */
         
         $club->save();
         
@@ -104,7 +106,7 @@ class ClubsController extends Controller
         {
             $subdomains = Subdomain_specific::where('id', $club->subdomain_specific_id)->get();
         }
-
+        
         return compact('countries', 'club', 'sports', 'owners', 'subdomains');
     }
 
@@ -242,11 +244,16 @@ class ClubsController extends Controller
     public function assing_subdomain($id, $data)
     {
         $club_id = $data['club_id'];
+        //Add subdomain to club if club not saved before
+        $club_s = Club_account::find($club_id);
+        $club_s->subdomain_specific_id = $data['subdomain_id'];
+        $club_s->save();
+        //--
         $club = Club_account::with('address', 'owners', 'subdomains')->find($club_id);
         if ( ! empty($club) && ! empty($club->address) && ! empty($club->subdomains) && ! empty($club->owners))
         {
             $message = '';
-            $country = Countries::where('full_name', $club->address->country)->first();
+            $country = Countries::where('name', $club->address->country)->first();
             $remote_club = [
                 'account_key' => $club->account_key, 
                 'club_details' => [
