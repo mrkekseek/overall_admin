@@ -18,7 +18,7 @@
 @endsection
 
 @section('content')
-<form role="form" action="/federations/add" method="post">
+<form role="form" id="federation_add_form" action="/federations/add" method="post">
     {{ csrf_field() }}
     {{ method_field('POST') }}
     

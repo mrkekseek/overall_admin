@@ -31,9 +31,11 @@ class SubdomainsController extends Controller
 
         if ($validator->fails())
         {
-            return back()
-                ->withErrors($validator)
-                ->withInput();
+            $response = [
+                'success' => FALSE,
+                'errors' => $validator->getMessageBag()->toArray()
+            ];
+            return json_encode($response);
         }
 
     	$subdomain = Subdomain_specific::firstOrNew(['id' => $id]);
@@ -45,7 +47,11 @@ class SubdomainsController extends Controller
         $subdomain->database_password = bcrypt($data['database_password']);
     	$subdomain->save();
 
-        return redirect('subdomains/lists')->with('message', 'Subdomain was succesfully saved');
+        $response = [
+            'success' => TRUE,
+            'errors' => 'Subdomain was succesfully saved'
+        ];
+        return json_encode($response);
     }
 
     public function edit($id = FALSE)

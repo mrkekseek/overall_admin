@@ -39,9 +39,11 @@ class ClubsController extends Controller
 
         if ($validator->fails())
         {
-            return back()
-                ->withErrors($validator)
-                ->withInput();
+            $response = [
+                'success' => FALSE,
+                'errors' => $validator->getMessageBag()->toArray()
+            ];
+            return json_encode($response);
         }
 
     	$club = Club_account::firstOrNew(['id' => $id]);
@@ -63,6 +65,7 @@ class ClubsController extends Controller
         */
         
         $club->save();
+        
         
         if (empty($id))
         {
@@ -86,8 +89,12 @@ class ClubsController extends Controller
                 'updated'     => TRUE,
             ]);
         }
-
-        return redirect('clubs/lists')->with('message', 'Club was succesfully saved');
+        
+        $response = [
+                'success' => TRUE,
+                'errors' => 'Club was succesfully saved'
+            ];
+        return json_encode($response);
     }
 
     public function edit($id = FALSE)
@@ -218,9 +225,11 @@ class ClubsController extends Controller
         ]);
         if ($validator->fails())
         {
-            return back()
-                ->withErrors($validator)
-                ->withInput();
+            $response = [
+                'success' => FALSE,
+                'errors' => $validator->getMessageBag()->toArray()
+            ];
+            return json_encode($response);
         }
         $country = Countries::where(['id' => $data['country']])->first();
         $address = Address::firstOrNew(['id' => $id]);
@@ -238,7 +247,11 @@ class ClubsController extends Controller
             $club->address_id = $address->id;
             $club->save();
         }
-        return redirect('clubs/lists')->with('message', 'Club address succesfully saved');
+        $response = [
+                'success' => TRUE,
+                'errors' => 'Club address saved'
+        ];
+        return json_encode($response);
     }
     
     public function assing_subdomain($id, $data)

@@ -20,7 +20,7 @@
 @section('content')
 <div class="row">
     <div class="col-md-6 col-xs-12">
-        <form role="form" action="/federations/add{{ ! empty($id) ? '/'.$id : '' }}" method="post">
+        <form role="form" id="federation_edit_form" action="/federations/add{{ ! empty($id) ? '/'.$id : '' }}" method="post">
             {{ csrf_field() }}
             {{ method_field('POST') }}
             

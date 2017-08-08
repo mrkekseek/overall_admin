@@ -39,9 +39,11 @@ class FederationsController extends Controller
 
         if ($validator->fails())
         {
-            return back()
-                ->withErrors($validator)
-                ->withInput();
+            $response = [
+                'success' => FALSE,
+                'errors' => $validator->getMessageBag()->toArray()
+            ];
+            return json_encode($response);
         }
     	$federation = Federation_account::firstOrNew(['id' => $id]);
     	$federation->name = $data['name'];
@@ -90,7 +92,11 @@ class FederationsController extends Controller
             ]);
         }
 
-        return redirect('federations/lists')->with('message', 'Federation was succesfully saved');
+        $response = [
+                'success' => TRUE,
+                'errors' => 'Federation was succesfully saved'
+            ];
+        return json_encode($response);
     }
 
     public function edit($id = FALSE)
@@ -126,9 +132,11 @@ class FederationsController extends Controller
         ]);
         if ($validator->fails())
         {
-            return back()
-                ->withErrors($validator)
-                ->withInput();
+            $response = [
+                'success' => FALSE,
+                'errors' => $validator->getMessageBag()->toArray()
+            ];
+            return json_encode($response);
         }
         $country = Countries::where(['id' => $data['country']])->first();
         $address = Address::firstOrNew(['id' => $id]);
@@ -146,7 +154,11 @@ class FederationsController extends Controller
             $federation->address_id = $address->id;
             $federation->save();
         }
-        return redirect('federations/lists')->with('message', 'Federation address succesfully saved');
+        $response = [
+                'success' => TRUE,
+                'errors' => 'Federation address succesfully saved'
+        ];
+        return json_encode($response);
     }
 
     public function lists()

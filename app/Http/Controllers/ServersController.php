@@ -28,9 +28,11 @@ class ServersController extends Controller
 
         if ($validator->fails())
         {
-            return back()
-                ->withErrors($validator)
-                ->withInput();
+            $response = [
+                'success' => FALSE,
+                'errors' => $validator->getMessageBag()->toArray()
+            ];
+            return json_encode($response);
         }
 
     	$server = Server::firstOrNew(['id' => $id]);
@@ -39,8 +41,12 @@ class ServersController extends Controller
     	$server->perfomance_level = $data['perfomance_level'];
     	$server->description = $data['description'];
     	$server->save();
-
-        return redirect('servers/lists')->with('message', 'Server was succesfully saved');
+        
+        $response = [
+            'success' => TRUE,
+            'errors' => 'Server was succesfully saved'
+        ];
+        return json_encode($response);
     }
 
     public function edit($id = FALSE)

@@ -21,6 +21,7 @@
         <link href="/assets/template/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css" />
         <link href="/assets/template/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" type="text/css" />
         <link href="/assets/template/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
+        <link href="/assets/template/global/plugins/jquery-notific8/jquery.notific8.min.css" rel="stylesheet" type="text/css" />
         <!-- END GLOBAL MANDATORY STYLES -->
 
         <!-- BEGIN PAGE LEVEL PLUGINS -->
@@ -328,6 +329,7 @@
         <script src="/assets/template/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
         <script src="/assets/template/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
         <script src="/assets/template/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+        <script src="/assets/template/global/plugins/jquery-notific8/jquery.notific8.min.js" type="text/javascript"></script>
         <!-- END CORE PLUGINS -->
 
         <!-- BEGIN PAGE LEVEL PLUGINS -->

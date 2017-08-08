@@ -19,7 +19,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-6 col-xs-12">
-        <form role="form" id="club_form" action="/clubs/add" method="post">
+        <form role="form" id="club_add_form" action="/clubs/add" method="post">
             {{ csrf_field() }}
             {{ method_field('POST') }}
             

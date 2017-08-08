@@ -21,7 +21,7 @@
     <div class="col-md-6 ">
         <div class="portlet light bordered">
             <div class="portlet-body form">
-                <form role="form" action="/servers/add" method="post">
+                <form role="form" id="server_add_form" action="/servers/add" method="post">
                     {{ csrf_field() }}
                     {{ method_field('POST') }}
 

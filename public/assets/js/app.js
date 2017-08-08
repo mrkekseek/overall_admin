@@ -272,11 +272,140 @@ function federationsOwnersSaved(data)
             });
         }
     });
+    
+    var Clubs = function() {
+        var add = function() {
+                sendForm(selector_form='#club_add_form', redirectUrl = '/clubs/lists');
+            };
+        var edit = function() {
+                sendForm(selector_form='#club_edit_form');
+                sendForm(selector_form='#club_adress_form');
+            };
+        return {
+            init: function() {
+                add();
+                edit();
+            }
+        };
+    }();
+    
+    var Federations = function() {
+        var add = function() {
+                sendForm(selector_form = '#federation_add_form', redirectUrl = '/federations/lists');
+            };
+        var edit = function() {
+                sendForm(selector_form='#federation_edit_form');
+                sendForm(selector_form='#federation_adress_form');
+            };
+        return {
+            init: function() {
+                add();
+                edit();
+            }
+        };
+    }();
+    
+    var Servers = function() {
+        var add = function() {
+                sendForm(selector_form = '#server_add_form', redirectUrl = '/servers/lists');
+            };
+        var edit = function() {
+                sendForm(selector_form='#server_edit_form');
+            };
+        return {
+            init: function() {
+                add();
+                edit();
+            }
+        };
+    }();
+    
+    var Subdomains = function() {
+        var add = function() {
+                sendForm(selector_form = '#subdomain_add_form', redirectUrl = '/subdomains/lists');
+            };
+        var edit = function() {
+                sendForm(selector_form='#subdomain_edit_form');
+            };
+        return {
+            init: function() {
+                add();
+                edit();
+            }
+        };
+    }();
 
+    jQuery(document).ready(function() {
+        Clubs.init();
+        Federations.init();
+        Servers.init();
+        Subdomains.init();
+    });
     
+    function sendForm(selector_form, redirectUrl = false, timeout = 3000){
+        $(selector_form).submit(function(){
+                var data = $(selector_form).serialize();
+                var url = $(selector_form).attr('action');
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: data,
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.success == true){
+                            notify(data.errors, type = 'success')
+                            if (redirectUrl != false){
+                                setTimeout(function(){
+                                    window.location.href = redirectUrl;
+                                },timeout);
+                            }
+                            else{
+                                setTimeout(function(){
+                                    window.location.reload();
+                                },timeout);
+                            }
+                        }
+                        else{
+                            notify(data.errors, type = 'danger');
+                            for (var i in data.errors){
+                                $(selector_form+' input[name='+i+']').closest('.form-group').addClass('has-error');
+                                $(selector_form+' select[name='+i+']').closest('.form-group').addClass('has-error');
+                            }
+                        }
+                    },
+                });
+                return false;
+            });
+    }
     
-    
-	
+    function notify(text, type = 'danger', life = 3000){
+        var theme = 'smoke';
+        switch (type){
+            case 'success': 
+                theme = 'lime';
+                break;
+            case 'danger':
+                theme = 'ruby';
+                break;
+        }
+        if (typeof(text) == 'object'){
+            for (var i in text){
+                var t ='';
+                $.notific8(t+text[i],{
+                    theme: theme,
+                    life: life
+                });
+            }
+        }
+        else{
+            $.notific8(text,{
+                theme: theme,
+                life: life
+            });
+        }
+        
+    }
+
     function message(text, type = 'success')
     {
         var content = '<div class="alert alert-'+type+' alert-dismissable fade in"><button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button> <span>' + '' + text + '</span></div>';
