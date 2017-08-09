@@ -246,15 +246,14 @@ function federationsOwnersSaved(data)
     $('#assing_subdomain').click(function (){
         var subdomain_id = $('#assign_subdomain_id').val();
         if (subdomain_id == '') {
-            message('Select subdomain',  type = 'danger');
+            notify('Select subdomain',  type = 'danger');
         }
         else{
             var data = {
                 club_id : $(this).attr('data-clubId'),
                 subdomain_id : subdomain_id,
-                _token: $('#club_form input[name=_token]').val(),
+                _token: $('#club_edit_form input[name=_token]').val(),
             };
-            console.log(data.subdomain_id);
             $.ajax({
                 type: "POST",
                 url: '/ajax/clubs/assing_subdomain',
@@ -262,11 +261,13 @@ function federationsOwnersSaved(data)
                 success: function(data) {
                     var data = JSON.parse(data);
                     if (data.success == true){
-                        window.location.reload();
-                        message(data.message,  type = 'success');
+                        notify(data.message,  type = 'success');
+                        setTimeout(function(){
+                            window.location.reload();
+                        },3000);
                     }
                     else{
-                        message(data.message,  type = 'danger');
+                        notify(data.message,  type = 'danger');
                     }
                 },
             });
