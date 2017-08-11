@@ -2,7 +2,7 @@
 
 @section('breadcrumbs')
 <div class="breadcrumbs">
-    <h1>{{ $owner->first_name }} {{ $owner->last_name }} {{ $owner->middle_name }}</h1>
+    <h1>{{ $representative->first_name }} {{ $representative->last_name }} {{ $representative->middle_name }}</h1>
     <ol class="breadcrumb">
         <li>
             <a href="/">Dashboard</a>
@@ -10,7 +10,7 @@
         <li>
             <a href="/clubs/lists">Clubs List</a>
         </li>
-        <li class="active">{{ $owner->first_name }}</li>
+        <li class="active">{{ $representative->first_name }}</li>
     </ol>
 </div>
 @endsection
@@ -23,34 +23,34 @@
             <div class="portlet-body form">
                 <h3>Basic Information</h3><br>
 
-                @if( ! empty($owner->first_name) && ! empty($owner->last_name) && ! empty($owner->middle_name))
+                @if( ! empty($representative->first_name) && ! empty($representative->last_name) && ! empty($representative->middle_name))
                     <h4><strong>Name</strong></h4>
-                    <p>{{ $owner->first_name }} {{ $owner->last_name }} {{ $owner->middle_name }}</p>
+                    <p>{{ $representative->first_name }} {{ $representative->last_name }} {{ $representative->middle_name }}</p>
                 @endif
                 
-                @if( ! empty($owner->date_of_birth))
+                @if( ! empty($representative->date_of_birth))
                     <h4><strong>Date of Birth</strong></h4>
-                    <p>{{ $owner->date_of_birth }}</p>
+                    <p>{{ $representative->date_of_birth }}</p>
                 @endif
 
-                @if( ! empty($owner->email_address))
+                @if( ! empty($representative->email_address))
                     <h4><strong>Email</strong></h4>
-                    <p>{{ $owner->email_address }}</p>
+                    <p>{{ $representative->email_address }}</p>
                 @endif
 
-                 @if( ! empty($owner->phone_number))
+                 @if( ! empty($representative->phone_number))
                     <h4><strong>Phone</strong></h4>
-                    <p>{{ $owner->phone_number }}</p>
+                    <p>{{ $representative->phone_number }}</p>
                 @endif
 
-                @if( ! empty($owner->gender))
+                @if( ! empty($representative->gender))
                     <h4><strong>Gender</strong></h4>
-                    <p>{{ @['m' => 'Mail', 'f' => 'Femail'][$owner->gender] }}</p>
+                    <p>{{ @['m' => 'Mail', 'f' => 'Femail'][$representative->gender] }}</p>
                 @endif
 
-                @if( ! empty($owner->country_code))
+                @if( ! empty($representative->country))
                     <h4><strong>Country</strong></h4>
-                    <p>{{ $owner->country_code->full_name }}</p>
+                    <p>{{ $representative->country_code->full_name }}</p>
                 @endif
 
 

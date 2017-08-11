@@ -46,10 +46,10 @@
 
                         </div>
 
-                        <label class="bold">Federation Contact Person</label>
+                        <label class="bold">Federation Representative</label>
                         <div class="row">
                             <div class="col-lg-10 col-sm-9 col-xs-12 form-group{{ $errors->has('owner_id') ? ' has-error' : '' }}">
-                                <select name="owner_id" class="form-control" data-placeholder="Select a Contact Person">
+                                <select name="owner_id" class="form-control" data-placeholder="Select a federation representative">
                                     <option></option>
 
                                 @foreach ($owners as $owner)
@@ -66,7 +66,7 @@
                             </div>
 
                             <div class="col-lg-2 col-sm-3 col-xs-12 form-group">
-                                <div data-toggle="tooltip" data-placement="top" title="Add contact person" data-trigger="hover">
+                                <div data-toggle="tooltip" data-placement="top" title="Add federation representative" data-trigger="hover">
                                     <button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#add-owner" >
                                         <i class="fa fa-plus-circle"></i>
                                     </button>
@@ -244,7 +244,7 @@
 
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Add new Federation Contact Person</h4>
+                <h4 class="modal-title">Add new Federation Representative</h4>
             </div>
 
             <div class="modal-body">

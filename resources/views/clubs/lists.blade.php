@@ -36,7 +36,11 @@
                             <td>{{ $club['id'] }}</td>
                             <td class="text-center">{!! $club['signupFlag'] ? '<i class="fa fa-star font-yellow-crusta"></i>' : '' !!}</td>
                             <td>{{ $club['name'] }}</td>
-                            <td>{{ $club['owner']['first_name'] }} {{ $club['owner']['last_name'] }}</td>
+                            
+                            <td>
+                                <a href="/owner/details/{{ $club['owner']['id'] }}">{{ $club['owner']['first_name'] }} {{ $club['owner']['last_name'] }}</a>
+                            </td>
+
                             <td>{{ $club['address']['country'] }}</td>
                             <td>{{ $club['sport']['name'] }}</td>
                             <td class="text-center">

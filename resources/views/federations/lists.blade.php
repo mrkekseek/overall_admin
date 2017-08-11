@@ -21,7 +21,7 @@
 		            <tr>
 		                <th>ID</th>
 		                <th>Federation name</th>
-		                <th>Contact person</th>
+		                <th>Federation Representative</th>
 		                <th>Country</th>
 		                <th>Sport</th>
 		                <th class="text-center">Manage</th>
@@ -34,7 +34,13 @@
 		                <tr>
 		                    <td>{{ $federation['id'] }}</td>
 		                    <td>{{ $federation['name'] }}</td>
-		                    <td>{{ $federation['owner']['first_name'] }} {{ $federation['owner']['last_name'] }}</td>
+		                    
+		                    <td>
+		                    	<a href="/representative/details/{{ $federation['owner']['id'] }}">
+		                    		{{ $federation['owner']['first_name'] }} {{ $federation['owner']['last_name'] }}
+		                    	</a>
+		                    </td>
+
 		                    <td>{{ $federation['address']['country'] }}</td>
 		                    <td>{{ $federation['sport']['name'] }}</td>
 		                    <td class="text-center">

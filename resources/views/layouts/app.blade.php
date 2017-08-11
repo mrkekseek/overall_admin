@@ -196,7 +196,7 @@
                                     </ul>
                                 </li>
 
-                                <li class="dropdown dropdown-fw {{ strpos(request()->path(), 'federations') !== FALSE ? 'active open selected' : '' }}">
+                                <li class="dropdown dropdown-fw {{ strpos(request()->path(), 'federations') !== FALSE || strpos(request()->path(), 'representative') !== FALSE ? 'active open selected' : '' }}">
                                     <a href="/federations/lists" class="text-uppercase">
                                         <i class="fa fa-flag"></i> Federations
                                     </a>
