@@ -174,7 +174,7 @@
                                     </a>
                                 </li>
 
-                                <li class="dropdown dropdown-fw {{ strpos(request()->path(), 'clubs') !== FALSE ? 'active open selected' : '' }}">
+                                <li class="dropdown dropdown-fw {{ strpos(request()->path(), 'clubs') !== FALSE || strpos(request()->path(), 'owner') !== FALSE  ? 'active open selected' : '' }}">
                                     <a href="/clubs/lists" class="text-uppercase">
                                         <i class="fa fa-futbol-o"></i> Clubs
                                     </a>
