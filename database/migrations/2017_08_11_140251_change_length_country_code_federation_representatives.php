@@ -12,7 +12,10 @@ class ChangeLengthCountryCodeFederationRepresentatives extends Migration
      */
     public function up()
     {
-        DB::statement("ALTER TABLE `federation_representatives` MODIFY `country` VARCHAR(255) NOT NULL DEFAULT ''");
+        Schema::table('federation_representatives', function(Blueprint $table){
+            DB::statement("ALTER TABLE `federation_representatives` MODIFY `country` VARCHAR(255) NOT NULL DEFAULT ''");
+        });
+        
     }
 
     /**
@@ -22,6 +25,9 @@ class ChangeLengthCountryCodeFederationRepresentatives extends Migration
      */
     public function down()
     {
-        DB::statement("ALTER TABLE `federation_representatives` MODIFY `country` CHAR(2) NOT NULL DEFAULT ''");
+        Schema::table('federation_representatives', function(Blueprint $table){
+            DB::statement("ALTER TABLE `federation_representatives` MODIFY `country` CHAR(2) NOT NULL DEFAULT ''");
+        });
+        
     }
 }

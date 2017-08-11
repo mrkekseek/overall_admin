@@ -35,7 +35,7 @@
                 @endif
                 
                 @if( ! empty($federation->owners->first_name) && ! empty($federation->owners->last_name))
-                <h4><strong>Federation Contact Person</strong></h4>
+                <h4><strong>Federation Representative</strong></h4>
                 <p>{{ $federation->owners->first_name }} {{ $federation->owners->last_name }}</p>
                 @endif
 
