@@ -45,7 +45,7 @@
 
                 @if( ! empty($representative->gender))
                     <h4><strong>Gender</strong></h4>
-                    <p>{{ @['m' => 'Mail', 'f' => 'Femail'][$representative->gender] }}</p>
+                    <p>{{ @['m' => 'Meil', 'f' => 'Femail'][$representative->gender] }}</p>
                 @endif
 
                 @if( ! empty($representative->country))

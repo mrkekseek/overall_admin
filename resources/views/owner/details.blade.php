@@ -45,14 +45,13 @@
 
                 @if( ! empty($owner->gender))
                     <h4><strong>Gender</strong></h4>
-                    <p>{{ @['m' => 'Mail', 'f' => 'Femail'][$owner->gender] }}</p>
+                    <p>{{ @['m' => 'Meil', 'f' => 'Femail'][$owner->gender] }}</p>
                 @endif
 
                 @if( ! empty($owner->country_code))
                     <h4><strong>Country</strong></h4>
                     <p>{{ $owner->country_code->full_name }}</p>
                 @endif
-
 
             </div>
         </div>
