@@ -183,14 +183,21 @@
                                         <li class="{{ strpos(request()->path(), 'clubs/lists') !== FALSE ? 'active' : '' }}">
                                             <a href="/clubs/lists">
                                                 <i class="fa fa-th-list"></i>
-                                                List All
+                                                List All Clubs
                                             </a>
                                         </li>
 
                                         <li class="{{ strpos(request()->path(), 'clubs/add') !== FALSE ? 'active' : '' }}">
                                             <a href="/clubs/add">
                                                 <i class="fa fa-plus-circle"></i>
-                                                Add New
+                                                Add New Club
+                                            </a>
+                                        </li>
+
+                                         <li class="{{ strpos(request()->path(), 'clubs/owners_list') !== FALSE ? 'active' : '' }}">
+                                            <a href="/clubs/owners_list">
+                                                 <i class="fa fa-th-list"></i>
+                                                List club owners
                                             </a>
                                         </li>
                                     </ul>

@@ -132,6 +132,12 @@ class ClubsController extends Controller
         return compact('clubs');
     }
 
+    public function owners_list()
+    {
+        $owners = Club_owner::get();
+        return compact('owners');
+    }
+
     public function details($id = FALSE)
     {
         $club = Club_account::with('sport', 'subdomains', 'owners', 'address')->find($id);
