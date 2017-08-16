@@ -17,6 +17,12 @@ use App\Federation_countries;
 
 class FederationsController extends Controller
 {
+    public function representatives_list()
+    {
+        $representatives = Federation_representative::get();
+        return compact('representatives');
+    }
+
     public function add()
     {
         $owners = $this->federationsOwnersGet();

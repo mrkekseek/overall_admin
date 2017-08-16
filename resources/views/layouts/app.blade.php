@@ -212,14 +212,21 @@
                                         <li class="{{ strpos(request()->path(), 'federations/lists') !== FALSE ? 'active' : '' }}">
                                             <a href="/federations/lists">
                                                 <i class="fa fa-th-list"></i>
-                                                List All
+                                                List All Federations
                                             </a>
                                         </li>
 
                                         <li class="{{ strpos(request()->path(), 'federations/add') !== FALSE ? 'active' : '' }}">
                                             <a href="/federations/add">
                                                 <i class="fa fa-plus-circle"></i>
-                                                Add New
+                                                Add New Federation
+                                            </a>
+                                        </li>
+
+                                        <li class="{{ strpos(request()->path(), 'federations/representatives_list') !== FALSE ? 'active' : '' }}">
+                                            <a href="/Federations/representatives_list">
+                                                 <i class="fa fa-th-list"></i>
+                                                List Federation Representatives
                                             </a>
                                         </li>
                                     </ul>
