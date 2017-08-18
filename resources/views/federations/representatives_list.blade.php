@@ -33,7 +33,7 @@
                         <tr>
                             <td>{{ $representative['id'] }}</td>
                             <td>
-                                <a href="/representative/details/{{ $representative['id'] }}">{{ $representative['last_name'] }} {{ $representative['last_name'] }} {{ $representative['middle_name'] }}
+                                <a href="/representative/details/{{ $representative['id'] }}">{{ $representative['first_name'] }} {{ $representative['last_name'] }} {{ $representative['middle_name'] }}
                                 </a>
                             </td>
                             <td>{{ $representative['date_of_birth'] }}</td>
