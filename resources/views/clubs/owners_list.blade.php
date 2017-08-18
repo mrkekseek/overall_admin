@@ -32,7 +32,9 @@
                     @foreach ($owners as $owner)
                         <tr>
                             <td>{{ $owner['id'] }}</td>
-                            <td>{{ $owner['last_name'] }} {{ $owner['last_name'] }} {{ $owner['middle_name'] }}</td>
+                            <td>
+                                <a href="/owner/details/{{ $owner['id'] }}">{{ $owner['last_name'] }} {{ $owner['last_name'] }} {{ $owner['middle_name'] }}</a>
+                            </td>
                             <td>{{ $owner['date_of_birth'] }}</td>
                             <td>{{ $owner['email_address'] }}</td>
                             <td>{{ $owner['phone_number'] }}</td>

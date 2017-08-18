@@ -32,7 +32,10 @@
                     @foreach ($representatives as $representative)
                         <tr>
                             <td>{{ $representative['id'] }}</td>
-                            <td>{{ $representative['last_name'] }} {{ $representative['last_name'] }} {{ $representative['middle_name'] }}</td>
+                            <td>
+                                <a href="/representative/details/{{ $representative['id'] }}">{{ $representative['last_name'] }} {{ $representative['last_name'] }} {{ $representative['middle_name'] }}
+                                </a>
+                            </td>
                             <td>{{ $representative['date_of_birth'] }}</td>
                             <td>{{ $representative['email_address'] }}</td>
                             <td>{{ $representative['phone_number'] }}</td>
