@@ -335,12 +335,53 @@ function federationsOwnersSaved(data)
             }
         };
     }();
+    
+    var SsoCalls = function() {
+        var send = function() {
+            $('.sso-send-form').on('submit', function(){
+               return false; 
+            });
+            $('.sso-send').on('click', function(){
+                var formId = $(this).data('formId');
+                var form = $('form#'+formId);
+                var data = {
+                   method : $(this).data('method'),
+                   func : formId,
+                   data : form.serialize(),
+                   _token: $('input[name="_token"]').val()
+                };
+                $.ajax({
+                    type: 'post',
+                    url: '/ajax/calls/send',
+                    data: data,
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.success = true){
+                            $(form).find('span.success').removeClass('hidden');
+                        }
+                        else{
+                            $(form).find('span.error').removeClass('hidden');
+                        }
+                        $('textarea#'+formId).val(data.response);
+                    },
+                });
+
+
+            });
+        };
+        return {
+            init: function() {
+                send();
+            }
+        };
+    }();
 
     jQuery(document).ready(function() {
         Clubs.init();
         Federations.init();
         Servers.init();
         Subdomains.init();
+        SsoCalls.init();
     });
     
     function sendForm(selector_form, redirectUrl = false, timeout = 3000){

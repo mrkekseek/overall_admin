@@ -289,6 +289,27 @@
                                         </li>
                                     </ul>
                                 </li>
+                                
+                                <li class="dropdown dropdown-fw {{ strpos(request()->path(), 'calls') !== FALSE ? 'active open selected' : '' }}">
+                                    <a href="/calls/ssocals" class="text-uppercase">
+                                        <i class="fa fa-cogs"></i> Calls
+                                    </a>
+                                    
+                                    <ul class="dropdown-menu dropdown-menu-fw">
+                                        <li class="{{ strpos(request()->path(), 'calls/ssocals') !== FALSE ? 'active' : '' }}">
+                                            <a href="/calls/ssocals">
+                                                <i class="fa fa-users"></i>
+                                                SSO cals
+                                            </a>
+                                        </li>
+                                        <li class="{{ strpos(request()->path(), 'calls/apicals') !== FALSE ? 'active' : '' }}">
+                                            <a href="/calls/apicals">
+                                                <i class="fa fa-users"></i>
+                                                API cals
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
                             </ul>
                         </div>
                         <!-- END HEADER MENU -->
