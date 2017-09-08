@@ -16,6 +16,7 @@ class CallsController extends Controller
                     'Id'
                 ],
             ],
+            /*
             [
                 'number' => 2, 
                 'id' => 'AccountsGetAll', 
@@ -25,6 +26,7 @@ class CallsController extends Controller
                     'Id'
                 ],
             ],
+             */
             [
                 'number' => 3, 
                 'id' => 'AccountsId', 
